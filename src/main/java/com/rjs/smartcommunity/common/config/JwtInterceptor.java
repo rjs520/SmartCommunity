@@ -56,6 +56,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         // 2. 开始执行认证
         if (ObjectUtil.isEmpty(token)) {
+            log.error("【JWT拦截器】token为空，无法进行身份验证。");
             throw new CustomException(ResultCodeEnum.TOKEN_INVALID_ERROR);
         }
 
@@ -71,10 +72,12 @@ public class JwtInterceptor implements HandlerInterceptor {
                 account = adminService.selectById(Integer.valueOf(userId));
             }
         } catch (Exception e) {
+            log.error("【JWT拦截器】解析token失败，token可能已过期或无效。");
             throw new CustomException(ResultCodeEnum.TOKEN_CHECK_ERROR);
         }
 
         if (ObjectUtil.isNull(account)) {
+            log.error("【JWT拦截器】用户不存在，无法进行身份验证。");
             throw new CustomException(ResultCodeEnum.USER_NOT_EXIST_ERROR);
         }
 
@@ -85,10 +88,12 @@ public class JwtInterceptor implements HandlerInterceptor {
             // 验证token
             jwtVerifier.verify(token);
         } catch (JWTVerificationException e) {
+            log.error("【JWT拦截器】token验证失败，token可能已过期或无效。");
             throw new CustomException(ResultCodeEnum.TOKEN_CHECK_ERROR);
         }
 
         // 验证通过，返回true
+        log.info("【JWT拦截器】token验证通过，用户ID：{}", account.getId());
         return true;
     }
 }

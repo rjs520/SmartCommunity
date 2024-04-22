@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
      * @return Result对象，包含错误信息
      */
     @ExceptionHandler(Exception.class)
-    @ResponseBody // 返回json串
+    @ResponseBody
     public Result error(HttpServletRequest request, Exception e) {
         log.error("全局异常处理器捕获到异常信息：", e);
         // 返回默认错误信息
@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
      * @return Result对象，包含自定义错误状态码和消息
      */
     @ExceptionHandler(CustomException.class)
-    @ResponseBody // 返回json串
+    @ResponseBody
     public Result customError(HttpServletRequest request, CustomException e) {
         // 返回自定义错误状态码和消息
         return Result.error(e.getCode(), e.getMsg());
