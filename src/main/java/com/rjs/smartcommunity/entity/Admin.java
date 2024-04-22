@@ -1,5 +1,6 @@
 package com.rjs.smartcommunity.entity;
 
+import java.io.Serial;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,7 @@ import java.io.Serializable;
 public class Admin extends Account implements Serializable {
 
     /** 序列化版本号 */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 管理员ID */

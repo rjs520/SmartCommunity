@@ -18,9 +18,9 @@
           <!-- 源代码文件编码 -->
           <encoding>UTF-8</encoding>
           <!-- 编译源代码使用的JDK版本 -->
-          <source>1.8</source>
+          <source>17</source>
           <!-- 生成目标代码使用的JDK版本 -->
-          <target>1.8</target>
+          <target>17</target>
         </configuration>
         <groupId>org.apache.maven.plugins</groupId>
         <version>3.8.1</version>
@@ -142,7 +142,7 @@
 
   <!-- 项目属性 -->
   <properties>
-    <java.version>1.8</java.version> <!-- Java版本 -->
+    <java.version>17</java.version> <!-- Java版本 -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- 源代码文件编码 -->
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> <!-- 报告文件编码 -->
     <spring-boot.version>2.7.6</spring-boot.version> <!-- Spring Boot版本 -->
@@ -150,5 +150,4 @@
 
   <!-- 项目版本 -->
   <version>0.0.1-SNAPSHOT</version> <!-- SNAPSHOT表示开发中版本 -->
-
 </project>

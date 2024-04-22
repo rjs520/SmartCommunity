@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from "@/router";
+import {Message} from "element-ui";
 
 // 创建一个基于默认配置的新axios实例
 const request = axios.create({
@@ -46,7 +47,9 @@ request.interceptors.response.use(
       // 根据服务端返回的状态码进行相应处理
       if (res.code === '401') {
         // 若返回401（未授权），则重定向到登录页面
-        router.push('/login');
+        router.push('/login').then(() => {
+          Message.info('请先登录')
+        });
       }
 
       // 返回处理后的响应数据
