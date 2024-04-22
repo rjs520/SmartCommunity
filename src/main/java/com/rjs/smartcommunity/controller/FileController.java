@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 public class FileController {
 
     /** 文件上传存储路径，默认为应用运行目录下的"/files/"子目录。 */
-    private static final String filePath = System.getProperty("user.dir") + "/files/";
+    private static final String FILE_PATH = System.getProperty("user.dir") + "/files/";
 
     /** 服务器端口，从配置文件中读取，若未配置则默认为9090。 */
     @Value("${server.port:9090}")
@@ -50,14 +50,14 @@ public class FileController {
         }
         String fileName = file.getOriginalFilename();
         try {
-            if (!FileUtil.isDirectory(filePath)) {
-                FileUtil.mkdir(filePath);
+            if (!FileUtil.isDirectory(FILE_PATH)) {
+                FileUtil.mkdir(FILE_PATH);
             }
             // 文件存储形式：时间戳-文件名
             FileUtil.writeBytes(
                     file.getBytes(),
                     // ***/manager/files/1697438073596-avatar.png
-                    filePath + flag + "-" + fileName);
+                    FILE_PATH + flag + "-" + fileName);
             System.out.println(fileName + "--上传成功");
 
         } catch (Exception e) {
@@ -76,7 +76,7 @@ public class FileController {
      * @param response HttpServletResponse对象，用于设置响应头和输出文件内容
      * @throws Exception 若文件不存在或读取失败，抛出异常
      */
-    @GetMapping("/{flag}") //  1697438073596-avatar.png
+    @GetMapping("/{flag}")
     public void avatarPath(@PathVariable String flag, HttpServletResponse response)
             throws Exception {
         OutputStream os;
@@ -85,7 +85,7 @@ public class FileController {
                     "Content-Disposition",
                     "attachment;filename=" + URLEncoder.encode(flag, "UTF-8"));
             response.setContentType("application/octet-stream");
-            byte[] bytes = FileUtil.readBytes(filePath + flag);
+            byte[] bytes = FileUtil.readBytes(FILE_PATH + flag);
             os = response.getOutputStream();
             os.write(bytes);
             os.flush();
@@ -100,7 +100,7 @@ public class FileController {
      */
     @DeleteMapping("/{flag}")
     public void delFile(@PathVariable String flag) {
-        FileUtil.del(filePath + flag);
+        FileUtil.del(FILE_PATH + flag);
         System.out.println("删除文件" + flag + "成功");
     }
 }
