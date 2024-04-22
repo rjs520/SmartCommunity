@@ -65,7 +65,8 @@
     </div>
 
     <!-- 新增/编辑弹窗 -->
-    <el-dialog :close-on-click-modal="false" :visible.sync="fromVisible" destroy-on-close title="信息"
+    <el-dialog :close-on-click-modal="false" :visible.sync="fromVisible" destroy-on-close
+               title="信息"
                width="40%">
       <!-- 表单组件，用于新增或编辑公告信息 -->
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px"

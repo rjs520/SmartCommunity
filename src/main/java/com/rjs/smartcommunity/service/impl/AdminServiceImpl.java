@@ -24,7 +24,7 @@ import javax.annotation.Resource;
 /**
  * @author 任俊松 com.rjs.smartcommunity.service.impl * @date 2024/4/22
  */
-@Service
+@Service("AdminService")
 public class AdminServiceImpl implements AdminService {
 
     @Resource private AdminMapper adminMapper;

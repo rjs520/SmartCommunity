@@ -42,14 +42,21 @@ public class WebController {
      */
     @PostMapping("/login")
     public Result login(@RequestBody Account account) {
+        // 检查传入的登录请求参数是否完整（包含用户名、密码、角色）
         if (ObjectUtil.isEmpty(account.getUsername())
                 || ObjectUtil.isEmpty(account.getPassword())
                 || ObjectUtil.isEmpty(account.getRole())) {
+            // 如果任一参数缺失，返回参数丢失错误
             return Result.error(ResultCodeEnum.PARAM_LOST_ERROR);
         }
+
+        // 判断用户尝试以管理员身份登录
         if (RoleEnum.ADMIN.name().equals(account.getRole())) {
+            // 调用AdminService的login方法进行管理员登录验证，并获取登录后的Account对象
             account = adminService.login(account);
         }
+
+        // 登录验证通过（无论普通用户还是管理员），返回成功响应，包含登录后的Account信息
         return Result.success(account);
     }
 

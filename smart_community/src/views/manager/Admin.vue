@@ -29,7 +29,8 @@
             <div style="display: flex; align-items: center">
               <el-image v-if="scope.row.avatar"
                         :preview-src-list="[scope.row.avatar]"
-                        :src="scope.row.avatar" style="width: 40px; height: 40px; border-radius: 50%"></el-image>
+                        :src="scope.row.avatar"
+                        style="width: 40px; height: 40px; border-radius: 50%"></el-image>
             </div>
           </template>
         </el-table-column>
@@ -60,7 +61,8 @@
 
 
     <!-- 弹窗 -->
-    <el-dialog :close-on-click-modal="false" :visible.sync="fromVisible" destroy-on-close title="管理员"
+    <el-dialog :close-on-click-modal="false" :visible.sync="fromVisible" destroy-on-close
+               title="管理员"
                width="40%">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px"
                style="padding-right: 50px">

@@ -19,12 +19,11 @@ import javax.annotation.Resource;
 /**
  * @author 任俊松 com.rjs.smartcommunity.service.impl * @date 2024/4/22
  */
-@Service
+@Service("NoticeService")
 public class NoticeServiceImpl implements NoticeService {
 
     /** 公告数据操作接口注入 */
-    @Resource
-    private NoticeMapper noticeMapper;
+    @Resource private NoticeMapper noticeMapper;
 
     /**
      * 新增公告信息
