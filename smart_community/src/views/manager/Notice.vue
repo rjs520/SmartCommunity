@@ -5,19 +5,19 @@
     <!-- 查询区域 -->
     <div class="search">
       <!-- 输入框，用于输入标题进行查询 -->
-      <el-input placeholder="请输入标题查询" style="width: 200px" v-model="title"></el-input>
+      <el-input v-model="title" placeholder="请输入标题查询" style="width: 200px"></el-input>
       <!-- 查询按钮，点击后执行查询操作 -->
-      <el-button type="info" plain style="margin-left: 10px" @click="load(1)">查询</el-button>
+      <el-button plain style="margin-left: 10px" type="info" @click="load(1)">查询</el-button>
       <!-- 重置按钮，点击后清除查询条件并重新加载数据 -->
-      <el-button type="warning" plain style="margin-left: 10px" @click="reset">重置</el-button>
+      <el-button plain style="margin-left: 10px" type="warning" @click="reset">重置</el-button>
     </div>
 
     <!-- 操作区域 -->
     <div class="operation">
       <!-- 新增按钮，点击后打开新增弹窗 -->
-      <el-button type="primary" plain @click="handleAdd">新增</el-button>
+      <el-button plain type="primary" @click="handleAdd">新增</el-button>
       <!-- 批量删除按钮，点击后执行批量删除操作 -->
-      <el-button type="danger" plain @click="delBatch">批量删除</el-button>
+      <el-button plain type="danger" @click="delBatch">批量删除</el-button>
     </div>
 
     <!-- 数据表格区域 -->
@@ -25,27 +25,27 @@
       <!-- 数据表格组件，展示公告列表 -->
       <el-table :data="tableData" stripe @selection-change="handleSelectionChange">
         <!-- 复选框列 -->
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column align="center" type="selection" width="55"></el-table-column>
         <!-- 序号列 -->
-        <el-table-column prop="id" label="序号" width="80" align="center"
-                         sortable></el-table-column>
+        <el-table-column align="center" label="序号" prop="id" sortable
+                         width="80"></el-table-column>
         <!-- 标题列 -->
-        <el-table-column prop="title" label="标题" show-overflow-tooltip></el-table-column>
+        <el-table-column label="标题" prop="title" show-overflow-tooltip></el-table-column>
         <!-- 内容列 -->
-        <el-table-column prop="content" label="内容" show-overflow-tooltip></el-table-column>
+        <el-table-column label="内容" prop="content" show-overflow-tooltip></el-table-column>
         <!-- 创建时间列 -->
-        <el-table-column prop="time" label="创建时间"></el-table-column>
+        <el-table-column label="创建时间" prop="time"></el-table-column>
         <!-- 创建人列 -->
-        <el-table-column prop="user" label="创建人"></el-table-column>
+        <el-table-column label="创建人" prop="user"></el-table-column>
 
         <!-- 操作列，包含编辑和删除按钮 -->
-        <el-table-column label="操作" width="180" align="center">
+        <el-table-column align="center" label="操作" width="180">
           <template v-slot="scope">
             <!-- 编辑按钮，点击后打开编辑弹窗 -->
-            <el-button plain type="primary" @click="handleEdit(scope.row)" size="mini">编辑
+            <el-button plain size="mini" type="primary" @click="handleEdit(scope.row)">编辑
             </el-button>
             <!-- 删除按钮，点击后执行单条数据删除操作 -->
-            <el-button plain type="danger" size="mini" @click=del(scope.row.id)>删除</el-button>
+            <el-button plain size="mini" type="danger" @click=del(scope.row.id)>删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -53,30 +53,30 @@
       <!-- 分页器 -->
       <div class="pagination">
         <el-pagination
-            background
-            @current-change="handleCurrentChange"
             :current-page="pageNum"
-            :page-sizes="[5, 10, 20]"
             :page-size="pageSize"
+            :page-sizes="[5, 10, 20]"
+            :total="total"
+            background
             layout="total, prev, pager, next"
-            :total="total">
+            @current-change="handleCurrentChange">
         </el-pagination>
       </div>
     </div>
 
     <!-- 新增/编辑弹窗 -->
-    <el-dialog title="信息" :visible.sync="fromVisible" width="40%" :close-on-click-modal="false"
-               destroy-on-close>
+    <el-dialog :close-on-click-modal="false" :visible.sync="fromVisible" destroy-on-close title="信息"
+               width="40%">
       <!-- 表单组件，用于新增或编辑公告信息 -->
-      <el-form label-width="100px" style="padding-right: 50px" :model="form" :rules="rules"
-               ref="formRef">
+      <el-form ref="formRef" :model="form" :rules="rules" label-width="100px"
+               style="padding-right: 50px">
         <!-- 标题输入项 -->
-        <el-form-item prop="title" label="标题">
+        <el-form-item label="标题" prop="title">
           <el-input v-model="form.title" autocomplete="off"></el-input>
         </el-form-item>
         <!-- 内容输入项（文本域） -->
-        <el-form-item prop="content" label="内容">
-          <el-input type="textarea" :rows="5" v-model="form.content" autocomplete="off"></el-input>
+        <el-form-item label="内容" prop="content">
+          <el-input v-model="form.content" :rows="5" autocomplete="off" type="textarea"></el-input>
         </el-form-item>
       </el-form>
       <!-- 弹窗底部操作区 -->

@@ -11,8 +11,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-/** 公告信息表前端操作接口控制器
- * @author rjs*/
+/**
+ * 公告信息表前端操作接口控制器
+ *
+ * @author rjs
+ */
 @RestController
 @RequestMapping("/notice")
 public class NoticeController {

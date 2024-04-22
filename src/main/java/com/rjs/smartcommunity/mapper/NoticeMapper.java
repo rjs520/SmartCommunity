@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * 公告数据操作接口，使用MyBatis的Mapper注解
+ *
  * @author rjs
  */
 @Mapper

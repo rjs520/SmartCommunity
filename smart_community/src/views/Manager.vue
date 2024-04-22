@@ -44,8 +44,8 @@
     <div class="manager-main">
       <!-- 侧边栏 -->
       <div class="manager-main-left">
-        <el-menu :default-openeds="['info', 'user']" router style="border: none"
-                 :default-active="$route.path">
+        <el-menu :default-active="$route.path" :default-openeds="['info', 'user']" router
+                 style="border: none">
           <!-- 首页菜单项 -->
           <el-menu-item index="/home">
             <i class="el-icon-s-home"></i>

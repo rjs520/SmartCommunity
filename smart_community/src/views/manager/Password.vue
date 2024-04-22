@@ -10,17 +10,17 @@
 
         <!-- 原始密码输入项 -->
         <el-form-item label="原始密码" prop="password">
-          <el-input show-password v-model="user.password" placeholder="原始密码"></el-input>
+          <el-input v-model="user.password" placeholder="原始密码" show-password></el-input>
         </el-form-item>
 
         <!-- 新密码输入项 -->
         <el-form-item label="新密码" prop="newPassword">
-          <el-input show-password v-model="user.newPassword" placeholder="新密码"></el-input>
+          <el-input v-model="user.newPassword" placeholder="新密码" show-password></el-input>
         </el-form-item>
 
         <!-- 确认新密码输入项 -->
         <el-form-item label="确认新密码" prop="confirmPassword">
-          <el-input show-password v-model="user.confirmPassword" placeholder="确认密码"></el-input>
+          <el-input v-model="user.confirmPassword" placeholder="确认密码" show-password></el-input>
         </el-form-item>
 
         <!-- 确认修改按钮 -->

@@ -6,8 +6,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
 
-/** Spring MVC 配置类
- * @author rjs*/
+/**
+ * Spring MVC 配置类
+ *
+ * @author rjs
+ */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 

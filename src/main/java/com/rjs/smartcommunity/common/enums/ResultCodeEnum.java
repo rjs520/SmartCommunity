@@ -1,7 +1,10 @@
 package com.rjs.smartcommunity.common.enums;
 
-/** 自定义响应结果枚举类，封装了常见的HTTP状态码和业务相关的错误码及其对应的描述信息。
- * @author rjs*/
+/**
+ * 自定义响应结果枚举类，封装了常见的HTTP状态码和业务相关的错误码及其对应的描述信息。
+ *
+ * @author rjs
+ */
 public enum ResultCodeEnum {
     /** 成功（HTTP状态码200） */
     SUCCESS("200", "成功"),

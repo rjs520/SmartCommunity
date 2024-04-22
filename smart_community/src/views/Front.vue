@@ -9,7 +9,7 @@
     <div class="front-header">
       <!-- 左侧Logo与标题 -->
       <div class="front-header-left">
-        <img src="@/assets/imgs/logo.png" alt=""> <!-- Logo 图片 -->
+        <img alt="" src="@/assets/imgs/logo.png"> <!-- Logo 图片 -->
         <div class="title">项目前台</div> <!-- 页面标题 -->
       </div>
 

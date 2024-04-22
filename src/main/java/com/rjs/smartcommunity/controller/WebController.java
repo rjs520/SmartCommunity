@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-/** 前端基础接口控制器
- * @author rjs*/
+/**
+ * 前端基础接口控制器
+ *
+ * @author rjs
+ */
 @RestController
 public class WebController {
 

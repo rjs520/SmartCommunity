@@ -3,8 +3,11 @@ package com.rjs.smartcommunity.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-/** 角色用户父类实体
- * @author rjs*/
+/**
+ * 角色用户父类实体
+ *
+ * @author rjs
+ */
 @Setter
 @Getter
 public class Account {

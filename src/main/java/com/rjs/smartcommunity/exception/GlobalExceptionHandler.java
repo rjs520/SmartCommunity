@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
-/** 全局异常处理器，使用@ControllerAdvice注解，作用于指定包下的所有Controller
- * @author rjs*/
+/**
+ * 全局异常处理器，使用@ControllerAdvice注解，作用于指定包下的所有Controller
+ *
+ * @author rjs
+ */
 @ControllerAdvice(basePackages = "com.rjs.smartcommunity.controller")
 public class GlobalExceptionHandler {
 

@@ -11,10 +11,10 @@
         <div style="margin: 15px; text-align: center">
           <!-- 使用el-upload组件实现头像上传功能 -->
           <el-upload
-              class="avatar-uploader"
               :action="$baseUrl + '/files/upload'"
-              :show-file-list="false"
               :on-success="handleAvatarSuccess"
+              :show-file-list="false"
+              class="avatar-uploader"
           >
             <!-- 显示已上传的头像 -->
             <img v-if="user.avatar" :src="user.avatar" class="avatar"/>
@@ -25,7 +25,7 @@
 
         <!-- 用户名输入项（只读） -->
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="user.username" placeholder="用户名" disabled></el-input>
+          <el-input v-model="user.username" disabled placeholder="用户名"></el-input>
         </el-form-item>
 
         <!-- 姓名输入项 -->

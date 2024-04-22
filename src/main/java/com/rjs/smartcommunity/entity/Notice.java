@@ -5,8 +5,11 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-/** 公告信息实体类，实现Serializable接口
- * @author rjs*/
+/**
+ * 公告信息实体类，实现Serializable接口
+ *
+ * @author rjs
+ */
 @Setter
 @Getter
 public class Notice implements Serializable {

@@ -7,25 +7,20 @@ import lombok.Setter;
 
 /**
  * 响应结果对象类，用于封装HTTP接口返回的统一数据结构，包括状态码、消息、数据等内容。
+ *
  * @author rjs
  */
 @Setter
 @Getter
 public class Result {
 
-    /**
-     * 响应状态码，通常为HTTP状态码或自定义错误码。
-     */
+    /** 响应状态码，通常为HTTP状态码或自定义错误码。 */
     private String code;
 
-    /**
-     * 响应消息，对状态码的简短描述。
-     */
+    /** 响应消息，对状态码的简短描述。 */
     private String msg;
 
-    /**
-     * 响应数据，接口实际返回的具体内容，可以是任意类型的数据。
-     */
+    /** 响应数据，接口实际返回的具体内容，可以是任意类型的数据。 */
     private Object data;
 
     /**
@@ -37,9 +32,7 @@ public class Result {
         this.data = data;
     }
 
-    /**
-     * 构造一个空响应结果对象。
-     */
+    /** 构造一个空响应结果对象。 */
     public Result() {}
 
     /**
@@ -83,7 +76,7 @@ public class Result {
      * 创建一个自定义错误码和消息的响应结果。
      *
      * @param code 自定义错误码
-     * @param msg  自定义错误消息
+     * @param msg 自定义错误消息
      * @return 自定义错误的响应结果对象
      */
     public static Result error(String code, String msg) {

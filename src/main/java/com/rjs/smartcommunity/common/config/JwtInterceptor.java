@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * JWT拦截器组件
+ *
  * @author rjs
  */
 @Component
@@ -31,22 +32,21 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     private static final Logger log = LoggerFactory.getLogger(JwtInterceptor.class);
 
-    /**
-     * 管理员服务对象，用于查询用户信息
-     */
+    /** 管理员服务对象，用于查询用户信息 */
     @Resource private AdminService adminService;
 
     /**
      * 在处理器（Controller方法）执行之前进行身份验证检查
      *
-     * @param request  HTTP请求对象
+     * @param request HTTP请求对象
      * @param response HTTP响应对象
-     * @param handler  处理器对象（Controller方法）
+     * @param handler 处理器对象（Controller方法）
      * @return 如果验证通过，返回true；否则抛出异常或返回false
      * @throws CustomException 自定义异常，用于表示验证失败的情况
      */
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(
+            HttpServletRequest request, HttpServletResponse response, Object handler) {
         // 1. 从HTTP请求的header中获取token
         String token = request.getHeader(Constants.TOKEN);
         if (ObjectUtil.isEmpty(token)) {

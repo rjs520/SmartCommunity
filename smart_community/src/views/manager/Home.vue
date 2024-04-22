@@ -11,24 +11,24 @@
     <div style="display: flex; margin: 10px 0">
 
       <!-- 公告列表区域 -->
-      <div style="width: 50%;" class="card">
+      <div class="card" style="width: 50%;">
 
         <!-- 标题 -->
         <div style="margin-bottom: 30px; font-size: 20px; font-weight: bold">公告列表</div>
 
         <!-- 时间轴组件，用于展示公告列表 -->
         <div>
-          <el-timeline reverse slot="reference">
+          <el-timeline slot="reference" reverse>
 
             <!-- 循环遍历所有公告 -->
             <el-timeline-item v-for="item in notices" :key="item.id" :timestamp="item.time">
 
               <!-- 为每个公告添加弹出层，鼠标悬停时显示详细内容 -->
               <el-popover
+                  :content="item.content"
                   placement="right"
-                  width="200"
                   trigger="hover"
-                  :content="item.content">
+                  width="200">
 
                 <!-- 弹出层触发元素，显示公告标题 -->
                 <span slot="reference">{{ item.title }}</span>

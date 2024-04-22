@@ -17,16 +17,14 @@ import javax.annotation.Resource;
 
 /**
  * 公告信息服务类，封装公告数据操作业务逻辑
+ *
  * @author rjs
  */
 @Service
 public class NoticeService {
 
-    /**
-     * 公告数据操作接口注入
-     */
-    @Resource
-    private NoticeMapper noticeMapper;
+    /** 公告数据操作接口注入 */
+    @Resource private NoticeMapper noticeMapper;
 
     /**
      * 新增公告信息
@@ -95,8 +93,8 @@ public class NoticeService {
     /**
      * 分页查询公告信息
      *
-     * @param notice   可选条件对象，用于传递查询条件（如按标题、创建时间等筛选）
-     * @param pageNum  页码
+     * @param notice 可选条件对象，用于传递查询条件（如按标题、创建时间等筛选）
+     * @param pageNum 页码
      * @param pageSize 每页大小
      * @return 分页结果对象，包含查询结果列表和分页信息
      */

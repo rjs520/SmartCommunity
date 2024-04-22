@@ -1,6 +1,7 @@
 package com.rjs.smartcommunity.service;
 
 import cn.hutool.core.util.ObjectUtil;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.rjs.smartcommunity.common.Constants;
@@ -19,8 +20,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-/** 管理员业务处理服务类
- * @author rjs*/
+/**
+ * 管理员业务处理服务类
+ *
+ * @author rjs
+ */
 @Service
 public class AdminService {
 

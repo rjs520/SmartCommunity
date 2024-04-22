@@ -8,18 +8,18 @@
       </div>
 
       <!-- 表单组件，绑定数据模型和验证规则 -->
-      <el-form :model="form" :rules="rules" ref="formRef">
+      <el-form ref="formRef" :model="form" :rules="rules">
 
         <!-- 账号输入项，带用户图标前缀 -->
         <el-form-item prop="username">
-          <el-input prefix-icon="el-icon-user" placeholder="请输入账号"
-                    v-model="form.username"></el-input>
+          <el-input v-model="form.username" placeholder="请输入账号"
+                    prefix-icon="el-icon-user"></el-input>
         </el-form-item>
 
         <!-- 密码输入项，带锁图标前缀和密码可见开关 -->
         <el-form-item prop="password">
-          <el-input prefix-icon="el-icon-lock" placeholder="请输入密码" show-password
-                    v-model="form.password"></el-input>
+          <el-input v-model="form.password" placeholder="请输入密码" prefix-icon="el-icon-lock"
+                    show-password></el-input>
         </el-form-item>
 
         <!-- 登录按钮，全宽、深色背景、白色文字 -->

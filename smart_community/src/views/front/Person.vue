@@ -15,10 +15,10 @@
         <div style="margin: 15px; text-align: center">
           <!-- 使用el-upload组件实现头像上传功能 -->
           <el-upload
-              class="avatar-uploader"
               :action="$baseUrl + '/files/upload'"
-              :show-file-list="false"
               :on-success="handleAvatarSuccess"
+              :show-file-list="false"
+              class="avatar-uploader"
           >
             <!-- 显示已上传的头像 -->
             <img v-if="user.avatar" :src="user.avatar" class="avatar"/>
@@ -29,7 +29,7 @@
 
         <!-- 用户名输入项（只读） -->
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="user.username" placeholder="用户名" disabled></el-input>
+          <el-input v-model="user.username" disabled placeholder="用户名"></el-input>
         </el-form-item>
 
         <!-- 姓名输入项 -->
@@ -55,26 +55,26 @@
     </el-card>
 
     <!-- 修改密码弹窗 -->
-    <el-dialog title="修改密码" :visible.sync="dialogVisible" width="30%"
-               :close-on-click-modal="false" destroy-on-close>
+    <el-dialog :close-on-click-modal="false" :visible.sync="dialogVisible" destroy-on-close
+               title="修改密码" width="30%">
 
       <!-- 密码修改表单 -->
-      <el-form :model="user" label-width="80px" style="padding-right: 20px" :rules="rules"
-               ref="formRef">
+      <el-form ref="formRef" :model="user" :rules="rules" label-width="80px"
+               style="padding-right: 20px">
 
         <!-- 原始密码输入项 -->
         <el-form-item label="原始密码" prop="password">
-          <el-input show-password v-model="user.password" placeholder="原始密码"></el-input>
+          <el-input v-model="user.password" placeholder="原始密码" show-password></el-input>
         </el-form-item>
 
         <!-- 新密码输入项 -->
         <el-form-item label="新密码" prop="newPassword">
-          <el-input show-password v-model="user.newPassword" placeholder="新密码"></el-input>
+          <el-input v-model="user.newPassword" placeholder="新密码" show-password></el-input>
         </el-form-item>
 
         <!-- 确认新密码输入项 -->
         <el-form-item label="确认密码" prop="confirmPassword">
-          <el-input show-password v-model="user.confirmPassword" placeholder="确认密码"></el-input>
+          <el-input v-model="user.confirmPassword" placeholder="确认密码" show-password></el-input>
         </el-form-item>
       </el-form>
 

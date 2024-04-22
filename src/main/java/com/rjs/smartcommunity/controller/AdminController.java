@@ -11,8 +11,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-/** 管理员前端操作接口控制器，提供RESTful API以供前端进行管理员的增删改查及分页查询操作。
- * @author rjs*/
+/**
+ * 管理员前端操作接口控制器，提供RESTful API以供前端进行管理员的增删改查及分页查询操作。
+ *
+ * @author rjs
+ */
 @RestController
 @RequestMapping("/admin")
 public class AdminController {

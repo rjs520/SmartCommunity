@@ -5,8 +5,11 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-/** 管理员实体类，继承自Account类并实现Serializable接口
- * @author rjs*/
+/**
+ * 管理员实体类，继承自Account类并实现Serializable接口
+ *
+ * @author rjs
+ */
 @Getter
 @Setter
 public class Admin extends Account implements Serializable {

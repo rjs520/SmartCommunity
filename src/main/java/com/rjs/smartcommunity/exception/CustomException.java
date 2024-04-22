@@ -5,8 +5,11 @@ import com.rjs.smartcommunity.common.enums.ResultCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
-/** 自定义异常类，继承自RuntimeException
- * @author rjs*/
+/**
+ * 自定义异常类，继承自RuntimeException
+ *
+ * @author rjs
+ */
 @Setter
 @Getter
 public class CustomException extends RuntimeException {
