@@ -3,16 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- 公告数据操作映射文件 -->
+<!-- 管理员数据操作映射文件 -->
 <mapper namespace="com.rjs.smartcommunity.mapper.AdminMapper">
 
-  <!-- 根据ID删除公告信息 -->
+  <!-- 根据ID删除管理员信息 -->
   <delete id="deleteById">
     delete from admin
     where id = #{id}
   </delete>
 
-  <!-- 插入公告信息 -->
+  <!-- 插入管理员信息 -->
   <insert id="insert" parameterType="com.rjs.smartcommunity.entity.Admin" useGeneratedKeys="true">
     insert into admin
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -37,7 +37,7 @@
     </trim>
   </insert>
 
-  <!-- 查询所有公告信息（可能带条件） -->
+  <!-- 查询所有管理员信息（可能带条件） -->
   <select id="selectAll" resultType="com.rjs.smartcommunity.entity.Admin">
     select
     <include refid="Base_Column_List"/>
@@ -54,7 +54,7 @@
     </where>
   </select>
 
-  <!-- 根据ID查询公告信息 -->
+  <!-- 根据ID查询管理员信息 -->
   <select id="selectById" resultType="com.rjs.smartcommunity.entity.Admin">
     select
     <include refid="Base_Column_List"/>
@@ -74,7 +74,7 @@
       role
   </sql>
 
-  <!-- 根据ID更新公告信息 -->
+  <!-- 根据ID更新管理员信息 -->
   <update id="updateById" parameterType="com.rjs.smartcommunity.entity.Admin">
     update admin
     <set>
