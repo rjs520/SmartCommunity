@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 定义一个名为com.rjs.smartcommunity.mapper.CategoryMapper的Mapper接口对应的SQL语句集合 -->
+<mapper namespace="com.rjs.smartcommunity.mapper.CategoryMapper">
+
+  <!-- 定义一个可复用的基础列列表SQL片段，包含id和name两个字段 -->
+  <sql id="Base_Column_List">
+      id,
+      name
+  </sql>
+
+  <!-- 定义一个名为selectAll的方法，用于查询所有Category实体（根据可选的name参数进行模糊搜索）并按id降序排序 -->
+  <select id="selectAll" resultType="com.rjs.smartcommunity.entity.Category">
+    select
+    <!-- 引用基础列列表SQL片段 -->
+    <include refid="Base_Column_List"/>
+    from category
+    <!-- 使用动态SQL条件判断，当传入的name参数不为空时，添加name字段的模糊搜索条件 -->
+    <where>
+      <if test="name != null">and name like concat('%', #{name}, '%')</if>
+    </where>
+    <!-- 按id字段降序排序结果 -->
+    order by id desc
+  </select>
+
+  <!-- 定义一个名为selectById的方法，用于通过id查询单个Category实体 -->
+  <select id="selectById" resultType="com.rjs.smartcommunity.entity.Category">
+    select
+    <!-- 引用基础列列表SQL片段 -->
+    <include refid="Base_Column_List"/>
+    from category
+    <!-- 确定查询条件：id等于传入的id参数 -->
+    where id = #{id}
+  </select>
+
+  <!-- 定义一个名为deleteById的方法，用于删除id指定的Category记录 -->
+  <delete id="deleteById">
+    delete from category
+    <!-- 确定删除条件：id等于传入的id参数 -->
+    where id = #{id}
+  </delete>
+
+  <!-- 定义一个名为insert的方法，用于插入一个Category实体（支持自动生成主键） -->
+  <insert id="insert" parameterType="com.rjs.smartcommunity.entity.Category"
+    useGeneratedKeys="true">
+    insert into category
+    <!-- 使用trim标签动态构建插入字段列表，仅包含非空属性 -->
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">id,</if>
+      <if test="name != null">name,</if>
+    </trim>
+    <!-- 使用trim标签动态构建插入值列表，与插入字段列表对应 -->
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">#{id},</if>
+      <if test="name != null">#{name},</if>
+    </trim>
+  </insert>
+
+  <!-- 定义一个名为updateById的方法，用于更新一个已存在的Category实体 -->
+  <update id="updateById" parameterType="com.rjs.smartcommunity.entity.Category">
+    update category
+    <!-- 使用set标签动态构建更新字段列表，仅更新非空属性 -->
+    <set>
+      <if test="name != null">
+        name = #{name},
+      </if>
+    </set>
+    <!-- 确定更新条件：id等于传入的id参数 -->
+    where id = #{id}
+  </update>
+
+</mapper>
