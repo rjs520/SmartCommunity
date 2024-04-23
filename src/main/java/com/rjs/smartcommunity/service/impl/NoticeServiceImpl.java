@@ -17,7 +17,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 /**
- * @author 任俊松 com.rjs.smartcommunity.service.impl * @date 2024/4/22
+ * @author rjs
  */
 @Service("NoticeService")
 public class NoticeServiceImpl implements NoticeService {

@@ -9,6 +9,7 @@ import com.rjs.smartcommunity.common.Constants;
 import com.rjs.smartcommunity.common.enums.RoleEnum;
 import com.rjs.smartcommunity.entity.Account;
 import com.rjs.smartcommunity.service.AdminService;
+import com.rjs.smartcommunity.service.UserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +38,14 @@ public class TokenUtils {
     /** 静态引用的AdminService实例，用于在静态方法中获取用户信息 */
     private static AdminService staticAdminService;
 
+    /** 静态引用的UserService实例，用于在静态方法中获取用户信息 */
+    private static UserService staticUserService;
+
     /** 注入的AdminService实例，用于初始化静态AdminService实例 */
     @Resource private AdminService adminService;
+
+    /** 注入的UserService实例，用于初始化静态UserService实例 */
+    @Resource private UserService userService;
 
     /**
      * 生成Token
@@ -52,7 +59,7 @@ public class TokenUtils {
                 // 将 userId-role 保存到 token 里面,作为载荷
                 .withAudience(data)
                 // 2小时后token过期
-                .withExpiresAt(DateUtil.offsetHour(new Date(), 24))
+                .withExpiresAt(DateUtil.offsetHour(new Date(), 2))
                 // 以 password 作为 token 的密钥
                 .sign(Algorithm.HMAC256(sign));
     }
@@ -85,6 +92,9 @@ public class TokenUtils {
                 // 如果角色为管理员，则通过AdminService查询用户信息
                 if (RoleEnum.ADMIN.name().equals(role)) {
                     return staticAdminService.selectById(Integer.valueOf(userId));
+                } else if (RoleEnum.USER.name().equals(role)) {
+                    // 如果角色为普通用户，则通过UserService查询用户信息
+                    return staticUserService.selectById(Integer.valueOf(userId));
                 }
             }
         } catch (Exception e) {
@@ -99,5 +109,6 @@ public class TokenUtils {
     @PostConstruct
     public void setUserService() {
         staticAdminService = adminService;
+        staticUserService = userService;
     }
 }

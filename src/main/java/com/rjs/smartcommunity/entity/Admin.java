@@ -16,8 +16,7 @@ import java.io.Serializable;
 public class Admin extends Account implements Serializable {
 
     /** 序列化版本号 */
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     /** 管理员ID */
     private Integer id;

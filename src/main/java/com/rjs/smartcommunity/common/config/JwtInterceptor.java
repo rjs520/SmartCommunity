@@ -13,6 +13,7 @@ import com.rjs.smartcommunity.entity.Account;
 import com.rjs.smartcommunity.exception.CustomException;
 import com.rjs.smartcommunity.service.AdminService;
 
+import com.rjs.smartcommunity.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -32,8 +33,11 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     private static final Logger log = LoggerFactory.getLogger(JwtInterceptor.class);
 
-    /** 管理员服务对象，用于查询用户信息 */
+    /** 管理员服务对象，用于查询管理员信息 */
     @Resource private AdminService adminService;
+
+    /** 用户服务对象，用于查询用户信息 */
+    @Resource private UserService userService;
 
     /**
      * 在处理器（Controller方法）执行之前进行身份验证检查
@@ -70,6 +74,8 @@ public class JwtInterceptor implements HandlerInterceptor {
             // 根据userId查询数据库
             if (RoleEnum.ADMIN.name().equals(role)) {
                 account = adminService.selectById(Integer.valueOf(userId));
+            } else if (RoleEnum.USER.name().equals(role)) {
+                account = userService.selectById(Integer.valueOf(userId));
             }
         } catch (Exception e) {
             log.error("【JWT拦截器】解析token失败，token可能已过期或无效。");

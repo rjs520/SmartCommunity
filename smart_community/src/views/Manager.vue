@@ -5,7 +5,7 @@
     <div class="manager-header">
       <!-- 左侧Logo与标题 -->
       <div class="manager-header-left">
-        <img src="@/assets/imgs/logo.png"/> <!-- Logo 图片 -->
+        <img src="@/assets/imgs/logo.png" alt=""/> <!-- Logo 图片 -->
         <div class="title">智慧社区系统</div> <!-- 页面标题 -->
       </div>
 
@@ -26,7 +26,8 @@
         <el-dropdown placement="bottom">
           <div class="avatar">
             <img
-                :src="user.avatar || 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"/>
+                :src="user.avatar || 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
+                alt=""/>
             <!-- 用户头像 -->
             <div>{{ user.name || '管理员' }}</div> <!-- 用户姓名或默认显示“管理员” -->
           </div>
@@ -58,6 +59,7 @@
               <i class="el-icon-menu"></i><span>信息管理</span>
             </template>
             <el-menu-item index="/notice">公告信息</el-menu-item>
+            <el-menu-item index="/category">资讯分类</el-menu-item>
           </el-submenu>
 
           <!-- 用户管理子菜单 -->
@@ -66,6 +68,7 @@
               <i class="el-icon-menu"></i><span>用户管理</span>
             </template>
             <el-menu-item index="/admin">管理员信息</el-menu-item>
+            <el-menu-item index="/user">用户信息</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>
@@ -90,8 +93,8 @@ export default {
   },
 
   created() {
-    // 如果用户信息中无ID，则重定向至登录页
-    if (!this.user.id) {
+    // 如果用户信息中无ID，则重定向至登录页,并且只允许管理员登录
+    if (!this.user.id || this.user.role !== 'ADMIN') {
       this.$router.push('/login')
     }
   },

@@ -3,18 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- 公告数据操作映射文件 -->
+<!-- 定义公告数据操作映射文件，关联com.rjs.smartcommunity.mapper.NoticeMapper接口 -->
 <mapper namespace="com.rjs.smartcommunity.mapper.NoticeMapper">
 
-  <!-- 根据ID删除公告信息 -->
+  <!-- 定义一个名为deleteById的方法，根据传入的id参数删除公告信息 -->
   <delete id="deleteById">
     delete from notice
     where id = #{id}
   </delete>
 
-  <!-- 插入公告信息 -->
+  <!-- 定义一个名为insert的方法，插入一个Notice实体（支持自动生成主键） -->
   <insert id="insert" parameterType="com.rjs.smartcommunity.entity.Notice" useGeneratedKeys="true">
     insert into notice
+    <!-- 使用trim标签动态构建插入字段列表，仅包含非空属性 -->
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">id,</if>
       <if test="title != null">title,</if>
@@ -22,6 +23,7 @@
       <if test="time != null">time,</if>
       <if test="user != null">user,</if>
     </trim>
+    <!-- 使用trim标签动态构建插入值列表，与插入字段列表对应 -->
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">#{id},</if>
       <if test="title != null">#{title},</if>
@@ -31,11 +33,13 @@
     </trim>
   </insert>
 
-  <!-- 查询所有公告信息（可能带条件） -->
+  <!-- 定义一个名为selectAll的方法，查询所有公告信息（可根据传入的id、title、content、time、user参数进行条件筛选），结果按id降序排序 -->
   <select id="selectAll" resultType="com.rjs.smartcommunity.entity.Notice">
     select
+    <!-- 引用基础列列表SQL片段 -->
     <include refid="Base_Column_List"/>
     from notice
+    <!-- 使用动态SQL条件判断，根据传入的参数添加相应的筛选条件 -->
     <where>
       <if test="id != null">and id= #{id}</if>
       <if test="title != null">and title like concat('%', #{title}, '%')</if>
@@ -43,18 +47,21 @@
       <if test="time != null">and time= #{time}</if>
       <if test="user != null">and user= #{user}</if>
     </where>
+    <!-- 按id字段降序排序结果 -->
     order by id desc
   </select>
 
-  <!-- 根据ID查询公告信息 -->
+  <!-- 定义一个名为selectById的方法，根据传入的id参数查询单个公告信息 -->
   <select id="selectById" resultType="com.rjs.smartcommunity.entity.Notice">
     select
+    <!-- 引用基础列列表SQL片段 -->
     <include refid="Base_Column_List"/>
     from notice
+    <!-- 确定查询条件：id等于传入的id参数 -->
     where id = #{id}
   </select>
 
-  <!-- 定义基础列列表，供其他SQL语句引用 -->
+  <!-- 定义一个基础列列表SQL片段，包含公告表的所有字段，供其他SQL语句引用 -->
   <sql id="Base_Column_List">
       id,
       title,
@@ -63,9 +70,10 @@
       user
   </sql>
 
-  <!-- 根据ID更新公告信息 -->
+  <!-- 定义一个名为updateById的方法，根据传入的id参数更新公告信息，仅更新非空属性 -->
   <update id="updateById" parameterType="com.rjs.smartcommunity.entity.Notice">
     update notice
+    <!-- 使用set标签动态构建更新字段列表 -->
     <set>
       <if test="title != null">
         title = #{title},
@@ -80,6 +88,7 @@
         user = #{user},
       </if>
     </set>
+    <!-- 确定更新条件：id等于传入的id参数 -->
     where id = #{id}
   </update>
 

@@ -73,8 +73,8 @@
         </el-form-item>
 
         <!-- 确认新密码输入项 -->
-        <el-form-item label="确认密码" prop="confirmPassword">
-          <el-input v-model="user.confirmPassword" placeholder="确认密码" show-password></el-input>
+        <el-form-item label="确认密码" prop="confirm">
+          <el-input v-model="user.confirm" placeholder="确认密码" show-password></el-input>
         </el-form-item>
       </el-form>
 
@@ -117,7 +117,7 @@ export default {
         newPassword: [
           {required: true, message: '请输入新密码', trigger: 'blur'},
         ],
-        confirmPassword: [
+        confirm: [
           {validator: validatePassword, required: true, trigger: 'blur'},
         ],
       }
@@ -131,7 +131,7 @@ export default {
   methods: {
     // 保存用户信息至数据库
     update() {
-      this.$request.put('/admin/update', this.user).then(res => {
+      this.$request.put('/user/update', this.user).then(res => {
         if (res.code === '200') {
           // 提示保存成功，更新浏览器缓存中的用户信息，并触发父组件的用户信息更新
           this.$message.success('保存成功')
@@ -150,6 +150,8 @@ export default {
 
     // 打开修改密码弹窗
     updatePassword() {
+      // 原始密码设置为空
+      this.user.password = '';
       this.dialogVisible = true
     },
 

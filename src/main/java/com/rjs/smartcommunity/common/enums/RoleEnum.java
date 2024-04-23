@@ -8,4 +8,6 @@ package com.rjs.smartcommunity.common.enums;
 public enum RoleEnum {
     /** 管理员角色 */
     ADMIN,
+    /** 用户角色 */
+    USER
 }

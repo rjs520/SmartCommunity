@@ -8,6 +8,7 @@ import com.rjs.smartcommunity.common.enums.ResultCodeEnum;
 import com.rjs.smartcommunity.common.enums.RoleEnum;
 import com.rjs.smartcommunity.entity.Account;
 import com.rjs.smartcommunity.service.AdminService;
+import com.rjs.smartcommunity.service.UserService;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,9 @@ public class WebController {
 
     /** 注入管理员服务 */
     @Resource private AdminService adminService;
+
+    /** 注入用户服务 */
+    @Resource private UserService userService;
 
     /**
      * 主页访问接口
@@ -54,8 +58,12 @@ public class WebController {
         if (RoleEnum.ADMIN.name().equals(account.getRole())) {
             // 调用AdminService的login方法进行管理员登录验证，并获取登录后的Account对象
             account = adminService.login(account);
+        } else if (RoleEnum.USER.name().equals(account.getRole())) {
+            // 调用UserService的login方法进行普通用户登录验证，并获取登录后的Account对象
+            account = userService.login(account);
+        } else {
+            return Result.error(ResultCodeEnum.PARAM_ERROR);
         }
-
         // 登录验证通过（无论普通用户还是管理员），返回成功响应，包含登录后的Account信息
         return Result.success(account);
     }
@@ -73,8 +81,13 @@ public class WebController {
                 || ObjectUtil.isEmpty(account.getRole())) {
             return Result.error(ResultCodeEnum.PARAM_LOST_ERROR);
         }
-        if (RoleEnum.ADMIN.name().equals(account.getRole())) {
-            adminService.register(account);
+        // if (RoleEnum.ADMIN.name().equals(account.getRole())) {
+        //     adminService.register(account);
+        // }
+        if (RoleEnum.USER.name().equals(account.getRole())) {
+            userService.register(account);
+        } else {
+            return Result.error(ResultCodeEnum.PARAM_ERROR);
         }
         return Result.success();
     }
@@ -94,6 +107,10 @@ public class WebController {
         }
         if (RoleEnum.ADMIN.name().equals(account.getRole())) {
             adminService.updatePassword(account);
+        } else if (RoleEnum.USER.name().equals(account.getRole())) {
+            userService.updatePassword(account);
+        } else {
+            return Result.error(ResultCodeEnum.PARAM_ERROR);
         }
         return Result.success();
     }

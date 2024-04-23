@@ -1,102 +1,87 @@
 <template>
-  <!-- 容器组件，设置全屏背景和垂直居中布局 -->
   <div class="container">
-    <!-- 注册表单容器，设置固定宽度、内边距、背景色和圆角 -->
-    <div style="width: 400px; padding: 30px; background-color: white; border-radius: 5px;">
-      <!-- 注册欢迎文字，居中显示 -->
-      <div style="text-align: center; font-size: 20px; margin-bottom: 20px; color: #333">欢迎注册
+    <header class="header">
+      <div class="logo-container">
+        <img class="logo" src="@/assets/imgs/logo.png" alt="">
+        <span class="title">智慧社区系统</span>
       </div>
-
-      <!-- 表单组件，绑定数据模型和验证规则 -->
-      <el-form ref="formRef" :model="form" :rules="rules">
-
-        <!-- 账号输入项，带用户图标前缀 -->
-        <el-form-item prop="username">
-          <el-input v-model="form.username" placeholder="请输入账号"
-                    prefix-icon="el-icon-user"></el-input>
-        </el-form-item>
-
-        <!-- 密码输入项，带锁图标前缀和密码可见开关 -->
-        <el-form-item prop="password">
-          <el-input v-model="form.password" placeholder="请输入密码" prefix-icon="el-icon-lock"
-                    show-password></el-input>
-        </el-form-item>
-
-        <!-- 确认密码输入项，带锁图标前缀和密码可见开关 -->
-        <el-form-item prop="confirmPass">
-          <el-input v-model="form.confirmPass" placeholder="请确认密码" prefix-icon="el-icon-lock"
-                    show-password></el-input>
-        </el-form-item>
-
-        <!-- 注册按钮，全宽、深色背景、白色文字 -->
-        <el-form-item>
-          <el-button style="width: 100%; background-color: #333; border-color: #333; color: white"
-                     @click="register">注 册
-          </el-button>
-        </el-form-item>
-
-        <!-- 登录提示，已注册用户可直接登录 -->
-        <div style="display: flex; align-items: center">
-          <div style="flex: 1"></div>
-          <div style="flex: 1; text-align: right">
-            已有账号？请 <a href="/login">登录</a>
+    </header>
+    <main class="main">
+      <div class="image-container">
+        <img class="login-image" src="@/assets/imgs/register.jpg" alt="">
+      </div>
+      <div class="form-container">
+        <div class="welcome-message">欢 迎 注 册</div>
+        <el-form :model="form" :rules="rules" ref="formRef">
+          <el-form-item prop="username">
+            <el-input prefix-icon="el-icon-user" placeholder="请输入账号"
+                      v-model="form.username"></el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input prefix-icon="el-icon-lock" placeholder="请输入密码" show-password
+                      v-model="form.password"></el-input>
+          </el-form-item>
+          <el-form-item prop="confirm">
+            <el-input prefix-icon="el-icon-lock" placeholder="请确认密码" show-password
+                      v-model="form.confirm"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button class="login-button" @click="register">注 册</el-button>
+          </el-form-item>
+          <div class="register-container">
+            <div style="flex: 1"></div>
+            <div class="register-link">
+              已有账号？请 <a href="/login">登录</a>
+            </div>
           </div>
-        </div>
-      </el-form>
-    </div>
+        </el-form>
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Register", // 组件名称
-
+  name: "Register",
   data() {
-    // 定义密码验证规则
-    const validatePassword = (rule, confirmPass, callback) => {
-      if (confirmPass === '') {
-        callback(new Error('请确认密码')) // 提示用户输入确认密码
-      } else if (confirmPass !== this.form.password) {
-        callback(new Error('两次输入的密码不一致')) // 提示用户两次输入的密码不一致
+    // 验证码校验
+    const validatePassword = (rule, confirm, callback) => {
+      if (confirm === '') {
+        callback(new Error('请确认密码'))
+      } else if (confirm !== this.form.password) {
+        callback(new Error('两次输入的密码不一致'))
       } else {
-        callback() // 密码验证通过
+        callback()
       }
     }
-
     return {
-      form: {}, // 初始化表单数据模型为空对象
-
+      form: {role: 'USER'},
       rules: {
         username: [
-          {required: true, message: '请输入账号', trigger: 'blur'}, // 账号必填验证规则
+          {required: true, message: '请输入账号', trigger: 'blur'},
         ],
         password: [
-          {required: true, message: '请输入密码', trigger: 'blur'}, // 密码必填验证规则
+          {required: true, message: '请输入密码', trigger: 'blur'},
         ],
-        confirmPass: [ // 确认密码验证规则
+        confirm: [
           {validator: validatePassword, trigger: 'blur'}
         ]
       }
     }
   },
-
   created() {
-    // 组件创建时无需额外操作
-  },
 
+  },
   methods: {
-    // 注册方法，验证表单并发送注册请求
     register() {
       this.$refs['formRef'].validate((valid) => {
         if (valid) {
-          // 验证通过，发起注册请求
+          // 验证通过
           this.$request.post('/register', this.form).then(res => {
             if (res.code === '200') {
-              // 注册成功，跳转登录页面，显示成功消息
-              this.$router.push('/')
+              this.$router.push('/login')  // 跳转登录
               this.$message.success('注册成功')
             } else {
-              // 注册失败，显示错误消息
               this.$message.error(res.msg)
             }
           })
@@ -108,19 +93,87 @@ export default {
 </script>
 
 <style scoped>
-/* 容器样式，设置全屏高度、隐藏溢出内容、背景图片、全屏居中对齐、字体颜色 */
 .container {
   height: 100vh;
   overflow: hidden;
-  background-image: url("@/assets/imgs/bg1.jpg");
-  background-size: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #666;
+  background-color: #f8f8f8;
 }
 
-/* 链接样式，设置链接颜色 */
+.header {
+  height: 60px;
+  background-color: white;
+}
+
+.logo-container {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 40px;
+}
+
+.title {
+  color: #2A60C9;
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.main {
+  height: calc(100vh - 60px);
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.image-container {
+  flex: 1;
+}
+
+.login-image {
+  width: 90%;
+  height: 380px;
+  border-radius: 5px;
+}
+
+.form-container {
+  width: 350px;
+  padding: 50px 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  background-color: white;
+  border-radius: 5px;
+}
+
+.welcome-message {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  color: #2A60C9;
+}
+
+.login-button {
+  width: 100%;
+  background-color: #2A60C9;
+  border-color: #2A60C9;
+  color: white;
+}
+
+.register-container {
+  display: flex;
+  align-items: center;
+}
+
+.register-link {
+  flex: 1;
+  text-align: right;
+}
+
 a {
   color: #2a60c9;
 }

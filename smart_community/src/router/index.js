@@ -35,6 +35,12 @@ const routes = [
         component: () => import('../views/manager/Admin')
       },
       {
+        path: 'user',
+        name: 'User',
+        meta: {name: '用户信息'},
+        component: () => import('../views/manager/User')
+      },
+      {
         path: 'adminPerson',
         name: 'AdminPerson',
         meta: {name: '个人信息'},
@@ -51,6 +57,12 @@ const routes = [
         name: 'Notice',
         meta: {name: '公告信息'},
         component: () => import('../views/manager/Notice')
+      },
+      {
+        path: 'category',
+        name: 'Category',
+        meta: {name: '资讯分类'},
+        component: () => import('../views/manager/Category')
       },
     ]
   },
