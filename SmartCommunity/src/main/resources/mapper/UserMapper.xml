@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 定义用户数据操作映射文件，关联com.rjs.smartcommunity.mapper.UserMapper接口 -->
+<mapper namespace="com.rjs.smartcommunity.mapper.UserMapper">
+
+  <!-- 定义一个名为deleteById的方法，根据传入的id参数删除用户信息 -->
+  <delete id="deleteById">
+    delete from user
+    where id = #{id}
+  </delete>
+
+  <!-- 定义一个名为insert的方法，插入一个User实体（支持自动生成主键） -->
+  <insert id="insert" parameterType="com.rjs.smartcommunity.entity.User" useGeneratedKeys="true">
+    insert into user
+    <!-- 使用trim标签动态构建插入字段列表，仅包含非空属性 -->
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">id,</if>
+      <if test="username != null">username,</if>
+      <if test="password != null">password,</if>
+      <if test="name != null">name,</if>
+      <if test="phone != null">phone,</if>
+      <if test="email != null">email,</if>
+      <if test="avatar != null">avatar,</if>
+      <if test="role != null">role,</if>
+    </trim>
+    <!-- 使用trim标签动态构建插入值列表，与插入字段列表对应 -->
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">#{id},</if>
+      <if test="username != null">#{username},</if>
+      <if test="password != null">#{password},</if>
+      <if test="name != null">#{name},</if>
+      <if test="phone != null">#{phone},</if>
+      <if test="email != null">#{email},</if>
+      <if test="avatar != null">#{avatar},</if>
+      <if test="role != null">#{role},</if>
+    </trim>
+  </insert>
+
+  <!-- 定义一个名为selectAll的方法，查询所有用户信息（可根据传入的id、username、password、name、phone、email、avatar、role参数进行条件筛选） -->
+  <select id="selectAll" resultType="com.rjs.smartcommunity.entity.User">
+    select
+    <!-- 引用基础列列表SQL片段 -->
+    <include refid="Base_Column_List"/>
+    from user
+    <!-- 使用动态SQL条件判断，根据传入的参数添加相应的筛选条件 -->
+    <where>
+      <if test="id != null">and id= #{id}</if>
+      <if test="username != null">and username like concat('%', #{username}, '%')</if>
+      <if test="password != null">and password= #{password}</if>
+      <if test="name != null">and name= #{name}</if>
+      <if test="phone != null">and phone= #{phone}</if>
+      <if test="email != null">and email= #{email}</if>
+      <if test="avatar != null">and avatar= #{avatar}</if>
+      <if test="role != null">and role= #{role}</if>
+    </where>
+  </select>
+
+  <!-- 定义一个名为selectById的方法，根据传入的id参数查询单个用户信息 -->
+  <select id="selectById" resultType="com.rjs.smartcommunity.entity.User">
+    select
+    <!-- 引用基础列列表SQL片段 -->
+    <include refid="Base_Column_List"/>
+    from user
+    <!-- 确定查询条件：id等于传入的id参数 -->
+    where id = #{id}
+  </select>
+
+  <!-- 定义一个基础列列表SQL片段，包含用户表的所有字段，供其他SQL语句引用 -->
+  <sql id="Base_Column_List">
+      id,
+      username,
+      password,
+      name,
+      phone,
+      email,
+      avatar,
+      role
+  </sql>
+
+  <!-- 定义一个名为updateById的方法，根据传入的id参数更新用户信息，仅更新非空属性 -->
+  <update id="updateById" parameterType="com.rjs.smartcommunity.entity.User">
+    update user
+    <!-- 使用set标签动态构建更新字段列表 -->
+    <set>
+      <if test="username != null">
+        username = #{username},
+      </if>
+      <if test="password != null">
+        password = #{password},
+      </if>
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="phone != null">
+        phone = #{phone},
+      </if>
+      <if test="email != null">
+        email = #{email},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar},
+      </if>
+      <if test="role != null">
+        role = #{role},
+      </if>
+    </set>
+    <!-- 确定更新条件：id等于传入的id参数 -->
+    where id = #{id}
+  </update>
+
+</mapper>
+

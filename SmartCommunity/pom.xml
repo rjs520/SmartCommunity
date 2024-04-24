@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <!-- 项目唯一标识符（Artifact ID） -->
+  <artifactId>SmartCommunity</artifactId>
+
+  <!-- 构建配置 -->
+  <build>
+    <!-- 插件配置 -->
+    <plugins>
+
+      <!-- Maven编译插件 -->
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <!-- 源代码文件编码 -->
+          <encoding>UTF-8</encoding>
+          <!-- 编译源代码使用的JDK版本 -->
+          <source>17</source>
+          <!-- 生成目标代码使用的JDK版本 -->
+          <target>17</target>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.8.1</version>
+      </plugin>
+
+      <!-- Spring Boot Maven插件 -->
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <!-- 应用主类 -->
+          <mainClass>com.rjs.smartcommunity.SmartCommunityApplication</mainClass>
+          <!-- 是否跳过打包阶段的Spring Boot应用启动 -->
+          <skip>true</skip>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal> <!-- 打包并重新构建可执行jar -->
+            </goals>
+            <id>repackage</id>
+          </execution>
+        </executions>
+        <groupId>org.springframework.boot</groupId>
+        <version>${spring-boot.version}</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <!-- 项目依赖 -->
+  <dependencies>
+
+    <!-- Spring Boot Web Starter -->
+    <dependency>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+
+    <!-- Lombok（简化Java开发的工具库，提供getter/setter等代码生成） -->
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <optional>true</optional> <!-- 对于其他依赖此项目的模块，Lombok不是必须的 -->
+    </dependency>
+
+    <!-- Spring Boot Test Starter -->
+    <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope> <!-- 仅在测试阶段使用 -->
+    </dependency>
+
+    <!-- MySQL JDBC驱动 -->
+    <dependency>
+      <artifactId>mysql-connector-java</artifactId>
+      <groupId>mysql</groupId>
+    </dependency>
+
+    <!-- MyBatis Spring Boot Starter -->
+    <dependency>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <version>2.2.1</version>
+    </dependency>
+
+    <!-- PageHelper分页插件 Spring Boot Starter -->
+    <dependency>
+      <artifactId>pagehelper-spring-boot-starter</artifactId>
+      <exclusions>
+        <!-- 排除MyBatis依赖，避免版本冲突 -->
+        <exclusion>
+          <artifactId>mybatis</artifactId>
+          <groupId>org.mybatis</groupId>
+        </exclusion>
+      </exclusions>
+      <groupId>com.github.pagehelper</groupId>
+      <version>1.4.6</version>
+    </dependency>
+
+    <!-- Hutool工具包 -->
+    <dependency>
+      <artifactId>hutool-all</artifactId>
+      <groupId>cn.hutool</groupId>
+      <version>5.8.18</version>
+    </dependency>
+
+    <!-- Java JWT库 -->
+    <dependency>
+      <artifactId>java-jwt</artifactId>
+      <groupId>com.auth0</groupId>
+      <version>4.3.0</version>
+    </dependency>
+  </dependencies>
+
+  <!-- 依赖管理 -->
+  <dependencyManagement>
+    <dependencies>
+      <!-- 引入Spring Boot依赖管理，统一管理子项目依赖版本 -->
+      <dependency>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${spring-boot.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <!-- 项目描述 -->
+  <description>SmartCommunity</description>
+
+  <!-- 组织标识符（Group ID） -->
+  <groupId>com.rjs</groupId>
+
+  <!-- Maven项目模型版本 -->
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- 项目名称 -->
+  <name>SmartCommunity</name>
+
+  <!-- 项目属性 -->
+  <properties>
+    <java.version>17</java.version> <!-- Java版本 -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- 源代码文件编码 -->
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> <!-- 报告文件编码 -->
+    <spring-boot.version>2.7.6</spring-boot.version> <!-- Spring Boot版本 -->
+  </properties>
+
+  <!-- 项目版本 -->
+  <version>0.0.1-SNAPSHOT</version> <!-- SNAPSHOT表示开发中版本 -->
+</project>

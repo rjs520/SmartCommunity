@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 管理员数据操作映射文件 -->
+<mapper namespace="com.rjs.smartcommunity.mapper.AdminMapper">
+
+  <!-- 根据ID删除管理员信息 -->
+  <delete id="deleteById">
+    delete from admin
+    where id = #{id}
+  </delete>
+
+  <!-- 插入管理员信息 -->
+  <insert id="insert" parameterType="com.rjs.smartcommunity.entity.Admin" useGeneratedKeys="true">
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">id,</if>
+      <if test="username != null">username,</if>
+      <if test="password != null">password,</if>
+      <if test="name != null">name,</if>
+      <if test="phone != null">phone,</if>
+      <if test="email != null">email,</if>
+      <if test="avatar != null">avatar,</if>
+      <if test="role != null">role,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">#{id},</if>
+      <if test="username != null">#{username},</if>
+      <if test="password != null">#{password},</if>
+      <if test="name != null">#{name},</if>
+      <if test="phone != null">#{phone},</if>
+      <if test="email != null">#{email},</if>
+      <if test="avatar != null">#{avatar},</if>
+      <if test="role != null">#{role},</if>
+    </trim>
+  </insert>
+
+  <!-- 查询所有管理员信息（可能带条件） -->
+  <select id="selectAll" resultType="com.rjs.smartcommunity.entity.Admin">
+    select
+    <include refid="Base_Column_List"/>
+    from admin
+    <where>
+      <if test="id != null">and id= #{id}</if>
+      <if test="username != null">and username like concat('%', #{username}, '%')</if>
+      <if test="password != null">and password= #{password}</if>
+      <if test="name != null">and name= #{name}</if>
+      <if test="phone != null">and phone= #{phone}</if>
+      <if test="email != null">and email= #{email}</if>
+      <if test="avatar != null">and avatar= #{avatar}</if>
+      <if test="role != null">and role= #{role}</if>
+    </where>
+  </select>
+
+  <!-- 根据ID查询管理员信息 -->
+  <select id="selectById" resultType="com.rjs.smartcommunity.entity.Admin">
+    select
+    <include refid="Base_Column_List"/>
+    from admin
+    where id = #{id}
+  </select>
+
+  <!-- 定义基础列列表，供其他SQL语句引用 -->
+  <sql id="Base_Column_List">
+      id,
+      username,
+      password,
+      name,
+      phone,
+      email,
+      avatar,
+      role
+  </sql>
+
+  <!-- 根据ID更新管理员信息 -->
+  <update id="updateById" parameterType="com.rjs.smartcommunity.entity.Admin">
+    update admin
+    <set>
+      <if test="username != null">
+        username = #{username},
+      </if>
+      <if test="password != null">
+        password = #{password},
+      </if>
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="phone != null">
+        phone = #{phone},
+      </if>
+      <if test="email != null">
+        email = #{email},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar},
+      </if>
+      <if test="role != null">
+        role = #{role},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+</mapper>

@@ -1,0 +1,52 @@
+server:
+  # 设置服务器端口
+  port: 9090
+
+# 数据库配置
+spring:
+  datasource:
+    # 数据库驱动类名
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 数据库用户名
+    username: root
+    # 数据库密码
+    password: root
+    # 数据库连接URL，包含数据库名、字符集、时区等设置
+    url: jdbc:mysql://localhost:3306/smart_community?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+
+  servlet:
+    multipart:
+      # 单个上传文件的最大大小（以MB为单位）
+      max-file-size: 100MB
+      # 请求中所有上传文件总大小的最大限制（以MB为单位）
+      max-request-size: 100MB
+
+
+
+# MyBatis配置
+mybatis:
+  # 指定MyBatis映射文件的位置
+  mapper-locations: classpath:mapper/*.xml
+  # 指定实体类所在的包，以便进行类型别名自动扫描
+  type-aliases-package: com.rjs.smartcommunity.entity
+  # MyBatis配置项
+  configuration:
+    # 使用标准输出流打印SQL日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 开启驼峰命名法转换，将下划线命名的数据库列名自动映射为驼峰命名的Java属性名
+    map-underscore-to-camel-case: true
+
+# 分页插件配置
+pagehelper:
+  # 设置数据库方言
+  helper-dialect: mysql
+  # 启用合理化分页参数，默认false
+  reasonable: true
+  # 支持方法参数作为分页参数，默认false
+  support-methods-arguments: true
+  # 自定义分页参数，例如这里的count=countSql
+
+# 本地主机IP地址
+ip: localhost
+
+
