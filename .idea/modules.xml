@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/SmartCommunity/SmartCommunity.iml" filepath="$PROJECT_DIR$/SmartCommunity/SmartCommunity.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/SmartCommunityAll.iml" filepath="$PROJECT_DIR$/.idea/SmartCommunityAll.iml" />
     </modules>
   </component>
