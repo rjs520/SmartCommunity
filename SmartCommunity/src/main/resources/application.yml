@@ -21,8 +21,6 @@ spring:
       # 请求中所有上传文件总大小的最大限制（以MB为单位）
       max-request-size: 100MB
 
-
-
 # MyBatis配置
 mybatis:
   # 指定MyBatis映射文件的位置
@@ -48,5 +46,3 @@ pagehelper:
 
 # 本地主机IP地址
 ip: localhost
-
-

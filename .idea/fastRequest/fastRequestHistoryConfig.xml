@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="fastRequestHistoryConfig">
+    <option name="historyList">
+      <list>
+        <ResponseHistory>
+          <option name="className" value="com.rjs.smartcommunity.controller.WebController" />
+          <option name="code" value="200" />
+          <option name="enableEnv" value="local" />
+          <option name="enableProject" value="SmartCommunity" />
+          <option name="method" value="login" />
+          <option name="methodType" value="POST" />
+          <option name="name" value="用户登录接口" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="bodyKeyValueListJson" value="{&#10;  &quot;username&quot;: &quot;222&quot;,&#10;  &quot;password&quot;: &quot;222&quot;,&#10;  &quot;role&quot;: &quot;USER&quot;,&#10;}" />
+              <option name="className" value="com.rjs.smartcommunity.controller.WebController" />
+              <option name="jsonDocument" value="{&#10;  &quot;id&quot;: &quot;账号ID&quot;,&#10;  &quot;username&quot;: &quot;用户名&quot;,&#10;  &quot;name&quot;: &quot;名称（如真实姓名）&quot;,&#10;  &quot;password&quot;: &quot;密码&quot;,&#10;  &quot;role&quot;: &quot;角色标识（如\&quot;ADMIN\&quot;, \&quot;USER\&quot;等）&quot;,&#10;  &quot;newPassword&quot;: &quot;新密码（用于密码修改操作）&quot;,&#10;  &quot;avatar&quot;: &quot;头像URL或路径&quot;,&#10;  &quot;token&quot;: &quot;认证Token&quot;&#10;}" />
+              <option name="method" value="login" />
+              <option name="methodDescription" value="用户登录接口" />
+              <option name="methodType" value="POST" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/login" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="returnDocument" value="{&quot;code&quot;:&quot;响应状态码，通常为HTTP状态码或自定义错误码。&quot;,&quot;msg&quot;:&quot;响应消息，对状态码的简短描述。&quot;,&quot;data&quot;:{}}" />
+              <option name="url" value="/login" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[]" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:9090/login&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Fast Request/2024.1.4&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Content-Length: 49&#13;&#10;    Content-Type: application/json;charset=UTF-8&#13;&#10;Request Body: &#13;&#10;    {&quot;password&quot;:&quot;222&quot;,&quot;role&quot;:&quot;USER&quot;,&quot;username&quot;:&quot;222&quot;}&#13;&#10;" />
+          <option name="response" value="{&quot;code&quot;:&quot;200&quot;,&quot;msg&quot;:&quot;成功&quot;,&quot;data&quot;:{&quot;id&quot;:7,&quot;username&quot;:&quot;222&quot;,&quot;name&quot;:&quot;222&quot;,&quot;password&quot;:&quot;bcbe3365e6ac95ea2c0343a2395834dd&quot;,&quot;role&quot;:&quot;USER&quot;,&quot;newPassword&quot;:null,&quot;avatar&quot;:&quot;http://localhost:9090/files/1713931307265-2.jpg&quot;,&quot;token&quot;:&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3LVVTRVIiLCJleHAiOjE3MTM5Mzg2OTV9.46MN0fMD2_TRBMsjAuZG4xcjPUJyvDVf9MJTnJMhGS0&quot;,&quot;phone&quot;:&quot;15885908456&quot;,&quot;email&quot;:&quot;123@qq.com&quot;}}" />
+          <option name="url" value="/login" />
+        </ResponseHistory>
+      </list>
+    </option>
+  </component>
+</project>

@@ -51,7 +51,6 @@
 
   <!-- 项目依赖 -->
   <dependencies>
-
     <!-- Spring Boot Web Starter -->
     <dependency>
       <artifactId>spring-boot-starter-web</artifactId>

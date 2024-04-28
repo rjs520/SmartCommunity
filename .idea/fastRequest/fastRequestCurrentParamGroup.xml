@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="fastRequestCurrentParamGroup">
+    <option name="bodyParamMap">
+      <map>
+        <entry key="account">
+          <value>
+            <Object />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="clasDescription" value="前端基础接口控制器" />
+    <option name="className" value="com.rjs.smartcommunity.controller.WebController" />
+    <option name="filePath" value="/.fastRequest/collections/Root/SmartCommunity/WebController~login.rapi" />
+    <option name="method" value="login" />
+    <option name="methodDescription" value="用户登录接口" />
+    <option name="methodType" value="POST" />
+    <option name="module" value="SmartCommunity" />
+    <option name="originUrl" value="/login" />
+    <option name="responseParamMap">
+      <map>
+        <entry key="return">
+          <value>
+            <Object />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="returnDocument" value="{&quot;code&quot;:&quot;响应状态码，通常为HTTP状态码或自定义错误码。&quot;,&quot;msg&quot;:&quot;响应消息，对状态码的简短描述。&quot;,&quot;data&quot;:{}}" />
+    <option name="tempId" value="" />
+    <option name="url" value="/login" />
+  </component>
+</project>
