@@ -28,7 +28,7 @@
       </map>
     </option>
     <option name="returnDocument" value="{&quot;code&quot;:&quot;响应状态码，通常为HTTP状态码或自定义错误码。&quot;,&quot;msg&quot;:&quot;响应消息，对状态码的简短描述。&quot;,&quot;data&quot;:{}}" />
-    <option name="tempId" value="" />
+    <option name="tempId" value="api_com.rjs.smartcommunity.controller.WebController.login" />
     <option name="url" value="/login" />
   </component>
 </project>
