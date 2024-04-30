@@ -1,6 +1,8 @@
 package com.rjs.smartcommunity.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.lang.Dict;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 
@@ -56,7 +58,6 @@ public class FileController {
             // 文件存储形式：时间戳-文件名
             FileUtil.writeBytes(
                     file.getBytes(),
-                    // ***/manager/files/1697438073596-avatar.png
                     FILE_PATH + flag + "-" + fileName);
             System.out.println(fileName + "--上传成功");
 
@@ -66,7 +67,45 @@ public class FileController {
         String http = "http://" + ip + ":" + port + "/files/";
         return Result.success(
                 http + flag + "-"
-                        + fileName); //  http://localhost:9090/files/1697438073596-avatar.png
+                        + fileName);
+    }
+
+    /**
+     * 处理富文本文件上传请求。
+     *
+     * @param file 用户上传的文件，通过MultipartFile接收。
+     * @return 返回一个包含上传文件信息的Dict对象。
+     */
+    @PostMapping("/editor/upload")
+    public Dict editorUpload(MultipartFile file) {
+        String flag;
+        // 使用同步代码块，确保线程安全
+        synchronized (FileController.class) {
+            flag = System.currentTimeMillis() + "";
+            ThreadUtil.sleep(1L);
+        }
+        String fileName = file.getOriginalFilename();
+        try {
+            // 检查上传目录是否存在，不存在则创建
+            if (!FileUtil.isDirectory(FILE_PATH)) {
+                FileUtil.mkdir(FILE_PATH);
+            }
+            // 构造文件保存路径：时间戳-文件名
+            FileUtil.writeBytes(file.getBytes(), FILE_PATH + flag + "-" + fileName);
+            System.out.println(fileName + "--上传成功");
+
+        } catch (Exception e) {
+            System.err.println(fileName + "--文件上传失败");
+        }
+        // 构造文件访问URL
+        String http = "http://" + ip + ":" + port + "/files/";
+        // 返回包含文件URL的Dict对象
+        return Dict.create()
+                .set("errno", 0)
+                .set(
+                        "data",
+                        CollUtil.newArrayList(
+                                Dict.create().set("url", http + flag + "-" + fileName)));
     }
 
     /**

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 定义公告数据操作映射文件，关联com.rjs.smartcommunity.mapper.NewsMapper接口 -->
+<mapper namespace="com.rjs.smartcommunity.mapper.NewsMapper">
+  <!-- 定义一个名为deleteById的方法，根据传入的id参数删除咨询信息 -->
+  <delete id="deleteById">
+    delete
+    from news
+    where id = #{id}
+  </delete>
+
+  <!-- 定义一个名为insert的方法，插入一个News实体（支持自动生成主键） -->
+  <insert id="insert" parameterType="com.rjs.smartcommunity.entity.News" useGeneratedKeys="true">
+    insert into news
+    <!-- 使用trim标签动态构建插入字段列表，仅包含非空属性 -->
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="descr != null">
+        descr,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="cover != null">
+        cover,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="title != null">
+        #{title},
+      </if>
+      <if test="descr != null">
+        #{descr},
+      </if>
+      <if test="content != null">
+        #{content},
+      </if>
+      <if test="cover != null">
+        #{cover},
+      </if>
+      <if test="time != null">
+        #{time},
+      </if>
+      <if test="count != null">
+        #{count},
+      </if>
+      <if test="category != null">
+        #{category},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 定义一个名为selectAll的方法，查询所有咨询信息（可根据传入的id、title、content、time、user参数进行条件筛选），结果按id降序排序 -->
+  <select id="selectAll" resultType="com.rjs.smartcommunity.entity.News">
+    select
+    <!-- 引用基础列列表SQL片段 -->
+    <include refid="Base_Column_List"/>
+    from news
+    <!-- 使用动态SQL条件判断，根据传入的参数添加相应的筛选条件 -->
+    <where>
+      <if test="title != null">
+        and title like concat('%', #{title}, '%')
+      </if>
+    </where>
+    <!-- 按id字段降序排序结果 -->
+    order by id desc
+  </select>
+
+  <!-- 定义一个名为selectById的方法，根据传入的id参数查询单个咨询信息 -->
+  <select id="selectById" resultType="com.rjs.smartcommunity.entity.News">
+    select
+    <!-- 引用基础列列表SQL片段 -->
+    <include refid="Base_Column_List"/>
+    from news
+    <!-- 确定查询条件：id等于传入的id参数 -->
+    where id = #{id}
+  </select>
+
+  <!-- 定义一个基础列列表SQL片段，包含公告表的所有字段，供其他SQL语句引用 -->
+  <sql id="Base_Column_List">
+    id,
+    title,
+    content,
+    descr,
+    cover, time, count, category
+  </sql>
+
+  <!-- 定义一个名为updateById的方法，根据传入的id参数更新咨询信息，仅更新非空属性 -->
+  <update id="updateById" parameterType="com.rjs.smartcommunity.entity.News">
+    update news
+    <!-- 使用set标签动态构建更新字段列表 -->
+    <set>
+      <if test="title != null">
+        title = #{title},
+      </if>
+      <if test="descr != null">
+        descr = #{descr},
+      </if>
+      <if test="content != null">
+        content = #{content},
+      </if>
+      <if test="cover != null">
+        cover = #{cover},
+      </if>
+      <if test="time != null">
+        time = #{time},
+      </if>
+      <if test="count != null">
+        count = #{count},
+      </if>
+      <if test="category != null">
+        category = #{category},
+      </if>
+    </set>
+    <!-- 确定更新条件：id等于传入的id参数 -->
+    where id = #{id}
+  </update>
+</mapper>

@@ -60,6 +60,7 @@
             </template>
             <el-menu-item index="/notice">公告信息</el-menu-item>
             <el-menu-item index="/category">资讯分类</el-menu-item>
+            <el-menu-item index="/news">资讯信息</el-menu-item>
           </el-submenu>
 
           <!-- 用户管理子菜单 -->

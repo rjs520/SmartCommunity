@@ -64,6 +64,12 @@ const routes = [
         meta: {name: '资讯分类'},
         component: () => import('../views/manager/Category')
       },
+      {
+        path: 'news',
+        name: 'News',
+        meta: {name: '资讯信息'},
+        component: () => import('../views/manager/News.vue')
+      },
     ]
   },
   {
