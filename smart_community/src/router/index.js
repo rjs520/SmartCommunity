@@ -70,6 +70,12 @@ const routes = [
         meta: {name: '资讯信息'},
         component: () => import('../views/manager/News.vue')
       },
+      {
+        path: 'activity',
+        name: 'Activity',
+        meta: {name: '社区活动'},
+        component: () => import('../views/manager/Activity')
+      },
     ]
   },
   {
