@@ -5,6 +5,52 @@
       <list>
         <ResponseHistory>
           <option name="className" value="com.rjs.smartcommunity.controller.WebController" />
+          <option name="enableEnv" value="local" />
+          <option name="enableProject" value="SmartCommunity" />
+          <option name="method" value="login" />
+          <option name="methodType" value="POST" />
+          <option name="name" value="用户登录接口" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.rjs.smartcommunity.controller.WebController" />
+              <option name="method" value="login" />
+              <option name="methodDescription" value="用户登录接口" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/login" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="returnDocument" value="{&quot;code&quot;:&quot;响应状态码，通常为HTTP状态码或自定义错误码。&quot;,&quot;msg&quot;:&quot;响应消息，对状态码的简短描述。&quot;,&quot;data&quot;:{}}" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[]" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:9090&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Fast Request/2024.1.4&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="ConnectException: Connection refused: no further information" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.rjs.smartcommunity.controller.WebController" />
+          <option name="enableEnv" value="local" />
+          <option name="enableProject" value="SmartCommunity" />
+          <option name="method" value="login" />
+          <option name="methodType" value="POST" />
+          <option name="name" value="用户登录接口" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.rjs.smartcommunity.controller.WebController" />
+              <option name="method" value="login" />
+              <option name="methodDescription" value="用户登录接口" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/login" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="returnDocument" value="{&quot;code&quot;:&quot;响应状态码，通常为HTTP状态码或自定义错误码。&quot;,&quot;msg&quot;:&quot;响应消息，对状态码的简短描述。&quot;,&quot;data&quot;:{}}" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[]" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://localhost:9090&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Fast Request/2024.1.4&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="ConnectException: Connection refused: no further information" />
+        </ResponseHistory>
+        <ResponseHistory>
+          <option name="className" value="com.rjs.smartcommunity.controller.WebController" />
           <option name="code" value="200" />
           <option name="enableEnv" value="local" />
           <option name="enableProject" value="SmartCommunity" />
