@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 定义mapper的命名空间 -->
+<mapper namespace="com.rjs.smartcommunity.mapper.ParkingMapper">
+
+  <!-- 定义基础列列表，供多个SQL语句共用 -->
+  <sql id="Base_Column_List">
+      id,
+      address,
+      descr,
+      img,
+      time
+  </sql>
+
+  <!-- 查询所有停车信息，支持根据条件进行过滤 -->
+  <select id="selectAll" resultType="com.rjs.smartcommunity.entity.Parking">
+    select
+    <include refid="Base_Column_List" />
+    from parking
+    <where>
+      <!-- 根据提供的参数动态生成where子句 -->
+      <if test="id != null"> and id = #{id}</if>
+      <if test="address != null"> and address like concat('%', #{address}, '%')</if>
+      <if test="descr != null"> and descr like concat('%', #{descr}, '%')</if>
+      <if test="img != null"> and img like concat('%', #{img}, '%')</if>
+      <if test="time != null"> and time like concat('%', #{time}, '%')</if>
+    </where>
+    order by id desc
+  </select>
+
+  <!-- 根据ID查询停车信息 -->
+  <select id="selectById" resultType="com.rjs.smartcommunity.entity.Parking">
+    select
+    <include refid="Base_Column_List"/>
+    from parking
+    where id = #{id}
+  </select>
+
+  <!-- 根据ID删除停车信息 -->
+  <delete id="deleteById">
+    delete from parking
+    where  id = #{id}
+  </delete>
+
+  <!-- 插入新地停车信息，支持字段动态插入 -->
+  <insert id="insert" parameterType="com.rjs.smartcommunity.entity.Parking" useGeneratedKeys="true" keyProperty="id">
+    insert into parking
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <!-- 动态生成插入的字段列表 -->
+      <if test="id != null">id,</if>
+      <if test="address != null">address,</if>
+      <if test="descr != null">descr,</if>
+      <if test="img != null">img,</if>
+      <if test="time != null">time,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <!-- 动态生成插入的值列表 -->
+      <if test="id != null">#{id},</if>
+      <if test="address != null">#{address},</if>
+      <if test="descr != null">#{descr},</if>
+      <if test="img != null">#{img},</if>
+      <if test="time != null">#{time},</if>
+    </trim>
+  </insert>
+
+  <!-- 根据ID更新停车信息，支持字段动态更新 -->
+  <update id="updateById" parameterType="com.rjs.smartcommunity.entity.Parking">
+    update parking
+    <set>
+      <!-- 动态生成更新的字段列表 -->
+      <if test="address != null">
+        address = #{address},
+      </if>
+      <if test="descr != null">
+        descr = #{descr},
+      </if>
+      <if test="img != null">
+        img = #{img},
+      </if>
+      <if test="time != null">
+        time = #{time},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+</mapper>

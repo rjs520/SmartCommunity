@@ -87,6 +87,11 @@ const routes = [
         name: 'NurseHouse',
         meta: {name: '养老院信息'},
         component: () => import('../views/manager/NurseHouse')
+      }, {
+        path: 'parking',
+        name: 'Parking',
+        meta: {name: '车位管理'},
+        component: () => import('../views/manager/Parking')
       },
     ]
   },

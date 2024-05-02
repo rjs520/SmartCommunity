@@ -64,6 +64,7 @@
             <el-menu-item index="/activity">社区活动</el-menu-item>
             <el-menu-item index="/serve">社区服务</el-menu-item>
             <el-menu-item index="/nurseHouse">养老院信息</el-menu-item>
+            <el-menu-item index="/parking">车位信息</el-menu-item>
           </el-submenu>
 
           <!-- 用户管理子菜单 -->
