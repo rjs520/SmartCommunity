@@ -76,6 +76,12 @@ const routes = [
         meta: {name: '社区活动'},
         component: () => import('../views/manager/Activity')
       },
+      {
+        path: 'serve',
+        name: 'Serve',
+        meta: {name: '社区服务'},
+        component: () => import('../views/manager/Serve')
+      },
     ]
   },
   {
