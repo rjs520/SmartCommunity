@@ -45,7 +45,7 @@
     <div class="manager-main">
       <!-- 侧边栏 -->
       <div class="manager-main-left">
-        <el-menu :default-active="$route.path" :default-openeds="['info', 'user']" router
+        <el-menu :default-active="$route.path" :default-openeds="['info', 'user','serve']" router
                  style="border: none">
           <!-- 首页菜单项 -->
           <el-menu-item index="/home">
@@ -58,22 +58,30 @@
             <template slot="title">
               <i class="el-icon-menu"></i><span>信息管理</span>
             </template>
-            <el-menu-item index="/notice">公告信息</el-menu-item>
-            <el-menu-item index="/category">资讯分类</el-menu-item>
-            <el-menu-item index="/news">资讯信息</el-menu-item>
-            <el-menu-item index="/activity">社区活动</el-menu-item>
-            <el-menu-item index="/serve">社区服务</el-menu-item>
-            <el-menu-item index="/nurseHouse">养老院信息</el-menu-item>
-            <el-menu-item index="/parking">车位信息</el-menu-item>
+            <el-menu-item index="/notice" class="el-icon-data-board">公告信息
+            </el-menu-item>
+            <el-menu-item index="/category" class="el-icon-postcard">资讯分类</el-menu-item>
+            <el-menu-item index="/news" class="el-icon-position">资讯信息</el-menu-item>
+            <el-menu-item index="/activity" class="el-icon-sunny">社区活动</el-menu-item>
+
+            <el-menu-item index="/nurseHouse" class="el-icon-office-building">养老院信息</el-menu-item>
+            <el-menu-item index="/parking" class="el-icon-location-outline">车位信息</el-menu-item>
           </el-submenu>
 
           <!-- 用户管理子菜单 -->
           <el-submenu index="user">
             <template slot="title">
-              <i class="el-icon-menu"></i><span>用户管理</span>
+              <i class="el-icon-user-solid"></i><span>用户管理</span>
             </template>
-            <el-menu-item index="/admin">管理员信息</el-menu-item>
-            <el-menu-item index="/user">用户信息</el-menu-item>
+            <el-menu-item index="/admin" class="el-icon-user">管理员信息</el-menu-item>
+            <el-menu-item index="/user" class="el-icon-user">用户信息</el-menu-item>
+          </el-submenu>
+          <!-- 服务管理子菜单 -->
+          <el-submenu index="serve">
+            <template slot="title">
+              <i class="el-icon-s-open"></i><span>服务管理</span>
+            </template>
+            <el-menu-item index="/serve" class="el-icon-bangzhu">社区服务</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>
