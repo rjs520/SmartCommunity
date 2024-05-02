@@ -82,6 +82,12 @@ const routes = [
         meta: {name: '社区服务'},
         component: () => import('../views/manager/Serve')
       },
+      {
+        path: 'nurseHouse',
+        name: 'NurseHouse',
+        meta: {name: '养老院信息'},
+        component: () => import('../views/manager/NurseHouse')
+      },
     ]
   },
   {

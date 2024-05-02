@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 定义mapper接口的命名空间 -->
+<mapper namespace="com.rjs.smartcommunity.mapper.NurseHouseMapper">
+
+  <!-- 定义基础列名的SQL片段，供其他SQL语句复用 -->
+  <sql id="Base_Column_List">
+      id,
+      name,
+      price,
+      img,
+      address,
+      count,
+      tags,
+      beds,
+      nature,
+      type,
+      content,
+      area,
+      date,
+      phone,
+      longitude,
+      latitude
+  </sql>
+
+  <!-- 查询所有满足条件的养老院信息 -->
+  <select id="selectAll" resultType="com.rjs.smartcommunity.entity.NurseHouse">
+    select
+    <include refid="Base_Column_List"/>
+    from nurse_house
+    <where>
+      <!-- 根据传入参数动态生成where子句 -->
+      <if test="id != null">and id = #{id}</if>
+      <if test="name != null">and name like concat('%', #{name}, '%')</if>
+      <if test="price != null">and price like concat('%', #{price}, '%')</if>
+      <if test="img != null">and img like concat('%', #{img}, '%')</if>
+      <if test="address != null">and address like concat('%', #{address}, '%')</if>
+      <if test="count != null">and count = #{count}</if>
+      <if test="tags != null">and tags like concat('%', #{tags}, '%')</if>
+      <if test="beds != null">and beds like concat('%', #{beds}, '%')</if>
+      <if test="nature != null">and nature like concat('%', #{nature}, '%')</if>
+      <if test="type != null">and type like concat('%', #{type}, '%')</if>
+      <if test="content != null">and content like concat('%', #{content}, '%')</if>
+      <if test="area != null">and area like concat('%', #{area}, '%')</if>
+      <if test="date != null">and date like concat('%', #{date}, '%')</if>
+      <if test="phone != null">and phone like concat('%', #{phone}, '%')</if>
+      <if test="longitude != null">and longitude like concat('%', #{longitude}, '%')</if>
+      <if test="latitude != null">and latitude like concat('%', #{latitude}, '%')</if>
+    </where>
+    order by id desc
+  </select>
+
+  <!-- 根据id查询养老院详细信息 -->
+  <select id="selectById" resultType="com.rjs.smartcommunity.entity.NurseHouse">
+    select
+    <include refid="Base_Column_List"/>
+    from nurse_house
+    where id = #{id}
+  </select>
+
+  <!-- 根据id删除养老院信息 -->
+  <delete id="deleteById">
+    delete from nurse_house
+    where id = #{id}
+  </delete>
+
+  <!-- 插入新的养老院信息，使用生成的主键 -->
+  <insert id="insert" parameterType="com.rjs.smartcommunity.entity.NurseHouse"
+    useGeneratedKeys="true" keyProperty="id">
+    insert into nurse_house
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <!-- 动态插入列 -->
+      <if test="id != null">id,</if>
+      <if test="name != null">name,</if>
+      <if test="price != null">price,</if>
+      <if test="img != null">img,</if>
+      <if test="address != null">address,</if>
+      <if test="count != null">count,</if>
+      <if test="tags != null">tags,</if>
+      <if test="beds != null">beds,</if>
+      <if test="nature != null">nature,</if>
+      <if test="type != null">type,</if>
+      <if test="content != null">content,</if>
+      <if test="area != null">area,</if>
+      <if test="date != null">date,</if>
+      <if test="phone != null">phone,</if>
+      <if test="longitude != null">longitude,</if>
+      <if test="latitude != null">latitude,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <!-- 动态插入值 -->
+      <if test="id != null">#{id},</if>
+      <if test="name != null">#{name},</if>
+      <if test="price != null">#{price},</if>
+      <if test="img != null">#{img},</if>
+      <if test="address != null">#{address},</if>
+      <if test="count != null">#{count},</if>
+      <if test="tags != null">#{tags},</if>
+      <if test="beds != null">#{beds},</if>
+      <if test="nature != null">#{nature},</if>
+      <if test="type != null">#{type},</if>
+      <if test="content != null">#{content},</if>
+      <if test="area != null">#{area},</if>
+      <if test="date != null">#{date},</if>
+      <if test="phone != null">#{phone},</if>
+      <if test="longitude != null">#{longitude},</if>
+      <if test="latitude != null">#{latitude},</if>
+    </trim>
+  </insert>
+
+  <!-- 根据id更新养老院信息 -->
+  <update id="updateById" parameterType="com.rjs.smartcommunity.entity.NurseHouse">
+    update nurse_house
+    <set>
+      <!-- 动态更新列 -->
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="price != null">
+        price = #{price},
+      </if>
+      <if test="img != null">
+        img = #{img},
+      </if>
+      <if test="address != null">
+        address = #{address},
+      </if>
+      <if test="count != null">
+        count = #{count},
+      </if>
+      <if test="tags != null">
+        tags = #{tags},
+      </if>
+      <if test="beds != null">
+        beds = #{beds},
+      </if>
+      <if test="nature != null">
+        nature = #{nature},
+      </if>
+      <if test="type != null">
+        type = #{type},
+      </if>
+      <if test="content != null">
+        content = #{content},
+      </if>
+      <if test="area != null">
+        area = #{area},
+      </if>
+      <if test="date != null">
+        date = #{date},
+      </if>
+      <if test="phone != null">
+        phone = #{phone},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+</mapper>
