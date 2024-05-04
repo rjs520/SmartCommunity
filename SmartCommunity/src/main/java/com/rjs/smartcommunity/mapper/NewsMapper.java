@@ -5,6 +5,7 @@ import com.rjs.smartcommunity.entity.News;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 公告数据操作接口，使用MyBatis的Mapper注解
@@ -53,4 +54,12 @@ public interface NewsMapper {
      * @return 符合条件的公告列表（List<News>）
      */
     List<News> selectAll(News news);
+
+    /**
+     * 从数据库中选择顶部资讯。
+     *
+     * @param sort 指定排序方式的参数，用于确定资讯的排序方式。
+     * @return 返回一个资讯列表，这些资讯根据指定的排序方式被选为顶部资讯。
+     */
+    List<News> selectTopNews(@Param("sort") String sort);
 }

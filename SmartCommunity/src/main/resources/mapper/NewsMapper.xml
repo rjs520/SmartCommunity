@@ -135,4 +135,15 @@
     <!-- 确定更新条件：id等于传入的id参数 -->
     where id = #{id}
   </update>
+
+  <select id="selectTopNews" resultType="com.rjs.smartcommunity.entity.News">
+    select
+    <include refid="Base_Column_List"/>
+    from news
+    order by
+    <if test="sort == 'new'">id</if>
+    <if test="sort == 'hot'">count</if>
+    desc
+    limit 8
+  </select>
 </mapper>

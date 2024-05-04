@@ -107,4 +107,16 @@ public class NewsServiceImpl implements NewsService {
         // 封装分页结果
         return PageInfo.of(list);
     }
+
+    /**
+     * 从资讯数据库中根据指定排序方式选择顶部资讯。
+     *
+     * @param sort 指定的排序方式，用于筛选顶部资讯。不同的排序方式将影响返回的资讯列表。
+     * @return 返回一个资讯列表，包含根据指定排序方式选择的顶部资讯。返回的列表类型为News类型的集合。
+     */
+    @Override
+    public List<News> selectTopNews(String sort) {
+        // 调用newsMapper中的selectTopNews方法，根据指定排序方式选择顶部资讯
+        return newsMapper.selectTopNews(sort);
+    }
 }

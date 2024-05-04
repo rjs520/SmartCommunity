@@ -65,4 +65,12 @@ public interface NewsService {
      * @return 返回封装了查询结果的分页对象（PageInfo），包含了当前页的公告列表以及总记录数、总页数等信息
      */
     PageInfo<News> selectPage(News news, Integer pageNum, Integer pageSize);
+
+    /**
+     * 从数据库中选择顶部资讯。
+     * 
+     * @param sort 指定排序方式，可以是按照发布日期、点击率等标准。
+     * @return 返回一个资讯列表，这些资讯根据指定的排序方式被认为是顶部资讯。
+     */
+    List<News> selectTopNews(String sort);
 }

@@ -111,4 +111,18 @@ public class NewsController {
         PageInfo<News> page = newsService.selectPage(news, pageNum, pageSize);
         return Result.success(page);
     }
+
+    /**
+     * 从资讯服务中根据指定排序方式获取顶部资讯。
+     *
+     * @param sort 指定的排序方式，用于筛选顶部资讯。
+     * @return 返回一个包含顶部资讯的列表，封装在Result对象中。如果操作成功，Result对象的status为200，data字段为资讯列表。
+     */
+    @GetMapping("/selectTopNews")
+    public Result selectTopNews(@RequestParam String sort) {
+        // 调用newsService中的selectTopNews方法，根据排序方式获取资讯列表
+        List<News> list = newsService.selectTopNews(sort);
+        // 将获取到的资讯列表封装在Result对象中，返回给前端
+        return Result.success(list);
+    }
 }
