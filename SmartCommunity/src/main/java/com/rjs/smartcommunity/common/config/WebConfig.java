@@ -7,37 +7,34 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.annotation.Resource;
 
 /**
- * Spring MVC 配置类
+ * Spring MVC 配置类，用于定制Spring MVC的额外功能，例如拦截器等。
  *
  * @author rjs
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    /** 注入自定义的JWT拦截器对象 */
+    /** 注入自定义的JWT拦截器对象，用于后续配置中。 该注解会将名为jwtInterceptor的Bean注入到当前类的成员变量中。 */
     @Resource private JwtInterceptor jwtInterceptor;
 
     /**
-     * 添加自定义拦截器到Spring MVC框架中，并设置其拦截规则。
+     * 配置自定义拦截器，添加到Spring MVC的拦截器链中。 本方法用于设置拦截器的拦截规则，指定哪些请求需要被拦截，以及排除哪些请求不需要被拦截。
      *
-     * <p>此处将JWT拦截器添加到全局拦截链中，对所有路径（`/**`）进行拦截， 但排除以下路径，即这些路径不受JWT拦截器的影响：
-     *
-     * <ul>
-     *   <li>`/`：根路径
-     *   <li>`/login`：登录接口
-     *   <li>`/register`：注册接口
-     *   <li>`/files/**`：文件资源相关路径
-     * </ul>
-     *
-     * @param registry 拦截器注册器，用于管理Spring MVC中的拦截器配置
+     * @param registry 拦截器注册器，提供方法以添加和配置拦截器。 通过调用其方法，可以指定拦截器拦截的路径和排除的路径。
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        // 将JWT拦截器添加到拦截器链中，并设置拦截和排除的路径规则
         registry.addInterceptor(jwtInterceptor)
+                // 指定所有路径都受JWT拦截器拦截
                 .addPathPatterns("/**")
+                // 但排除根路径
                 .excludePathPatterns("/")
+                // 排除登录接口路径
                 .excludePathPatterns("/login")
+                // 排除注册接口路径
                 .excludePathPatterns("/register")
+                // 排除所有文件资源相关路径
                 .excludePathPatterns("/files/**");
     }
 }

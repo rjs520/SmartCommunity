@@ -8,6 +8,7 @@ module.exports = defineConfig({
 
   // 配置开发服务器（devServer）
   devServer: {
+    host: '0.0.0.0',
     // 设置开发服务器端口为8080
     port: 8080
   },

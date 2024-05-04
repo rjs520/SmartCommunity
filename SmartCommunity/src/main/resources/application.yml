@@ -45,4 +45,4 @@ pagehelper:
   # 自定义分页参数，例如这里的count=countSql
 
 # 本地主机IP地址
-ip: localhost
+ip: 127.0.0.1
