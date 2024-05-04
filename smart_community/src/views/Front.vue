@@ -1,6 +1,7 @@
 <template>
   <div style="background-color: #f6f6f6;">
-    <div class="front-notice"><i class="el-icon-bell" style="margin-right: 2px"></i>公告：{{ top }}</div>
+    <div class="front-notice"><i class="el-icon-bell" style="margin-right: 2px"></i>公告：{{ top }}
+    </div>
     <!--头部-->
     <div class="front-header">
       <div class="front-header-left">
@@ -25,7 +26,8 @@
             <div class="front-header-dropdown">
               <img :src="user.avatar" alt="">
               <div style="margin-left: 10px">
-                <span>{{ user.name }}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
+                <span>{{ user.name }}</span><i class="el-icon-arrow-down"
+                                               style="margin-left: 5px"></i>
               </div>
             </div>
             <el-dropdown-menu slot="dropdown">
@@ -39,18 +41,23 @@
     </div>
     <!--主体-->
     <div class="main-body">
-      <router-view ref="child" @update:user="updateUser" />
+      <router-view ref="child" @update:user="updateUser"/>
     </div>
+    <Footer/>
   </div>
+
 
 </template>
 
 <script>
 
+import Footer from "@/components/Footer.vue";
+
 export default {
   name: "FrontLayout",
+  components: {Footer},
 
-  data () {
+  data() {
     return {
       top: '',
       notice: [],
