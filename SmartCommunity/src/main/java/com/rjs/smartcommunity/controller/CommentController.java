@@ -123,4 +123,33 @@ public class CommentController {
         // 将查询结果封装成成功结果并返回
         return Result.success(list);
     }
+
+    /**
+     * 根据指定的参数查询某模块的评论数量。
+     *
+     * @param fid 分类ID，用于筛选评论的分类。
+     * @param module 模块名称，用于筛选评论所属的模块。
+     * @return 返回一个结果对象，其中包含了查询到的评论数量。
+     */
+    @GetMapping("/selectCount/{fid}/{module}")
+    public Result selectCount(@PathVariable Integer fid, @PathVariable String module) {
+        // 调用服务层方法，查询指定分类和模块下的评论数量
+        int count = commentService.selectCount(fid, module);
+        // 返回成功结果，携带评论数量
+        return Result.success(count);
+    }
+
+    /**
+     * 通过指定ID进行整个列表删除操作。
+     *
+     * @param id 要删除的实体的ID，通过URL路径变量传递。
+     * @return 返回操作结果，如果删除成功，则返回成功的标志。
+     */
+    @DeleteMapping("/deepDelete/{id}")
+    public Result deepDelete(@PathVariable Integer id) {
+        // 调用评论服务进行深度删除操作
+        commentService.deepDelete(id);
+        // 返回删除成功的结果
+        return Result.success();
+    }
 }

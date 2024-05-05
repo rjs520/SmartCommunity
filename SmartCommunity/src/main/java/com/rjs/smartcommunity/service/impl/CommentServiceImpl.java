@@ -1,5 +1,6 @@
 package com.rjs.smartcommunity.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -33,6 +34,21 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void add(Comment comment) {
         comment.setTime(DateUtil.now());
+        if (comment.getPid() != null) {
+            // 表示这是一个回复
+            // 查出父级的评论
+            Comment commentPid = this.selectById(comment.getPid());
+            if (commentPid == null) {
+                return;
+            }
+            if (commentPid.getRootId() != null) {
+                // 这不是根节点
+                comment.setRootId(commentPid.getRootId());
+            } else {
+                // 这是根节点
+                comment.setRootId(commentPid.getId());
+            }
+        }
         // 执行数据插入操作
         commentMapper.insert(comment);
     }
@@ -141,5 +157,41 @@ public class CommentServiceImpl implements CommentService {
         }
 
         return rootList;
+    }
+
+    /**
+     * 根据给定的参数查询评论数量。
+     *
+     * @param fid 分类ID，可选参数，用于筛选特定分类下的评论数量。
+     * @param module 模块名称，可选参数，用于筛选特定模块下的评论数量。
+     * @return 返回评论总数。
+     */
+    @Override
+    public int selectCount(Integer fid, String module) {
+        // 调用commentMapper的selectCount方法查询指定条件下的评论数量
+        return commentMapper.selectCount(fid, module);
+    }
+
+    /**
+     * 前台递归删除评论方法 该方法通过传入的父级评论ID，递归删除该父级评论及其所有子评论。
+     *
+     * @param pid 父级评论的ID，用于删除指定评论及其子评论。
+     */
+    @Override
+    public void deepDelete(Integer pid) {
+        // 删除指定ID的评论
+        commentMapper.deleteById(pid);
+
+        // 查询指定父级评论下的所有子评论
+        List<Comment> children = commentMapper.selectByPid(pid);
+
+        // 如果存在子评论，则对每个子评论递归调用deepDelete进行删除
+        if (CollUtil.isNotEmpty(children)) {
+            for (Comment comment : children) {
+                // 获取子评论的ID，用于递归删除
+                pid = comment.getId();
+                this.deepDelete(pid);
+            }
+        }
     }
 }

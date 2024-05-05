@@ -99,11 +99,35 @@
 
   <!-- 查询特定模块下给定父级ID的评论列表。-->
   <select id="selectTree" resultType="com.rjs.smartcommunity.entity.Comment">
-    select comment.*,user.avatar,user.name as userName
+    select comment.*,user.avatar,user.name as userName,user2.name as replyUser
     from comment
     left join user
     on comment.user_id = user.id
+    left join comment comment2
+    on comment.pid = comment2.id
+    left join user user2
+    on comment2.user_id = user2.id
     where comment.fid = #{fid} and comment.module = #{module}
     order by comment.id desc
+  </select>
+
+  <!--
+    根据给定的fid和module，查询comment表中符合条件的记录总数。
+    参数:
+      fid - 评论所属的ID
+      module - 评论所属的模块
+    返回值:
+      int - 符合条件的记录数
+  -->
+  <select id="selectCount" resultType="int">
+    select count(*) <!-- 计算符合条件的记录总数 -->
+    from comment
+    where fid = #{fid} and module = #{module} <!-- 根据fid和module筛选记录 -->
+  </select>
+
+  <select id="selectByPid" resultType="com.rjs.smartcommunity.entity.Comment">
+    select *
+    from comment
+    where pid = #{pid}
   </select>
 </mapper>

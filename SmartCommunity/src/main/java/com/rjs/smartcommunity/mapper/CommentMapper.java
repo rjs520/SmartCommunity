@@ -61,4 +61,21 @@ public interface CommentMapper {
      * @return 返回一个评论列表，这些评论属于指定的父ID和模块。列表中的每个评论对象可能包含一个子评论列表，形成一棵评论树。
      */
     List<Comment> selectTree(@Param("fid") Integer fid, @Param("module") String module);
+
+    /**
+     * 查询指定条件下的记录数量。
+     *
+     * @param fid 分类ID，用于筛选特定分类的记录。可以为null，表示不根据分类进行筛选。
+     * @param module 模块名称，用于筛选特定模块的记录。不能为空字符串，表示不根据模块进行筛选。
+     * @return 返回符合条件的记录数量。
+     */
+    int selectCount(@Param("fid") Integer fid, @Param("module") String module);
+
+    /**
+     * 根据帖子ID（pid）选择相关的评论列表。
+     *
+     * @param pid 帖子的唯一标识符，用于查询该帖子下的所有评论。
+     * @return 返回一个评论列表，这些评论都属于指定的帖子。
+     */
+    List<Comment> selectByPid(Integer pid);
 }

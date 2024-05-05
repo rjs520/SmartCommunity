@@ -73,4 +73,20 @@ public interface CommentService {
      * @return 返回一个评论列表，这些评论根据指定的父级ID和模块组织成树状结构。
      */
     List<Comment> selectTree(Integer fid, String module);
+
+    /**
+     * 根据给定的参数查询某个模块下的记录数量。
+     *
+     * @param fid 指定的记录ID，如果为null，则查询所有记录。
+     * @param module 指定的模块名称。
+     * @return 返回记录的数量。
+     */
+    int selectCount(Integer fid, String module);
+
+    /**
+     * 对指定记录进行深度删除操作。 该操作将永久性删除指定ID的记录，并且可能涉及相关联数据的删除。
+     *
+     * @param id 要删除的记录的唯一标识符。 该参数不能为空，否则将引发异常。
+     */
+    void deepDelete(Integer id);
 }
