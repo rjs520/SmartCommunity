@@ -108,4 +108,9 @@ public class CommentController {
         PageInfo<Comment> page = commentService.selectPage(comment, pageNum, pageSize);
         return Result.success(page);
     }
+    @GetMapping("/selectTree/{fid}/{module}")
+    public Result selectTree(@PathVariable Integer fid,@PathVariable String module) {
+        List<Comment> list = commentService.selectTree(fid,module);
+        return Result.success(list);
+    }
 }

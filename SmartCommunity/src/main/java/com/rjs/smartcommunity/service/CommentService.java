@@ -64,4 +64,6 @@ public interface CommentService {
      * @return 返回封装了查询结果的分页对象（PageInfo），包含了当前页的评论列表以及总记录数、总页数等信息。
      */
     PageInfo<Comment> selectPage(Comment comment, Integer pageNum, Integer pageSize);
+
+    List<Comment> selectTree(Integer fid, String module);
 }

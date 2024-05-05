@@ -7,6 +7,7 @@ import com.rjs.smartcommunity.entity.Comment;
 import com.rjs.smartcommunity.mapper.CommentMapper;
 import com.rjs.smartcommunity.service.CommentService;
 
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -107,5 +108,23 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> list = commentMapper.selectAll(comment);
         // 封装分页结果
         return PageInfo.of(list);
+    }
+
+    @Override
+    public List<Comment> selectTree(Integer fid, String module) {
+        List<Comment> commentList = commentMapper.selectTree(fid, module);
+        List<Comment> rootList =
+                commentList.stream()
+                        .filter(comment -> comment.getPid() == null)
+                        .collect(Collectors.toList());
+        for (Comment root : rootList) {
+            Integer rootId = root.getId();
+            List<Comment> children =
+                    commentList.stream()
+                            .filter(comment -> rootId.equals(comment.getRootId()))
+                            .collect(Collectors.toList());
+            root.setChildren(children);
+        }
+        return rootList;
     }
 }

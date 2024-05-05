@@ -97,4 +97,13 @@
     where id = #{id}
   </update>
 
+  <select id="selectTree" resultType="com.rjs.smartcommunity.entity.Comment">
+    select comment.*,user.avatar,user.name as userName
+    from comment
+    left join user
+    on comment.user_id = user.id
+    where comment.fid = #{fid} and comment.module = #{module}
+    order by comment.id desc
+  </select>
+
 </mapper>

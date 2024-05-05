@@ -3,6 +3,7 @@ package com.rjs.smartcommunity.mapper;
 import com.rjs.smartcommunity.entity.Comment;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 操作comment相关数据接口
@@ -51,4 +52,6 @@ public interface CommentMapper {
      * @return 返回评论实体列表，如果没有评论则返回空列表
      */
     List<Comment> selectAll(Comment comment);
+
+    List<Comment> selectTree(@Param("fid") Integer fid, @Param("module") String module);
 }
