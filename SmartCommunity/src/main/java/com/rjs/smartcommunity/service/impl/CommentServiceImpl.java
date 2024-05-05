@@ -110,21 +110,36 @@ public class CommentServiceImpl implements CommentService {
         return PageInfo.of(list);
     }
 
+    /**
+     * 根据给定的父级评论ID和模块名称，查询评论树。 这个方法首先从数据库中查询所有相关的评论，然后将它们组织成一个树状结构，其中每个评论节点包含它的子评论。
+     *
+     * @param fid 父级评论的ID。如果想要获取最顶层的评论，则此参数为null。
+     * @param module 评论所属的模块名称。
+     * @return 返回一个包含根评论的列表。每个根评论都包含了它的所有子评论。
+     */
     @Override
     public List<Comment> selectTree(Integer fid, String module) {
+        // 从数据库中查询所有符合条件的评论
         List<Comment> commentList = commentMapper.selectTree(fid, module);
+
+        // 筛选出所有父级评论（即根评论），并收集到一个新地列表中
         List<Comment> rootList =
                 commentList.stream()
                         .filter(comment -> comment.getPid() == null)
                         .collect(Collectors.toList());
+
+        // 遍历所有根评论，为每个根评论查找并设置其子评论列表
         for (Comment root : rootList) {
             Integer rootId = root.getId();
+            // 根据根评论ID筛选出所有子评论，并收集到一个列表中
             List<Comment> children =
                     commentList.stream()
                             .filter(comment -> rootId.equals(comment.getRootId()))
                             .collect(Collectors.toList());
+            // 将找到的子评论列表设置到对应的根评论上
             root.setChildren(children);
         }
+
         return rootList;
     }
 }

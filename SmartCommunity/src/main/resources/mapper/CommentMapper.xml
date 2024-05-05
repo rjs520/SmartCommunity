@@ -97,6 +97,7 @@
     where id = #{id}
   </update>
 
+  <!-- 查询特定模块下给定父级ID的评论列表。-->
   <select id="selectTree" resultType="com.rjs.smartcommunity.entity.Comment">
     select comment.*,user.avatar,user.name as userName
     from comment
@@ -105,5 +106,4 @@
     where comment.fid = #{fid} and comment.module = #{module}
     order by comment.id desc
   </select>
-
 </mapper>

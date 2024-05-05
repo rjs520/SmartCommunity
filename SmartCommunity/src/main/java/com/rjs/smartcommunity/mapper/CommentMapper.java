@@ -53,5 +53,12 @@ public interface CommentMapper {
      */
     List<Comment> selectAll(Comment comment);
 
+    /**
+     * 从数据库中选择评论树。
+     *
+     * @param fid 主键ID，用于指定评论的父ID。如果评论是回复另一个评论，则该ID为回复评论的ID；如果评论是顶级评论，则该ID为null或特定的顶级评论ID。
+     * @param module 模块名称，用于指定评论所属的模块，如文章、视频等。
+     * @return 返回一个评论列表，这些评论属于指定的父ID和模块。列表中的每个评论对象可能包含一个子评论列表，形成一棵评论树。
+     */
     List<Comment> selectTree(@Param("fid") Integer fid, @Param("module") String module);
 }

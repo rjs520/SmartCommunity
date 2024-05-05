@@ -108,9 +108,19 @@ public class CommentController {
         PageInfo<Comment> page = commentService.selectPage(comment, pageNum, pageSize);
         return Result.success(page);
     }
+
+    /**
+     * 根据给定的父ID和模块类型，查询并返回评论树。
+     *
+     * @param fid 父级评论的ID，用于指定评论树的根或特定节点。
+     * @param module 模块类型，用于指定评论所属的模块。
+     * @return Result对象，包含查询成功的评论列表。
+     */
     @GetMapping("/selectTree/{fid}/{module}")
-    public Result selectTree(@PathVariable Integer fid,@PathVariable String module) {
-        List<Comment> list = commentService.selectTree(fid,module);
+    public Result selectTree(@PathVariable Integer fid, @PathVariable String module) {
+        // 通过父ID和模块类型，从评论服务中查询评论树
+        List<Comment> list = commentService.selectTree(fid, module);
+        // 将查询结果封装成成功结果并返回
         return Result.success(list);
     }
 }

@@ -65,5 +65,12 @@ public interface CommentService {
      */
     PageInfo<Comment> selectPage(Comment comment, Integer pageNum, Integer pageSize);
 
+    /**
+     * 选择并构建评论树。
+     *
+     * @param fid 评论的父级ID，用于指定评论的层级关系。如果为根评论，则此参数为null或0。
+     * @param module 评论所属的模块标识，用于限定评论的范围。
+     * @return 返回一个评论列表，这些评论根据指定的父级ID和模块组织成树状结构。
+     */
     List<Comment> selectTree(Integer fid, String module);
 }
