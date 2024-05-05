@@ -82,6 +82,7 @@
               <i class="el-icon-s-open"></i><span>服务管理</span>
             </template>
             <el-menu-item index="/serve" class="el-icon-bangzhu">社区服务</el-menu-item>
+            <el-menu-item index="/comment" class="el-icon-chat-line-square">评论管理</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>

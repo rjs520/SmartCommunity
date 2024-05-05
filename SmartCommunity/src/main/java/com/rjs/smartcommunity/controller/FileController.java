@@ -8,6 +8,7 @@ import cn.hutool.core.util.StrUtil;
 
 import com.rjs.smartcommunity.common.Result;
 
+import java.nio.charset.StandardCharsets;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -122,7 +123,7 @@ public class FileController {
         if (StrUtil.isNotEmpty(flag)) {
             response.addHeader(
                     "Content-Disposition",
-                    "attachment;filename=" + URLEncoder.encode(flag, "UTF-8"));
+                    "attachment;filename=" + URLEncoder.encode(flag, StandardCharsets.UTF_8));
             response.setContentType("application/octet-stream");
             byte[] bytes = FileUtil.readBytes(FILE_PATH + flag);
             os = response.getOutputStream();

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 定义Mapper的命名空间 -->
+<mapper namespace="com.rjs.smartcommunity.mapper.CommentMapper">
+
+  <!-- 定义基础列名 -->
+  <sql id="Base_Column_List">
+      id,
+      content,
+      user_id,
+      pid,
+      root_id,
+      time,
+      fid,
+      module
+  </sql>
+
+  <!-- 查询所有评论，根据条件过滤 -->
+  <select id="selectAll" resultType="com.rjs.smartcommunity.entity.Comment">
+    select
+    <include refid="Base_Column_List"/>
+    from comment
+    <where>
+      <if test="content != null">and content like concat('%', #{content}, '%')</if>
+    </where>
+    order by id desc
+  </select>
+
+  <!-- 根据ID查询评论 -->
+  <select id="selectById" resultType="com.rjs.smartcommunity.entity.Comment">
+    select
+    <include refid="Base_Column_List"/>
+    from comment
+    where id = #{id}
+  </select>
+
+  <!-- 根据ID删除评论 -->
+  <delete id="deleteById">
+    delete from comment
+    where id = #{id}
+  </delete>
+
+  <!-- 插入新的评论 -->
+  <insert id="insert" parameterType="com.rjs.smartcommunity.entity.Comment" useGeneratedKeys="true"
+    keyProperty="id">
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">id,</if>
+      <if test="content != null">content,</if>
+      <if test="userId != null">user_id,</if>
+      <if test="pid != null">pid,</if>
+      <if test="rootId != null">root_id,</if>
+      <if test="time != null">time,</if>
+      <if test="fid != null">fid,</if>
+      <if test="module != null">module,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">#{id},</if>
+      <if test="content != null">#{content},</if>
+      <if test="userId != null">#{userId},</if>
+      <if test="pid != null">#{pid},</if>
+      <if test="rootId != null">#{rootId},</if>
+      <if test="time != null">#{time},</if>
+      <if test="fid != null">#{fid},</if>
+      <if test="module != null">#{module},</if>
+    </trim>
+  </insert>
+
+  <!-- 根据ID更新评论信息 -->
+  <update id="updateById" parameterType="com.rjs.smartcommunity.entity.Comment">
+    update comment
+    <set>
+      <if test="content != null">
+        content = #{content},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId},
+      </if>
+      <if test="pid != null">
+        pid = #{pid},
+      </if>
+      <if test="rootId != null">
+        root_id = #{rootId},
+      </if>
+      <if test="time != null">
+        time = #{time},
+      </if>
+      <if test="fid != null">
+        fid = #{fid},
+      </if>
+      <if test="module != null">
+        module = #{module},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+</mapper>

@@ -93,6 +93,12 @@ const routes = [
         meta: {name: '车位管理'},
         component: () => import('../views/manager/Parking')
       },
+      {
+        path: 'comment',
+        name: 'Comment',
+        meta: {name: '评论管理'},
+        component: () => import('../views/manager/Comment')
+      }
     ]
   },
   {
