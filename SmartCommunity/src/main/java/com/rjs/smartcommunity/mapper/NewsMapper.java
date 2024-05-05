@@ -62,4 +62,11 @@ public interface NewsMapper {
      * @return 返回一个资讯列表，这些资讯根据指定的排序方式被选为顶部资讯。
      */
     List<News> selectTopNews(@Param("sort") String sort);
+
+    /**
+     * 更新计数。 该方法通过指定的ID来更新某个计数器的值。具体实现可能涉及数据库操作或其他数据存储的更新。
+     *
+     * @param id 要更新计数的唯一标识符。是一个整数类型。
+     */
+    void updateCount(Integer id);
 }

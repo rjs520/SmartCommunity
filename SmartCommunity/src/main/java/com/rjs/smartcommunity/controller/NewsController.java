@@ -71,6 +71,21 @@ public class NewsController {
         return Result.success();
     }
 
+   /**
+ * 更新资讯数量。
+ *
+ * @param id 资讯的唯一标识符。
+ * @return 返回操作结果，如果操作成功，则返回成功结果。
+ */
+@PutMapping("/updateCount/{id}")
+public Result updateCount(@PathVariable Integer id) {
+    // 调用资讯服务更新指定ID的资讯数量
+    newsService.updateCount(id);
+    // 返回操作成功的结果
+    return Result.success();
+}
+
+
     /**
      * 根据ID查询咨询信息接口
      *

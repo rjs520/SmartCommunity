@@ -112,6 +112,16 @@ const routes = [
         meta: {name: '个人信息'},
         component: () => import('../views/front/Person')
       },
+      {
+        path: 'newsDetail',
+        name: 'NewsDetail',
+        component: () => import('../views/front/NewsDetail')
+      },
+      {
+        path: 'activityDetail',
+        name: 'ActivityDetail',
+        component: () => import('../views/front/ActivityDetail')
+      },
     ]
   },
   {

@@ -47,8 +47,8 @@
             </div>
           </div>
           <div>
-            <div v-for="item in tableData" :key="item.id" class="card"
-                 style="display: flex; margin-bottom: 10px">
+            <div @click="$router.push('/front/newsDetail?id=' + item.id)" v-for="item in tableData" :key="item.id" class="card"
+                 style="display: flex; margin-bottom: 10px;cursor: pointer">
               <img :src="item.cover" alt="" style="width: 80px; height: 80px; border-radius: 5px">
               <div style="padding-left: 20px">
                 <div style="margin-bottom: 30px; font-size: 18px" class="line1">{{

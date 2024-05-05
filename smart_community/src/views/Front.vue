@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #f6f6f6;">
+  <div style="background-color: #f6f6f6; min-height: 100vh">
     <div class="front-notice"><i class="el-icon-bell" style="margin-right: 2px"></i>公告：{{ top }}
     </div>
     <!--头部-->

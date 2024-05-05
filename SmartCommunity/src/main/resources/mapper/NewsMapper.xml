@@ -101,11 +101,14 @@
 
   <!-- 定义一个基础列列表SQL片段，包含公告表的所有字段，供其他SQL语句引用 -->
   <sql id="Base_Column_List">
-    id,
-    title,
-    content,
-    descr,
-    cover, time, count, category
+      id,
+      title,
+      content,
+      descr,
+      cover,
+      time,
+      count,
+      category
   </sql>
 
   <!-- 定义一个名为updateById的方法，根据传入的id参数更新咨询信息，仅更新非空属性 -->
@@ -149,4 +152,10 @@
     desc
     limit 8
   </select>
+
+  <update id="updateCount">
+    update news
+    set count = count + 1
+    where id = #{id}
+  </update>
 </mapper>

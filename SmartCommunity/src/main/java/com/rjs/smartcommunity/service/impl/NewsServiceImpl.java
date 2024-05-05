@@ -119,4 +119,14 @@ public class NewsServiceImpl implements NewsService {
         // 调用newsMapper中的selectTopNews方法，根据指定排序方式选择顶部资讯
         return newsMapper.selectTopNews(sort);
     }
+
+    /**
+     * 更新资讯计数。
+     *
+     * @param id 资讯的唯一标识符。 该方法通过调用newsMapper的updateCount方法，来更新指定id的资讯的访问计数。 无返回值，操作完成后不返回任何结果。
+     */
+    @Override
+    public void updateCount(Integer id) {
+        newsMapper.updateCount(id);
+    }
 }

@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="fastRequestCurrentParamGroup">
-    <option name="bodyParamMap">
-      <map>
-        <entry key="user">
-          <value>
-            <Object />
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="clasDescription" value="用户前端操作接口控制器，提供RESTful API以供前端进行用户的增删改查及分页查询操作。" />
-    <option name="className" value="com.rjs.smartcommunity.controller.UserController" />
-    <option name="filePath" value="/.fastRequest/collections/Root/SmartCommunity/UserController~add.rapi" />
-    <option name="method" value="add" />
-    <option name="methodDescription" value="新增用户接口。 请求方式：POST 请求地址：/user/add 请求体：JSON格式的对象" />
-    <option name="methodType" value="POST" />
+    <option name="clasDescription" value="前端基础接口控制器" />
+    <option name="className" value="com.rjs.smartcommunity.controller.WebController" />
+    <option name="filePath" value="/.fastRequest/collections/Root/SmartCommunity/WebController~hello.rapi" />
+    <option name="method" value="hello" />
+    <option name="methodDescription" value="主页访问接口" />
     <option name="module" value="SmartCommunity" />
-    <option name="originUrl" value="/user/add" />
+    <option name="originUrl" value="/" />
     <option name="responseParamMap">
       <map>
         <entry key="return">
@@ -29,6 +19,6 @@
     </option>
     <option name="returnDocument" value="{&quot;code&quot;:&quot;响应状态码，通常为HTTP状态码或自定义错误码。&quot;,&quot;msg&quot;:&quot;响应消息，对状态码的简短描述。&quot;,&quot;data&quot;:{}}" />
     <option name="tempId" value="" />
-    <option name="url" value="/user/add" />
+    <option name="url" value="/updatePassword" />
   </component>
 </project>
