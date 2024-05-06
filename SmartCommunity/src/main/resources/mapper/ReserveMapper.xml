@@ -27,6 +27,7 @@
     <where>
       <!-- 根据提供的参数动态生成where子句 -->
       <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>
+      <if test="userId != null">and reserve.user_id =#{userId}</if>
     </where>
     order by id desc
   </select>

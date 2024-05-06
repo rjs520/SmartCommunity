@@ -1,11 +1,16 @@
 package com.rjs.smartcommunity.service.impl;
 
+import cn.hutool.core.date.DateUtil;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.rjs.smartcommunity.common.enums.RoleEnum;
+import com.rjs.smartcommunity.entity.Account;
 import com.rjs.smartcommunity.entity.Reserve;
 import com.rjs.smartcommunity.mapper.ReserveMapper;
 import com.rjs.smartcommunity.service.ReserveService;
 
+import com.rjs.smartcommunity.utils.TokenUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +35,7 @@ public class ReserveServiceImpl implements ReserveService {
      */
     @Override
     public void add(Reserve reserve) {
+        reserve.setTime(DateUtil.now());
         // 执行数据插入操作
         reserveMapper.insert(reserve);
     }
@@ -99,6 +105,10 @@ public class ReserveServiceImpl implements ReserveService {
      */
     @Override
     public PageInfo<Reserve> selectPage(Reserve reserve, Integer pageNum, Integer pageSize) {
+        Account currentUser = TokenUtils.getCurrentUser();
+        if (RoleEnum.USER.name().equals(currentUser.getRole())) {
+            reserve.setUserId(currentUser.getId());
+        }
         // 初始化分页插件
         PageHelper.startPage(pageNum, pageSize);
         // 执行查询操作

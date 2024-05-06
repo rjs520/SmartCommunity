@@ -8,7 +8,7 @@
             <div style="margin: 5px 0">{{ item.name }}</div>
             <div style="margin-bottom: 15px; color: #666; font-size: 12px">{{ item.descr }}</div>
             <div style="text-align: right">
-              <el-button type="primary">预约服务</el-button>
+              <el-button type="primary" @click="addReserve(item.id)">预约服务</el-button>
             </div>
           </div>
         </el-col>
@@ -22,7 +22,8 @@ export default {
   name: "FrontServe",
   data() {
     return {
-      serveList: []
+      serveList: [],
+      user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
     }
   },
   created() {
@@ -33,7 +34,16 @@ export default {
       this.$request.get('/serve/selectAll').then(res => {
         this.serveList = res.data || []
       })
-    }
+    },
+    addReserve(serveId) {
+      this.$request.post('/reserve/add', {serveId: serveId, userId: this.user.id}).then(res => {
+        if (res.code === '200') {
+          this.$message.success('预约成功')
+        } else {
+          this.$message.error(res.msg)
+        }
+      })
+    },
   }
 }
 </script>

@@ -36,6 +36,12 @@
                 <div @click="$router.push('/front/activitySign')">我报名的活动</div>
               </el-dropdown-item>
               <el-dropdown-item>
+                <div @click="$router.push('/front/reserve')">我预约的服务</div>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <div @click="$router.push('/front/person')">个人中心</div>
+              </el-dropdown-item>
+              <el-dropdown-item>
                 <div @click="logout">退出登录</div>
               </el-dropdown-item>
             </el-dropdown-menu>

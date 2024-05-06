@@ -154,6 +154,11 @@ const routes = [
         path: 'serve',
         name: 'Serve',
         component: () => import('../views/front/Serve')
+      },
+      {
+        path: 'reserve',
+        name: 'Reserve',
+        component: () => import('../views/front/Reserve')
       }
     ]
   },
