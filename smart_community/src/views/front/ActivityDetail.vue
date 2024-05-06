@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content">
+  <div class="main-content" style="width: 60%">
     <div class="card">
       <div style="display: flex; grid-gap: 20px">
         <img :src="activity.cover" alt="" style="width: 50%">
@@ -45,12 +45,16 @@
         </div>
       </div>
     </div>
+    <Comment :fid="id" module="activity"/>
   </div>
 </template>
 
 <script>
+import Comment from "@/components/Comment"
+
 export default {
   name: "ActivityDetail",
+  components: {Comment},
   data() {
     return {
       id: this.$route.query.id,

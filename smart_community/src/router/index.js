@@ -128,6 +128,11 @@ const routes = [
         name: 'ActivityDetail',
         component: () => import('../views/front/ActivityDetail')
       },
+      {
+        path: 'activity',
+        name: 'Activity',
+        component: () => import('../views/front/Activity')
+      },
     ]
   },
   {
