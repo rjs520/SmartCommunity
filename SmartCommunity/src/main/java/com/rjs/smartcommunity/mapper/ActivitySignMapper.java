@@ -3,6 +3,7 @@ package com.rjs.smartcommunity.mapper;
 import com.rjs.smartcommunity.entity.ActivitySign;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 操作activity_sign相关数据接口
@@ -51,4 +52,14 @@ public interface ActivitySignMapper {
      * @return 返回activity_sign记录的列表
      */
     List<ActivitySign> selectAll(ActivitySign activitySign);
+
+    /**
+     * 根据活动ID和用户ID查询活动报名信息。
+     *
+     * @param activityId 活动的唯一标识符，用于指定特定的活动。
+     * @param userId 用户的唯一标识符，用于指定特定的用户。
+     * @return 返回一个ActivitySign对象，包含指定活动ID和用户ID的报名信息。
+     */
+    ActivitySign selectByActivityIdAndUserId(
+            @Param("activityId") Integer activityId, @Param("userId") Integer userId);
 }

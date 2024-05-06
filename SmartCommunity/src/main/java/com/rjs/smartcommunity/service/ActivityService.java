@@ -65,4 +65,6 @@ public interface ActivityService {
      * @return 返回封装了查询结果的分页对象（PageInfo），包含了当前页的公告列表以及总记录数、总页数等信息
      */
     PageInfo<Activity> selectPage(Activity activity, Integer pageNum, Integer pageSize);
+
+
 }

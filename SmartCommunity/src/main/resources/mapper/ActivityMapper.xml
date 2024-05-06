@@ -98,14 +98,14 @@
 
   <!-- 定义一个基础列列表SQL片段，包含活动表的所有字段，供其他SQL语句引用 -->
   <sql id="Base_Column_List">
-    id,
-    name,
-    cover,
-    descr,
-    start,
-    end,
-    content,
-    address
+      id,
+      name,
+      cover,
+      descr,
+      start,
+      end,
+      content,
+      address
   </sql>
 
   <!-- 定义一个名为updateById的方法，根据传入的id参数更新活动，仅更新非空属性 -->
@@ -138,4 +138,5 @@
     <!-- 确定更新条件：id等于传入的id参数 -->
     where id = #{id}
   </update>
+
 </mapper>

@@ -63,4 +63,14 @@ public interface ActivitySignService {
      * @return 返回封装了查询结果的分页对象（PageInfo），包含了当前页的活动报名列表以及总记录数、总页数等信息。
      */
     PageInfo<ActivitySign> selectPage(ActivitySign activitySign, Integer pageNum, Integer pageSize);
+
+    /**
+     * 根据活动ID和用户ID进行选择操作的函数。 该方法用于根据提供的活动ID和用户ID在数据库或其他数据存储中查询相关数据或执行特定操作。
+     * 注意：此方法没有返回值，它可能是为了更新数据库或执行某些不返回结果的业务逻辑。
+     *
+     * @param activityId 活动的唯一标识符。用于指定特定的活动。
+     * @param userId 用户的唯一标识符。用于指定特定的用户。
+     * @return 返回一个ActivitySign对象，包含指定活动ID和用户ID的报名信息。
+     */
+    ActivitySign selectByActivityIdAndUserId(Integer activityId, Integer userId);
 }

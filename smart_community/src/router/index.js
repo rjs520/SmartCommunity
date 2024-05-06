@@ -139,6 +139,11 @@ const routes = [
         name: 'Activity',
         component: () => import('../views/front/Activity')
       },
+      {
+        path: 'activitySign',
+        name: 'ActivitySign',
+        component: () => import('../views/front/ActivitySign')
+      }
     ]
   },
   {

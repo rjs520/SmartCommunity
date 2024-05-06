@@ -53,4 +53,6 @@ public interface ActivityMapper {
      * @return 符合条件的公告列表（List<Activity>）
      */
     List<Activity> selectAll(Activity activity);
+
+
 }

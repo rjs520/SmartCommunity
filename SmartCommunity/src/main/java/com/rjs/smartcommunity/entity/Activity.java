@@ -38,4 +38,7 @@ public class Activity implements Serializable {
 
     /** 活动举办地址 */
     private String address;
+
+    /** 活动状态 */
+    private String status;
 }

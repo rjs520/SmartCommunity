@@ -30,6 +30,8 @@ public enum ResultCodeEnum {
     USER_NOT_EXIST_ERROR("5004", "用户不存在"),
     /** 原密码输入错误（自定义错误码5005） */
     PARAM_PASSWORD_ERROR("5005", "原密码输入错误"),
+    /** 已报名（自定义错误码5006） */
+    SIGN_EXIST_ERROR("5006", "已报名"),
     ;
 
     /** 错误码（HTTP状态码或自定义错误码） */

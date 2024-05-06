@@ -19,12 +19,15 @@
   <!-- 查询所有活动签名信息 -->
   <select id="selectAll" resultType="com.rjs.smartcommunity.entity.ActivitySign">
     select
-    activity_sign.*,user.name as userName
+    activity_sign.*,user.name as userName,activity.name as activityName
     from activity_sign
     left join user
     on activity_sign.user_id = user.id
+    left join activity
+    on activity_sign.activity_id = activity.id
     <!-- 动态构建where子句，根据传递的参数条件过滤结果 -->
     <where>
+      <if test="userId != null">and activity_sign.user_id = #{userId}</if>
       <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>
     </where>
     order by activity_sign.id desc
@@ -93,5 +96,12 @@
     </set>
     where id = #{id}
   </update>
+
+  <select id="selectByActivityIdAndUserId"
+    resultType="com.rjs.smartcommunity.entity.ActivitySign">
+    select *
+    from activity_sign
+    where activity_id = #{activityId} and user_id = #{userId} and status != '审核拒绝'
+  </select>
 
 </mapper>
