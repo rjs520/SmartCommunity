@@ -98,7 +98,13 @@ const routes = [
         name: 'Comment',
         meta: {name: '评论管理'},
         component: () => import('../views/manager/Comment')
-      }
+      },
+      {
+        path: 'activitySign',
+        name: 'ActivitySign',
+        meta: {name: '活动报名'},
+        component: () => import('../views/manager/ActivitySign')
+      },
     ]
   },
   {

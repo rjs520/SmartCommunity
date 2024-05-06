@@ -83,6 +83,7 @@
             </template>
             <el-menu-item index="/serve" class="el-icon-bangzhu">社区服务</el-menu-item>
             <el-menu-item index="/comment" class="el-icon-chat-line-square">评论管理</el-menu-item>
+            <el-menu-item index="/activitySign" class="el-icon-trophy">活动报名</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>
