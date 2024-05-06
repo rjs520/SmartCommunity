@@ -81,9 +81,10 @@
             <template slot="title">
               <i class="el-icon-s-open"></i><span>服务管理</span>
             </template>
-            <el-menu-item index="/serve" class="el-icon-bangzhu">社区服务</el-menu-item>
+            <el-menu-item index="/serve" class="el-icon-bangzhu">社区服务管理</el-menu-item>
             <el-menu-item index="/comment" class="el-icon-chat-line-square">评论管理</el-menu-item>
-            <el-menu-item index="/activitySign" class="el-icon-trophy">活动报名</el-menu-item>
+            <el-menu-item index="/activitySign" class="el-icon-trophy">活动报名管理</el-menu-item>
+            <el-menu-item index="/reserve" class="el-icon-tickets">预约服务管理</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>

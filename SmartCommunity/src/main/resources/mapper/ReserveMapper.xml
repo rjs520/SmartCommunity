@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 定义mapper的命名空间 -->
+<mapper namespace="com.rjs.smartcommunity.mapper.ReserveMapper">
+
+  <!-- 定义基础列名，用于在多个SQL语句中重复使用 -->
+  <sql id="Base_Column_List">
+      id,
+      serve_id,
+      user_id,
+      time,
+      status,
+      reason
+  </sql>
+
+  <!-- 查询所有预约信息，支持根据多个条件进行筛选 -->
+  <select id="selectAll" resultType="com.rjs.smartcommunity.entity.Reserve">
+    select
+    reserve.*,serve.name as serveName,user.name as userName
+    from reserve
+    left join serve
+    on reserve.serve_id = serve.id
+    left join user
+    on reserve.user_id = user.id
+    <where>
+      <!-- 根据提供的参数动态生成where子句 -->
+      <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>
+    </where>
+    order by id desc
+  </select>
+
+  <!-- 根据id查询预约信息 -->
+  <select id="selectById" resultType="com.rjs.smartcommunity.entity.Reserve">
+    select
+    <include refid="Base_Column_List"/>
+    from reserve
+    where id = #{id}
+  </select>
+
+  <!-- 根据id删除预约信息 -->
+  <delete id="deleteById">
+    delete from reserve
+    where id = #{id}
+  </delete>
+
+  <!-- 插入新地预约信息，如果id存在则会自动覆盖原有信息 -->
+  <insert id="insert" parameterType="com.rjs.smartcommunity.entity.Reserve" useGeneratedKeys="true"
+    keyProperty="id">
+    insert into reserve
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <!-- 动态插入列名 -->
+      <if test="id != null">id,</if>
+      <if test="serveId != null">serve_id,</if>
+      <if test="userId != null">user_id,</if>
+      <if test="time != null">time,</if>
+      <if test="status != null">status,</if>
+      <if test="reason != null">reason,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <!-- 动态插入值 -->
+      <if test="id != null">#{id},</if>
+      <if test="serveId != null">#{serveId},</if>
+      <if test="userId != null">#{userId},</if>
+      <if test="time != null">#{time},</if>
+      <if test="status != null">#{status},</if>
+      <if test="reason != null">#{reason},</if>
+    </trim>
+  </insert>
+
+  <!-- 根据id更新预约信息 -->
+  <update id="updateById" parameterType="com.rjs.smartcommunity.entity.Reserve">
+    update reserve
+    <set>
+      <!-- 动态更新列 -->
+      <if test="serveId != null">
+        serve_id = #{serveId},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId},
+      </if>
+      <if test="time != null">
+        time = #{time},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="reason != null">
+        reason = #{reason},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+</mapper>

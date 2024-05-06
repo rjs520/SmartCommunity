@@ -102,9 +102,15 @@ const routes = [
       {
         path: 'activitySign',
         name: 'ActivitySign',
-        meta: {name: '活动报名'},
+        meta: {name: '活动报名管理'},
         component: () => import('../views/manager/ActivitySign')
       },
+      {
+        path: 'reserve',
+        name: 'Reserve',
+        meta: {name: '活动预约管理'},
+        component: () => import('../views/manager/Reserve')
+      }
     ]
   },
   {
@@ -143,6 +149,11 @@ const routes = [
         path: 'activitySign',
         name: 'ActivitySign',
         component: () => import('../views/front/ActivitySign')
+      },
+      {
+        path: 'serve',
+        name: 'Serve',
+        component: () => import('../views/front/Serve')
       }
     ]
   },
