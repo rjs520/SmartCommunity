@@ -80,7 +80,7 @@
           <div class="front-notice"><i class="el-icon-bell" style="margin-right: 2px"></i>社区公告：{{ top }}
           </div>
           <div style="margin-bottom: 10px; display: flex; align-items: center">
-            <div style="flex: 1; font-size: 24px; ">社区活动</div>
+            <div style="flex: 1; font-size: 22px; ">社区活动</div>
             <a href="/front/activity">更多>></a>
           </div>
           <div class="card">
