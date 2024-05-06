@@ -110,7 +110,6 @@ export default {
      * @param {Object} commentPid - 父评论对象，用于回复评论
      */
     addComment(commentPid) {
-      console.log(commentPid.replyUser)
       this.form.module = this.module
       this.form.fid = this.fid
       this.form.userId = this.user.id

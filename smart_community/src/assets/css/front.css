@@ -1,9 +1,12 @@
 .front-notice {
-  padding: 5px 20px;
-  color: #666;
-  font-size: 12px
+  font-size: 20px;
+  display: block; /* 让公告成为一个块级元素 */
+  width: 260px;
+  height: 115px;
+  padding: 10px; /* 添加内边距 */
+  margin-bottom: 30px; /* 添加下外边距，创建视觉间隔 */
+  text-align: center; /* 让文本在公告中居中 */
 }
-
 .front-header {
   margin: 0 auto;
   display: flex;

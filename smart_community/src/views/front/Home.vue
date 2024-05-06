@@ -77,6 +77,8 @@
 
         <!--        右边区域-->
         <div style="width: 260px">
+          <div class="front-notice"><i class="el-icon-bell" style="margin-right: 2px"></i>社区公告：{{ top }}
+          </div>
           <div style="margin-bottom: 10px; display: flex; align-items: center">
             <div style="flex: 1; font-size: 24px; ">社区活动</div>
             <a href="/front/activity">更多>></a>
@@ -105,6 +107,8 @@ export default {
 
   data() {
     return {
+      top: '',
+      notice: [],
       imgs: [
         require('@/assets/imgs/carousel/1.png'),
         require('@/assets/imgs/carousel/2.png'),
@@ -114,7 +118,7 @@ export default {
       categoryList: [],
       category: null,
       pageNum: 1,
-      pageSize: 4,
+      pageSize: 5,
       total: 0,
       tableData: [],
       activityList: []
@@ -125,6 +129,7 @@ export default {
     this.loadCategory()
     this.loadCategoryNews(null)
     this.loadActivity()
+    this.loadNotice()
   },
   // methods：本页面所有的点击事件或者其他函数定义区
   methods: {
@@ -165,7 +170,23 @@ export default {
       this.$request.get('/news/selectTopNews?sort=' + this.sort).then(res => {
         this.topNews = res.data || []
       })
-    }
+    },
+    loadNotice() {
+      this.$request.get('/notice/selectAll').then(res => {
+        this.notice = res.data
+        let i = 0
+        if (this.notice && this.notice.length) {
+          this.top = this.notice[0].content
+          setInterval(() => {
+            this.top = this.notice[i].content
+            i++
+            if (i === this.notice.length) {
+              i = 0
+            }
+          }, 2500)
+        }
+      })
+    },
   }
 }
 </script>

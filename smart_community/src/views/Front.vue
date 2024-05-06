@@ -1,7 +1,6 @@
 <template>
   <div style="background-color: #f6f6f6; min-height: 100vh">
-    <div class="front-notice"><i class="el-icon-bell" style="margin-right: 2px"></i>公告：{{ top }}
-    </div>
+
     <!--头部-->
     <div class="front-header">
       <div class="front-header-left">
@@ -63,32 +62,13 @@ export default {
 
   data() {
     return {
-      top: '',
-      notice: [],
       user: JSON.parse(localStorage.getItem("xm-user") || '{}'),
     }
   },
 
   mounted() {
-    this.loadNotice()
   },
   methods: {
-    loadNotice() {
-      this.$request.get('/notice/selectAll').then(res => {
-        this.notice = res.data
-        let i = 0
-        if (this.notice && this.notice.length) {
-          this.top = this.notice[0].content
-          setInterval(() => {
-            this.top = this.notice[i].content
-            i++
-            if (i === this.notice.length) {
-              i = 0
-            }
-          }, 2500)
-        }
-      })
-    },
     updateUser() {
       this.user = JSON.parse(localStorage.getItem('xm-user') || '{}')   // 重新获取下用户的最新信息
     },
