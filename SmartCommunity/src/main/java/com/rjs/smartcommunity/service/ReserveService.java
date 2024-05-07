@@ -1,5 +1,6 @@
 package com.rjs.smartcommunity.service;
 
+import cn.hutool.core.lang.Dict;
 import com.github.pagehelper.PageInfo;
 import com.rjs.smartcommunity.entity.Reserve;
 
@@ -64,4 +65,11 @@ public interface ReserveService {
      * @return 返回封装了查询结果的分页对象（PageInfo），包含了当前页的服务预约列表以及总记录数、总页数等信息。
      */
     PageInfo<Reserve> selectPage(Reserve reserve, Integer pageNum, Integer pageSize);
+
+    /**
+     * 查询并返回字典表中的所有记录数量。
+     *
+     * @return List<Dict> 返回一个包含字典表中所有记录的列表。
+     */
+    List<Dict> selectCount();
 }

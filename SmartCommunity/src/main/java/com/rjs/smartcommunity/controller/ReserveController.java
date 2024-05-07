@@ -1,5 +1,6 @@
 package com.rjs.smartcommunity.controller;
 
+import cn.hutool.core.lang.Dict;
 import com.github.pagehelper.PageInfo;
 import com.rjs.smartcommunity.common.Result;
 import com.rjs.smartcommunity.entity.Reserve;
@@ -106,5 +107,19 @@ public class ReserveController {
             @RequestParam(defaultValue = "10") Integer pageSize) {
         PageInfo<Reserve> page = reserveService.selectPage(reserve, pageNum, pageSize);
         return Result.success(page);
+    }
+
+    /**
+     * 查询并返回字典表中的记录总数。 该方法不接受任何参数，通过调用{@code reserveService.selectCount()}方法查询字典表中的记录总数，
+     * 然后将查询结果封装在{@code Result}对象中返回。
+     *
+     * @return {@code Result}对象，其中包含字典表的记录总数。
+     */
+    @GetMapping("/selectCount")
+    public Result selectCount() {
+        // 通过服务层方法查询字典表记录总数
+        List<Dict> dictList = reserveService.selectCount();
+        // 将查询结果封装成成功结果并返回
+        return Result.success(dictList);
     }
 }

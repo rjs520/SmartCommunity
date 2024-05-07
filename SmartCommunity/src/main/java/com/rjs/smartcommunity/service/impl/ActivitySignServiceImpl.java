@@ -1,7 +1,9 @@
 package com.rjs.smartcommunity.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 
+import cn.hutool.core.lang.Dict;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.rjs.smartcommunity.common.enums.ResultCodeEnum;
@@ -13,6 +15,8 @@ import com.rjs.smartcommunity.mapper.ActivitySignMapper;
 import com.rjs.smartcommunity.service.ActivitySignService;
 
 import com.rjs.smartcommunity.utils.TokenUtils;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -141,5 +145,47 @@ public class ActivitySignServiceImpl implements ActivitySignService {
     public ActivitySign selectByActivityIdAndUserId(Integer activityId, Integer userId) {
         // 调用activityMapper，查询指定活动ID和用户ID的活动信息
         return activitySignMapper.selectByActivityIdAndUserId(activityId, userId);
+    }
+
+    /**
+     * 查询并统计每个活动的报名人数。 该方法首先从数据库中拉取所有活动报名信息，然后筛选出状态为"审核通过"或"待审核"的记录。
+     * 接着，通过活动名称对这些记录进行分组，并统计每个活动的报名人数。 最后，将活动名称和对应的报名人数封装为字典列表返回。
+     *
+     * @return 返回一个列表，每个元素是一个的字典，包含活动名称和该活动的报名人数。
+     */
+    @Override
+    public List<Dict> selectCount() {
+        // 从数据库查询所有的活动报名信息
+        List<ActivitySign> activitySigns = activitySignMapper.selectAll(null);
+
+        // 筛选出状态为"审核通过"或"待审核"的活动报名信息
+        activitySigns =
+                activitySigns.stream()
+                        .filter(
+                                activitySign ->
+                                        "审核通过".equals(activitySign.getStatus())
+                                                || "待审核".equals(activitySign.getStatus()))
+                        .toList();
+
+        // 通过活动名称去重，得到不同的活动名称集合
+        Set<String> set =
+                activitySigns.stream()
+                        .map(ActivitySign::getActivityName)
+                        .collect(Collectors.toSet());
+
+        List<Dict> list = CollUtil.newArrayList();
+        // 遍历活动名称集合，统计每个活动的报名人数，并添加到结果列表中
+        for (String name : set) {
+            long count =
+                    activitySigns.stream()
+                            .filter(activitySign -> activitySign.getActivityName().equals(name))
+                            .count();
+            // 创建字典，记录活动名称和报名人数
+            Dict dict = Dict.create().set("name", name).set("value", count);
+            list.add(dict);
+        }
+
+        // 返回统计结果
+        return list;
     }
 }

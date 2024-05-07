@@ -1,7 +1,9 @@
 package com.rjs.smartcommunity.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 
+import cn.hutool.core.lang.Dict;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.rjs.smartcommunity.common.enums.RoleEnum;
@@ -11,6 +13,8 @@ import com.rjs.smartcommunity.mapper.ReserveMapper;
 import com.rjs.smartcommunity.service.ReserveService;
 
 import com.rjs.smartcommunity.utils.TokenUtils;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -115,5 +119,46 @@ public class ReserveServiceImpl implements ReserveService {
         List<Reserve> list = reserveMapper.selectAll(reserve);
         // 封装分页结果
         return PageInfo.of(list);
+    }
+
+    /**
+     * 查询并统计每个服务的预约数量。 该方法首先从数据库中选出所有预约记录，然后过滤出状态为"审核通过"或"待审核"的记录。 接着，通过服务名称对这些记录进行分组，并统计每个服务的预约数量。
+     * 最后，将结果以Dict列表的形式返回，每个Dict包含一个服务名称和对应的预约数量。
+     *
+     * @return 返回一个包含服务名称和预约数量的Dict列表。
+     */
+    @Override
+    public List<Dict> selectCount() {
+        // 从数据库中查询所有预约记录
+        List<Reserve> reserveList = reserveMapper.selectAll(null);
+
+        // 过滤出状态为"审核通过"或"待审核"的预约记录
+        reserveList =
+                reserveList.stream()
+                        .filter(
+                                reserve ->
+                                        "审核通过".equals(reserve.getStatus())
+                                                || "待审核".equals(reserve.getStatus()))
+                        .toList();
+
+        // 通过服务名称对预约记录进行去重
+        Set<String> set =
+                reserveList.stream().map(Reserve::getServeName).collect(Collectors.toSet());
+
+        // 初始化结果列表
+        List<Dict> list = CollUtil.newArrayList();
+        // 遍历服务名称集合，统计每个服务的预约数量，并添加到结果列表中
+        for (String name : set) {
+            long count =
+                    reserveList.stream()
+                            .filter(reserve -> reserve.getServeName().equals(name))
+                            .count();
+            // 创建Dict对象，记录服务名称和对应的预约数量
+            Dict dict = Dict.create().set("name", name).set("value", count);
+            list.add(dict);
+        }
+
+        // 返回统计结果
+        return list;
     }
 }

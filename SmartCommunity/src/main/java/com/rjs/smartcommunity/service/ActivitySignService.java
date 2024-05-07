@@ -1,5 +1,6 @@
 package com.rjs.smartcommunity.service;
 
+import cn.hutool.core.lang.Dict;
 import com.github.pagehelper.PageInfo;
 import com.rjs.smartcommunity.entity.ActivitySign;
 import java.util.List;
@@ -73,4 +74,11 @@ public interface ActivitySignService {
      * @return 返回一个ActivitySign对象，包含指定活动ID和用户ID的报名信息。
      */
     ActivitySign selectByActivityIdAndUserId(Integer activityId, Integer userId);
+
+    /**
+     * 查询并返回字典表中的所有记录数量。
+     *
+     * @return List<Dict> 返回一个包含字典表中所有记录的列表。
+     */
+    List<Dict> selectCount();
 }

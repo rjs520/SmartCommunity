@@ -1,5 +1,6 @@
 package com.rjs.smartcommunity.controller;
 
+import cn.hutool.core.lang.Dict;
 import com.github.pagehelper.PageInfo;
 import com.rjs.smartcommunity.common.Result;
 import com.rjs.smartcommunity.entity.ActivitySign;
@@ -106,5 +107,18 @@ public class ActivitySignController {
         PageInfo<ActivitySign> page =
                 activitySignService.selectPage(activitySign, pageNum, pageSize);
         return Result.success(page);
+    }
+
+    /**
+     * 查询字典表中记录的数量
+     *
+     * @return Result对象，其中包含查询到的字典列表。如果查询成功，Result的success方法将返回true，否则返回false。
+     */
+    @GetMapping("/selectCount")
+    public Result selectCount() {
+        // 调用activitySignService中的selectCount方法查询字典表中的记录数
+        List<Dict> dictList = activitySignService.selectCount();
+        // 返回查询结果
+        return Result.success(dictList);
     }
 }
