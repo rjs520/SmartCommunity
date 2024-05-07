@@ -164,4 +164,12 @@
     where id = #{id}
   </update>
 
+  <!-- 更新养老院的计数器 -->
+  <update id="updateCount">
+      <!-- 增加指定id的养老院的计数器数值 -->
+      update nurse_house
+      set count = count + 1
+      where id = #{id}
+  </update>
+
 </mapper>

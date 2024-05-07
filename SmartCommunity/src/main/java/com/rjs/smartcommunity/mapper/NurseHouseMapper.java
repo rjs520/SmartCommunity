@@ -51,4 +51,11 @@ public interface NurseHouseMapper {
      * @return 返回养老院映射信息的列表
      */
     List<NurseHouse> selectAll(NurseHouse nurseHouse);
+
+    /**
+     * 更新计数。 该方法通过指定的ID来更新某个计数器的值。具体实现可能涉及数据库操作或其他数据存储的更新。
+     *
+     * @param id 要更新计数的唯一标识符。是一个整数类型。
+     */
+    void updateCount(Integer id);
 }

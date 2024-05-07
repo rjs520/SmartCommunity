@@ -111,4 +111,15 @@ public class NurseHouseServiceImpl implements NurseHouseService {
         // 封装分页结果
         return PageInfo.of(list);
     }
+
+    /**
+     * 更新养老院的计数。
+     *
+     * @param id 养老院的唯一标识符，用于指定需要更新计数的护士站。
+     *     <p>本方法通过调用nurseHouseMapper的updateCount方法，传入指定的id来更新养老院的计数。 该操作不会返回任何结果。
+     */
+    @Override
+    public void updateCount(Integer id) {
+        nurseHouseMapper.updateCount(id);
+    }
 }

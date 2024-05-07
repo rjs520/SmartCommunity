@@ -64,4 +64,11 @@ public interface NurseHouseService {
      * @return 返回封装了查询结果的分页对象（PageInfo），包含了当前页的养老院列表以及总记录数、总页数等信息。
      */
     PageInfo<NurseHouse> selectPage(NurseHouse nurseHouse, Integer pageNum, Integer pageSize);
+
+    /**
+     * 更新计数。 该方法通过指定的ID来更新某个计数器的值。具体实现可能涉及数据库操作或其他数据存储的更新。
+     *
+     * @param id 要更新计数的唯一标识符。是一个整数类型。
+     */
+    void updateCount(Integer id);
 }

@@ -67,6 +67,20 @@ public class NurseHouseController {
     }
 
     /**
+     * 更新计数。
+     *
+     * @param id 养老院的唯一标识符，通过路径变量传递。
+     * @return 返回操作结果，如果操作成功，则返回一个成功的Result对象。
+     */
+    @PutMapping("/updateCount/{id}")
+    public Result updateCount(@PathVariable Integer id) {
+        // 调用服务层方法，更新指定ID的养老院计数
+        nurseHouseService.updateCount(id);
+        // 返回操作成功的结果
+        return Result.success();
+    }
+
+    /**
      * 根据ID查询养老院信息
      *
      * @param id 养老院ID，用于指定查询的养老院
