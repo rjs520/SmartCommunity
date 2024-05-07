@@ -3,15 +3,17 @@
     <div>
       <el-row :gutter="10">
         <el-col :span="6" v-for="item in parkingList" :key="item.id">
-          <div style="margin-bottom: 15px;cursor: pointer"
+          <div class="parking-item"
                @click="$router.push('/front/parkingDetail?id='+ item.id)">
             <img :src="item.img" alt=""
                  style="width: 100%;height: 160px;border-radius: 5px 5px 0 0;display: block ">
             <div
                 style="padding: 10px; background-color: #fff;box-shadow: -3px 3px 3px -2px rgba(0,0,0,0.1), 3px 3px 3px -2px rgba(0,0,0,0.1); ">
-              <div class="line1" style="height: 40px;margin-bottom: 5px;font-size: 20px">{{ item.address }}</div>
+              <div class="line1" style="height: 40px;margin-bottom: 5px;font-size: 20px">
+                {{ item.address }}
+              </div>
               <div style="font-size: 13px;color: #666">{{ item.descr }}</div>
-              <div style="font-size: 12px;color: #666c">{{ item.time}}</div>
+              <div style="font-size: 12px;color: #666c">{{ item.time }}</div>
             </div>
           </div>
         </el-col>
@@ -71,5 +73,10 @@ export default {
 </script>
 
 <style scoped>
+.parking-item {
+  margin-bottom: 15px;
+  cursor: pointer;
+  /* 添加更多样式以优化页面外观 */
+}
 
 </style>

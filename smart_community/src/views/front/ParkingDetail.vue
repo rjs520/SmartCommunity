@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content" style="width: 60%">
+  <div class="main-content parking-detail-content">
     <div class="card">
       <div style="display: flex; grid-gap: 20px">
         <img :src="parking.img" alt="" style="width: 50%;height: 50%">
@@ -106,6 +106,11 @@ export default {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 40px;
+}
+
+.parking-detail-content {
+  width: 60%;
+  /* 添加更多样式以优化页面外观 */
 }
 
 .parking-item {
