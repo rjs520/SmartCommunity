@@ -141,6 +141,11 @@ const routes = [
         component: () => import('../views/front/ActivityDetail')
       },
       {
+        path: 'houseDetail',
+        name: 'HouseDetail',
+        component: () => import('../views/front/HouseDetail')
+      },
+      {
         path: 'activity',
         name: 'Activity',
         component: () => import('../views/front/Activity')
@@ -159,6 +164,11 @@ const routes = [
         path: 'reserve',
         name: 'Reserve',
         component: () => import('../views/front/Reserve')
+      },
+      {
+        path: 'nurseHouse',
+        name: 'NurseHouse',
+        component: () => import('../views/front/NurseHouse')
       }
     ]
   },
