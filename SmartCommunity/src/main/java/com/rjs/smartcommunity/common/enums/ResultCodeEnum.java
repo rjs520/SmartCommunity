@@ -35,10 +35,10 @@ public enum ResultCodeEnum {
     ;
 
     /** 错误码（HTTP状态码或自定义错误码） */
-    public String code;
+    public final String code;
 
     /** 错误描述信息 */
-    public String msg;
+    public final String msg;
 
     /**
      * 构造一个ResultCodeEnum实例，初始化其code和msg字段。
