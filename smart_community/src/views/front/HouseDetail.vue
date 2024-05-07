@@ -61,7 +61,7 @@ export default {
     }
   },
   created() {
-    this.$request.put('/nurseHouse/updateCount/' + this.id).then(res => {
+    this.$request.put('/nurseHouse/updateCount/' + this.id).then(() => {
       this.load()
     })
   },

@@ -21,7 +21,7 @@
               class="avatar-uploader"
           >
             <!-- 显示已上传的头像 -->
-            <img v-if="user.avatar" :src="user.avatar" class="avatar"/>
+            <img v-if="user.avatar" :src="user.avatar" class="avatar" alt=""/>
             <!-- 未上传头像时显示加号图标 -->
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>

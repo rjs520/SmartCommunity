@@ -36,9 +36,9 @@ public class Result {
     public Result() {}
 
     /**
-     * 创建一个成功的响应结果，状态码和消息取自 {@link ResultCodeEnum#SUCCESS}。
+     * 创建一个成功地响应结果，状态码和消息取自 {@link ResultCodeEnum#SUCCESS}。
      *
-     * @return 成功的响应结果对象
+     * @return 成功地响应结果对象
      */
     public static Result success() {
         Result tResult = new Result();

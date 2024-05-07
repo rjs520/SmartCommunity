@@ -3,7 +3,10 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-// 解决导航栏或者底部导航tabBar中的vue-router在3.0版本以上频繁点击菜单报错的问题。
+/**
+ * 解决vue-router 3.0以上版本中，频繁点击菜单报错的问题
+ * 通过修改VueRouter的push方法来实现错误捕获
+ */
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
@@ -11,11 +14,14 @@ VueRouter.prototype.push = function push(location) {
 
 const routes = [
   {
+    // 管理员页面相关路由配置
     path: '/',
     name: 'Manager',
     component: () => import('../views/Manager.vue'),
     redirect: '/home',  // 重定向到主页
     children: [
+      // 管理员权限内的各个子页面
+      // 包括403无权限页面、系统首页、管理员信息、用户信息等
       {
         path: '403',
         name: 'NoAuth',
@@ -113,11 +119,14 @@ const routes = [
       }
     ]
   },
+  // 前台页面相关路由配置
   {
     path: '/front',
     name: 'Front',
     component: () => import('../views/Front.vue'),
     children: [
+      // 前台用户可见的各个子页面
+      // 包括系统首页、个人信息、资讯详情等
       {
         path: 'home',
         name: 'Home',
@@ -172,6 +181,7 @@ const routes = [
       }
     ]
   },
+  // 登录和注册页面的路由配置
   {
     path: '/login',
     name: 'Login',
@@ -184,6 +194,7 @@ const routes = [
     meta: {name: '注册'},
     component: () => import('../views/Register.vue')
   },
+  // 404页面的路由配置
   {
     path: '*',
     name: 'NotFound',
@@ -191,30 +202,13 @@ const routes = [
     component: () => import('../views/404.vue')
   },
 ]
-
+/**
+ * 创建并配置VueRouter实例
+ */
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
-
-// 注：不需要前台的项目，可以注释掉该路由守卫
-// 路由守卫
-// router.beforeEach((to ,from, next) => {
-//   let user = JSON.parse(localStorage.getItem("xm-user") || '{}');
-//   if (to.path === '/') {
-//     if (user.role) {
-//       if (user.role === 'USER') {
-//         next('/front/home')
-//       } else {
-//         next('/home')
-//       }
-//     } else {
-//       next('/login')
-//     }
-//   } else {
-//     next()
-//   }
-// })
 
 export default router

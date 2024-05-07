@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     del(id) {   // 单个删除
-      this.$confirm('您确定取消吗？', '确认取消', {type: "warning"}).then(response => {
+      this.$confirm('您确定取消吗？', '确认取消', {type: "warning"}).then(() => {
         this.$request.delete('/activitySign/delete/' + id).then(res => {
           if (res.code === '200') {   // 表示操作成功
             this.$message.success('操作成功')
@@ -85,7 +85,7 @@ export default {
         this.$message.warning('请选择数据')
         return
       }
-      this.$confirm('您确定批量删除这些数据吗？', '确认删除', {type: "warning"}).then(response => {
+      this.$confirm('您确定批量删除这些数据吗？', '确认删除', {type: "warning"}).then(() => {
         this.$request.delete('/activitySign/delete/batch', {data: this.ids}).then(res => {
           if (res.code === '200') {   // 表示操作成功
             this.$message.success('操作成功')
