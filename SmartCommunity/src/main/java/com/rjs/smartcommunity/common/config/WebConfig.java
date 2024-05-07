@@ -35,6 +35,10 @@ public class WebConfig implements WebMvcConfigurer {
                 // 排除注册接口路径
                 .excludePathPatterns("/register")
                 // 排除所有文件资源相关路径
-                .excludePathPatterns("/files/**");
+                .excludePathPatterns("/files/**")
+                // 排除SpringDoc的路径
+                .excludePathPatterns("/swagger-ui/**")
+                .excludePathPatterns("/v3/api-docs/**")
+                .excludePathPatterns("/swagger-ui.html");
     }
 }
