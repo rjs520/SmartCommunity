@@ -184,7 +184,6 @@ public class ActivitySignServiceImpl implements ActivitySignService {
             Dict dict = Dict.create().set("name", name).set("value", count);
             list.add(dict);
         }
-
         // 返回统计结果
         return list;
     }

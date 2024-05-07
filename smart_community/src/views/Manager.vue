@@ -64,7 +64,8 @@
             <el-menu-item index="/news" class="el-icon-position">资讯信息</el-menu-item>
             <el-menu-item index="/activity" class="el-icon-sunny">社区活动</el-menu-item>
 
-            <el-menu-item index="/nurseHouse" class="el-icon-office-building">养老院信息</el-menu-item>
+            <el-menu-item index="/nurseHouse" class="el-icon-office-building">养老院信息
+            </el-menu-item>
             <el-menu-item index="/parking" class="el-icon-location-outline">车位信息</el-menu-item>
           </el-submenu>
 
@@ -85,6 +86,7 @@
             <el-menu-item index="/comment" class="el-icon-chat-line-square">评论管理</el-menu-item>
             <el-menu-item index="/activitySign" class="el-icon-trophy">活动报名管理</el-menu-item>
             <el-menu-item index="/reserve" class="el-icon-tickets">预约服务管理</el-menu-item>
+            <el-menu-item index="/parkingSign" class="el-icon-truck">车位预约管理</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>

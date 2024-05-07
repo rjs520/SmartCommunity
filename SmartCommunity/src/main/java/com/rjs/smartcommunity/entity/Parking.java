@@ -25,4 +25,7 @@ public class Parking {
 
     /** 车位信息最后更新时间 */
     private String time;
+
+    /** 车位状态 */
+    private String status;
 }

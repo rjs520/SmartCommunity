@@ -116,6 +116,12 @@ const routes = [
         name: 'Reserve',
         meta: {name: '活动预约管理'},
         component: () => import('../views/manager/Reserve')
+      },
+      {
+        path: 'parkingSign',
+        name: 'ParkingSign',
+        meta: {name: '车位预约管理'},
+        component: () => import('../views/manager/ParkingSign')
       }
     ]
   },
@@ -178,6 +184,21 @@ const routes = [
         path: 'nurseHouse',
         name: 'NurseHouse',
         component: () => import('../views/front/NurseHouse')
+      },
+      {
+        path: 'parking',
+        name: 'Parking',
+        component: () => import('../views/front/Parking')
+      },
+      {
+        path: 'parkingDetail',
+        name: 'ParkingDetail',
+        component: () => import('../views/front/ParkingDetail')
+      },
+      {
+        path: 'parkingSign',
+        name: 'ParkingSign',
+        component: () => import('../views/front/ParkingSign')
       }
     ]
   },

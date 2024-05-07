@@ -4,9 +4,14 @@ import cn.hutool.core.date.DateUtil;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.rjs.smartcommunity.common.enums.ParkingStatusEnum;
+import com.rjs.smartcommunity.entity.Account;
 import com.rjs.smartcommunity.entity.Parking;
+import com.rjs.smartcommunity.entity.ParkingSign;
 import com.rjs.smartcommunity.mapper.ParkingMapper;
 import com.rjs.smartcommunity.service.ParkingService;
+import com.rjs.smartcommunity.service.ParkingSignService;
+import com.rjs.smartcommunity.utils.TokenUtils;
 
 import org.springframework.stereotype.Service;
 
@@ -22,6 +27,13 @@ public class ParkingServiceImpl implements ParkingService {
 
     /** 车位数据操作接口注入 */
     @Resource private ParkingMapper parkingMapper;
+
+    /**
+     * 通过@Resource注解自动注入ParkingSignService实例。
+     * 该注入方式基于Java标准的JSR-250规范，它可以将符合指定名称或类型的服务自动注入到当前类的成员变量中。
+     * 这里注入的ParkingSignService用于处理与停车标志相关的业务逻辑。
+     */
+    @Resource private ParkingSignService parkingSignService;
 
     /**
      * 新增车位
@@ -77,7 +89,16 @@ public class ParkingServiceImpl implements ParkingService {
      */
     @Override
     public Parking selectById(Integer id) {
-        return parkingMapper.selectById(id);
+        Parking parking = parkingMapper.selectById(id);
+        Account currentUser = TokenUtils.getCurrentUser();
+        ParkingSign parkingSign =
+                parkingSignService.selectByParkingIdAndUserId(id, currentUser.getId());
+        if (parkingSign == null) {
+            parking.setStatus(ParkingStatusEnum.NOT_APPOINTMENT.getStatus());
+        } else {
+            parking.setStatus(ParkingStatusEnum.IS_APPOINTMENT.getStatus());
+        }
+        return parking;
     }
 
     /**

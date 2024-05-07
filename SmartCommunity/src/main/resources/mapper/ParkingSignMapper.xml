@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 定义mapper的命名空间 -->
+<mapper namespace="com.rjs.smartcommunity.mapper.ParkingSignMapper">
+
+  <!-- 定义基础列名的SQL片段，供其他SQL语句复用 -->
+  <sql id="Base_Column_List">
+      id,
+      parking_id,
+      phone,
+      date,
+      user_id,
+      status,
+      reason
+  </sql>
+
+  <!-- 查询所有停车标志的信息 -->
+  <select id="selectAll" resultType="com.rjs.smartcommunity.entity.ParkingSign">
+    select parking_sign.*,user.name as userName,parking.address as parkingAddress
+    from parking_sign
+    left join user
+    on parking_sign.user_id = user.id
+    left join parking
+    on parking_sign.parking_id = parking.id
+    <!-- 使用if标签进行条件动态拼接SQL -->
+    <where>
+      <if test="userId != null">and parking_sign.user_id = #{userId}</if>
+      <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>
+    </where>
+    order by parking_sign.id desc
+  </select>
+
+  <!-- 根据ID查询停车标志信息 -->
+  <select id="selectById" resultType="com.rjs.smartcommunity.entity.ParkingSign">
+    select
+    <include refid="Base_Column_List"/>
+    from parking_sign
+    where id = #{id}
+  </select>
+
+  <!-- 根据ID删除停车标志 -->
+  <delete id="deleteById">
+    delete from parking_sign
+    where id = #{id}
+  </delete>
+
+  <!-- 插入新地停车标志信息 -->
+  <insert id="insert" parameterType="com.rjs.smartcommunity.entity.ParkingSign"
+    useGeneratedKeys="true" keyProperty="id">
+    insert into parking_sign
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">id,</if>
+      <if test="parkingId != null">parking_id,</if>
+      <if test="phone != null">phone,</if>
+      <if test="date != null">date,</if>
+      <if test="userId != null">user_id,</if>
+      <if test="status != null">status,</if>
+      <if test="reason != null">reason,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">#{id},</if>
+      <if test="parkingId != null">#{parkingId},</if>
+      <if test="phone != null">#{phone},</if>
+      <if test="date != null">#{date},</if>
+      <if test="userId != null">#{userId},</if>
+      <if test="status != null">#{status},</if>
+      <if test="reason != null">#{reason},</if>
+    </trim>
+  </insert>
+
+  <!-- 根据ID更新停车标志信息 -->
+  <update id="updateById" parameterType="com.rjs.smartcommunity.entity.ParkingSign">
+    update parking_sign
+    <set>
+      <if test="parkingId != null">
+        parking_id = #{parkingId},
+      </if>
+      <if test="phone != null">
+        phone = #{phone},
+      </if>
+      <if test="date != null">
+        date = #{date},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="reason != null">
+        reason = #{reason},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <select id="selectByParkingIdAndUserId"
+    resultType="com.rjs.smartcommunity.entity.ParkingSign">
+    select *
+    from parking_sign
+    where parking_id = #{parkingId} and user_id = #{userId} and status != '审核拒绝'
+  </select>
+
+</mapper>

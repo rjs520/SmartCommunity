@@ -32,7 +32,7 @@ public enum ResultCodeEnum {
     PARAM_PASSWORD_ERROR("5005", "原密码输入错误"),
     /** 已报名（自定义错误码5006） */
     SIGN_EXIST_ERROR("5006", "已报名"),
-    ;
+    APPOINTMENT_EXIST_ERROR("5007", "已预约");
 
     /** 错误码（HTTP状态码或自定义错误码） */
     public final String code;
