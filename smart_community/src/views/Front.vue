@@ -14,7 +14,7 @@
             <el-menu-item index="/front/activity">社区活动</el-menu-item>
             <el-menu-item index="/front/serve">社区服务</el-menu-item>
             <el-menu-item index="/front/nurseHouse">养老院</el-menu-item>
-            <el-menu-item index="/front/parking">停车场</el-menu-item>
+            <el-menu-item index="/front/parking">小区车位</el-menu-item>
             <el-menu-item index="/front/person">个人中心</el-menu-item>
           </el-menu>
         </div>
