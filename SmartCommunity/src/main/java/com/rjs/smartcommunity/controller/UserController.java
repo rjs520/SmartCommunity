@@ -5,6 +5,13 @@ import com.rjs.smartcommunity.common.Result;
 import com.rjs.smartcommunity.entity.User;
 import com.rjs.smartcommunity.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +23,7 @@ import javax.annotation.Resource;
  *
  * @author rjs
  */
+@Tag(name = "UserController", description = "用户前端操作接口控制器")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -29,6 +37,16 @@ public class UserController {
      * @param user 待新增的用户对象，包含所需的所有属性信息
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"表示成功
      */
+    @Operation(summary = "新增用户接口", description = "新增用户接口")
+    @Parameter(name = "user", description = "待新增的用户对象，包含所需的所有属性信息", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "成功"),
+                @ApiResponse(responseCode = "5001", description = "用户名已存在"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "4001", description = "参数缺失"),
+                @ApiResponse(responseCode = "500", description = "系统异常")
+            })
     @PostMapping("/add")
     public Result add(@RequestBody User user) {
         userService.add(user);
@@ -41,6 +59,16 @@ public class UserController {
      * @param id 要删除的用户ID
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"表示成功
      */
+    @Operation(summary = "根据ID删除用户接口", description = "根据ID删除用户接口")
+    @Parameter(name = "id", description = "要删除的用户ID", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "成功"),
+                @ApiResponse(responseCode = "5004", description = "用户不存在"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "4001", description = "参数缺失"),
+                @ApiResponse(responseCode = "500", description = "系统异常")
+            })
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
         userService.deleteById(id);
@@ -53,6 +81,16 @@ public class UserController {
      * @param ids 要批量删除的用户ID列表
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"表示成功
      */
+    @Operation(summary = "批量删除用户接口", description = "批量删除用户接口")
+    @Parameter(name = "ids", description = "要批量删除的用户ID列表", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "成功"),
+                @ApiResponse(responseCode = "5004", description = "用户不存在"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "4001", description = "参数缺失"),
+                @ApiResponse(responseCode = "500", description = "系统异常")
+            })
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
         userService.deleteBatch(ids);
@@ -65,6 +103,16 @@ public class UserController {
      * @param user 更新后的用户对象，包含需要修改的属性信息
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"表示成功
      */
+    @Operation(summary = "更新用户接口", description = "更新用户接口")
+    @Parameter(name = "user", description = "更新后的用户对象，包含需要修改的属性信息", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "成功"),
+                @ApiResponse(responseCode = "5004", description = "用户不存在"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "4001", description = "参数缺失"),
+                @ApiResponse(responseCode = "500", description = "系统异常")
+            })
     @PutMapping("/update")
     public Result updateById(@RequestBody User user) {
         userService.updateById(user);
@@ -77,6 +125,16 @@ public class UserController {
      * @param id 要查询的用户ID
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"，数据部分包含查询到的用户对象
      */
+    @Operation(summary = "根据ID查询用户接口", description = "根据ID查询用户接口")
+    @Parameter(name = "id", description = "要查询的用户ID", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "成功"),
+                @ApiResponse(responseCode = "5004", description = "用户不存在"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "4001", description = "参数缺失"),
+                @ApiResponse(responseCode = "500", description = "系统异常")
+            })
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
         User user = userService.selectById(id);
@@ -89,6 +147,16 @@ public class UserController {
      * @param user 可选的查询条件对象，包含部分或全部属性信息
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"，数据部分包含查询到的用户列表
      */
+    @Operation(summary = "查询所有用户接口", description = "查询所有用户接口")
+    @Parameter(name = "user", description = "可选的查询条件对象，包含部分或全部属性信息")
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "成功"),
+                @ApiResponse(responseCode = "5004", description = "用户不存在"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "4001", description = "参数缺失"),
+                @ApiResponse(responseCode = "500", description = "系统异常")
+            })
     @GetMapping("/selectAll")
     public Result selectAll(User user) {
         List<User> list = userService.selectAll(user);
@@ -104,6 +172,20 @@ public class UserController {
      * @param pageSize 每页记录数
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"，数据部分包含分页查询结果的封装对象（{@link PageInfo}）
      */
+    @Operation(summary = "分页查询用户接口", description = "分页查询用户接口")
+    @Parameters({
+        @Parameter(name = "user", description = "可选的查询条件对象，包含部分或全部属性信息"),
+        @Parameter(name = "pageNum", description = "当前页码，默认为1"),
+        @Parameter(name = "pageSize", description = "每页记录数，默认为10")
+    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "成功"),
+                @ApiResponse(responseCode = "5004", description = "用户不存在"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "4001", description = "参数缺失"),
+                @ApiResponse(responseCode = "500", description = "系统异常")
+            })
     @GetMapping("/selectPage")
     public Result selectPage(
             User user,

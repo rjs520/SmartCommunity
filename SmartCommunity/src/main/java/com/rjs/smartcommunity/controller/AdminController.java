@@ -5,6 +5,10 @@ import com.rjs.smartcommunity.common.Result;
 import com.rjs.smartcommunity.entity.Admin;
 import com.rjs.smartcommunity.service.AdminService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +20,7 @@ import javax.annotation.Resource;
  *
  * @author rjs
  */
+@Tag(name = "Admin", description = "管理员相关操作")
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -29,6 +34,8 @@ public class AdminController {
      * @param admin 待新增的管理员对象，包含所需的所有属性信息
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"表示成功
      */
+    @Operation(summary = "新增管理员", description = "新增管理员")
+    @Parameter(name = "admin", description = "管理员对象", required = true)
     @PostMapping("/add")
     public Result add(@RequestBody Admin admin) {
         adminService.add(admin);
@@ -41,6 +48,8 @@ public class AdminController {
      * @param id 要删除的管理员ID
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"表示成功
      */
+    @Operation(summary = "删除管理员", description = "根据ID删除管理员")
+    @Parameter(name = "id", description = "管理员ID", required = true)
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
         adminService.deleteById(id);
@@ -53,6 +62,8 @@ public class AdminController {
      * @param ids 要批量删除的管理员ID列表
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"表示成功
      */
+    @Operation(summary = "批量删除管理员", description = "批量删除管理员")
+    @Parameter(name = "ids", description = "管理员ID列表", required = true)
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
         adminService.deleteBatch(ids);
@@ -65,6 +76,8 @@ public class AdminController {
      * @param admin 更新后的管理员对象，包含需要修改的属性信息
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"表示成功
      */
+    @Operation(summary = "更新管理员", description = "更新管理员")
+    @Parameter(name = "admin", description = "管理员对象", required = true)
     @PutMapping("/update")
     public Result updateById(@RequestBody Admin admin) {
         adminService.updateById(admin);
@@ -77,6 +90,8 @@ public class AdminController {
      * @param id 要查询的管理员ID
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"，数据部分包含查询到的管理员对象
      */
+    @Operation(summary = "根据ID查询管理员", description = "根据ID查询管理员")
+    @Parameter(name = "id", description = "管理员ID", required = true)
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
         Admin admin = adminService.selectById(id);
@@ -89,6 +104,8 @@ public class AdminController {
      * @param admin 可选的查询条件对象，包含部分或全部属性信息
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"，数据部分包含查询到的管理员列表
      */
+    @Operation(summary = "查询所有管理员", description = "查询所有管理员")
+    @Parameter(name = "admin", description = "管理员对象")
     @GetMapping("/selectAll")
     public Result selectAll(Admin admin) {
         List<Admin> list = adminService.selectAll(admin);
@@ -104,6 +121,12 @@ public class AdminController {
      * @param pageSize 每页记录数
      * @return 返回表示操作结果的{@link Result}对象，状态码为"200"，数据部分包含分页查询结果的封装对象（{@link PageInfo}）
      */
+    @Operation(summary = "分页查询管理员", description = "分页查询管理员")
+    @Parameters({
+        @Parameter(name = "admin", description = "管理员对象"),
+        @Parameter(name = "pageNum", description = "当前页码"),
+        @Parameter(name = "pageSize", description = "每页记录数")
+    })
     @GetMapping("/selectPage")
     public Result selectPage(
             Admin admin,

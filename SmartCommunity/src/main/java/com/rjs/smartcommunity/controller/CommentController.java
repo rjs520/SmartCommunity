@@ -4,6 +4,10 @@ import com.github.pagehelper.PageInfo;
 import com.rjs.smartcommunity.common.Result;
 import com.rjs.smartcommunity.entity.Comment;
 import com.rjs.smartcommunity.service.CommentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,6 +18,7 @@ import java.util.List;
  *
  * @author rjs
  */
+@Tag(name = "CommentController", description = "评论信息表前端操作接口")
 @RestController
 @RequestMapping("/comment")
 public class CommentController {
@@ -26,6 +31,8 @@ public class CommentController {
      * @param comment 包含评论内容的对象
      * @return 返回操作结果，成功则返回success结果
      */
+    @Operation(summary = "新增评论", description = "新增评论")
+    @Parameter(name = "comment", description = "评论信息", required = true)
     @PostMapping("/add")
     public Result add(@RequestBody Comment comment) {
         commentService.add(comment);
@@ -38,6 +45,8 @@ public class CommentController {
      * @param id 需要删除的评论的ID
      * @return 返回操作结果，成功则返回success结果
      */
+    @Operation(summary = "根据ID删除评论", description = "根据ID删除评论")
+    @Parameter(name = "id", description = "评论ID", required = true)
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
         commentService.deleteById(id);
@@ -50,6 +59,8 @@ public class CommentController {
      * @param ids 需要删除的评论的ID列表
      * @return 返回操作结果，成功则返回success结果
      */
+    @Operation(summary = "批量删除评论", description = "批量删除评论")
+    @Parameter(name = "ids", description = "评论ID列表", required = true)
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
         commentService.deleteBatch(ids);
@@ -62,6 +73,8 @@ public class CommentController {
      * @param comment 包含更新后的评论信息的对象
      * @return 返回操作结果，成功则返回success结果
      */
+    @Operation(summary = "根据ID修改评论", description = "根据ID修改评论")
+    @Parameter(name = "comment", description = "评论信息", required = true)
     @PutMapping("/update")
     public Result updateById(@RequestBody Comment comment) {
         commentService.updateById(comment);
@@ -74,6 +87,8 @@ public class CommentController {
      * @param id 需要查询的评论的ID
      * @return 返回操作结果，包含查询到的评论对象
      */
+    @Operation(summary = "根据ID查询评论", description = "根据ID查询评论")
+    @Parameter(name = "id", description = "评论ID", required = true)
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
         Comment comment = commentService.selectById(id);
@@ -86,6 +101,8 @@ public class CommentController {
      * @param comment 包含查询条件的对象（可选）
      * @return 返回操作结果，包含所有评论的列表
      */
+    @Operation(summary = "查询所有评论", description = "查询所有评论")
+    @Parameter(name = "comment", description = "评论信息")
     @GetMapping("/selectAll")
     public Result selectAll(Comment comment) {
         List<Comment> list = commentService.selectAll(comment);
@@ -100,6 +117,12 @@ public class CommentController {
      * @param pageSize 每页显示的数量，默认为10
      * @return 返回操作结果，包含分页信息和评论列表
      */
+    @Operation(summary = "分页查询评论", description = "分页查询评论")
+    @Parameters({
+        @Parameter(name = "comment", description = "评论信息"),
+        @Parameter(name = "pageNum", description = "页码"),
+        @Parameter(name = "pageSize", description = "每页显示数量")
+    })
     @GetMapping("/selectPage")
     public Result selectPage(
             Comment comment,
@@ -116,6 +139,11 @@ public class CommentController {
      * @param module 模块类型，用于指定评论所属的模块。
      * @return Result对象，包含查询成功的评论列表。
      */
+    @Operation(summary = "根据给定的父ID和模块类型，查询并返回评论树", description = "根据给定的父ID和模块类型，查询并返回评论树")
+    @Parameters({
+        @Parameter(name = "fid", description = "父级评论ID"),
+        @Parameter(name = "module", description = "模块类型")
+    })
     @GetMapping("/selectTree/{fid}/{module}")
     public Result selectTree(@PathVariable Integer fid, @PathVariable String module) {
         // 通过父ID和模块类型，从评论服务中查询评论树
@@ -131,6 +159,11 @@ public class CommentController {
      * @param module 模块名称，用于筛选评论所属的模块。
      * @return 返回一个结果对象，其中包含了查询到的评论数量。
      */
+    @Operation(summary = "根据指定的参数查询某模块的评论数量", description = "根据指定的参数查询某模块的评论数量")
+    @Parameters({
+        @Parameter(name = "fid", description = "分类ID"),
+        @Parameter(name = "module", description = "模块名称")
+    })
     @GetMapping("/selectCount/{fid}/{module}")
     public Result selectCount(@PathVariable Integer fid, @PathVariable String module) {
         // 调用服务层方法，查询指定分类和模块下的评论数量
@@ -145,6 +178,8 @@ public class CommentController {
      * @param id 要删除的实体的ID，通过URL路径变量传递。
      * @return 返回操作结果，如果删除成功，则返回成功的标志。
      */
+    @Operation(summary = "通过指定ID进行整个列表删除操作", description = "通过指定ID进行整个列表删除操作")
+    @Parameter(name = "id", description = "评论ID")
     @DeleteMapping("/deepDelete/{id}")
     public Result deepDelete(@PathVariable Integer id) {
         // 调用评论服务进行深度删除操作

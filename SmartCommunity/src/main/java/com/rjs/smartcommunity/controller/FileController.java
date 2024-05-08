@@ -8,6 +8,9 @@ import cn.hutool.core.util.StrUtil;
 
 import com.rjs.smartcommunity.common.Result;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.nio.charset.StandardCharsets;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rjs
  */
+@Tag(name = "FileController", description = "文件上传下载接口")
 @RestController
 @RequestMapping("/files")
 public class FileController {
@@ -44,6 +48,8 @@ public class FileController {
      * @param file 上传的文件对象（MultipartFile类型）
      * @return Result 对象，包含上传成功后的文件访问URL
      */
+    @Operation(summary = "文件上传接口", description = "上传文件到服务器")
+    @Parameter(name = "file", description = "上传的文件对象", required = true)
     @PostMapping("/upload")
     public Result upload(MultipartFile file) {
         String flag;
@@ -57,18 +63,14 @@ public class FileController {
                 FileUtil.mkdir(FILE_PATH);
             }
             // 文件存储形式：时间戳-文件名
-            FileUtil.writeBytes(
-                    file.getBytes(),
-                    FILE_PATH + flag + "-" + fileName);
+            FileUtil.writeBytes(file.getBytes(), FILE_PATH + flag + "-" + fileName);
             System.out.println(fileName + "--上传成功");
 
         } catch (Exception e) {
             System.err.println(fileName + "--文件上传失败");
         }
         String http = "http://" + ip + ":" + port + "/files/";
-        return Result.success(
-                http + flag + "-"
-                        + fileName);
+        return Result.success(http + flag + "-" + fileName);
     }
 
     /**
@@ -77,6 +79,8 @@ public class FileController {
      * @param file 用户上传的文件，通过MultipartFile接收。
      * @return 返回一个包含上传文件信息的Dict对象。
      */
+    @Operation(summary = "富文本文件上传接口", description = "上传富文本编辑器中的图片文件")
+    @Parameter(name = "file", description = "上传的文件对象", required = true)
     @PostMapping("/editor/upload")
     public Dict editorUpload(MultipartFile file) {
         String flag;
@@ -116,6 +120,8 @@ public class FileController {
      * @param response HttpServletResponse对象，用于设置响应头和输出文件内容
      * @throws Exception 若文件不存在或读取失败，抛出异常
      */
+    @Operation(summary = "文件下载接口", description = "下载文件")
+    @Parameter(name = "flag", description = "文件标识", required = true)
     @GetMapping("/{flag}")
     public void avatarPath(@PathVariable String flag, HttpServletResponse response)
             throws Exception {
@@ -138,6 +144,8 @@ public class FileController {
      *
      * @param flag 文件标识（由上传时的时间戳与原始文件名组合而成）
      */
+    @Operation(summary = "文件删除接口", description = "删除文件")
+    @Parameter(name = "flag", description = "文件标识", required = true)
     @DeleteMapping("/{flag}")
     public void delFile(@PathVariable String flag) {
         FileUtil.del(FILE_PATH + flag);

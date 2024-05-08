@@ -10,6 +10,11 @@ import com.rjs.smartcommunity.entity.Account;
 import com.rjs.smartcommunity.service.AdminService;
 import com.rjs.smartcommunity.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,6 +24,7 @@ import javax.annotation.Resource;
  *
  * @author rjs
  */
+@Tag(name = "WebController", description = "前端基础接口控制器")
 @RestController
 public class WebController {
 
@@ -33,6 +39,12 @@ public class WebController {
      *
      * @return Result 对象，包含消息"访问成功"
      */
+    @Operation(summary = "主页访问接口", description = "主页访问接口")
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "访问成功"),
+                @ApiResponse(responseCode = "400", description = "参数异常")
+            })
     @GetMapping("/")
     public Result hello() {
         return Result.success("访问成功");
@@ -44,6 +56,15 @@ public class WebController {
      * @param account 登录账号信息对象（Account实体类）
      * @return Result 对象，包含登录成功的账号信息（若为管理员，则经过AdminService.login处理）；或错误信息（如参数缺失）
      */
+    @Operation(summary = "用户登录接口", description = "用户登录接口")
+    @Parameter(name = "account", description = "登录账号信息对象（Account实体类）", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "成功"),
+                @ApiResponse(responseCode = "4001", description = "参数缺失"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "5003", description = "账号或密码错误")
+            })
     @PostMapping("/login")
     public Result login(@RequestBody Account account) {
         // 检查传入的登录请求参数是否完整（包含用户名、密码、角色）
@@ -74,6 +95,15 @@ public class WebController {
      * @param account 注册账号信息对象（Account实体类）
      * @return Result 对象，表示注册操作成功；或错误信息（如参数缺失）
      */
+    @Operation(summary = "用户注册接口", description = "用户注册接口")
+    @Parameter(name = "account", description = "注册账号信息对象（Account实体类）", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "成功"),
+                @ApiResponse(responseCode = "4001", description = "参数缺失"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "5001", description = "用户名已存在")
+            })
     @PostMapping("/register")
     public Result register(@RequestBody Account account) {
         if (StrUtil.isBlank(account.getUsername())
@@ -95,6 +125,15 @@ public class WebController {
      * @param account 包含用户名、原密码、新密码的账号信息对象（Account实体类）
      * @return Result 对象，表示修改密码操作成功；或错误信息（如参数缺失）
      */
+    @Operation(summary = "修改用户密码接口", description = "修改用户密码接口")
+    @Parameter(name = "account", description = "包含用户名、原密码、新密码的账号信息对象（Account实体类）", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "成功"),
+                @ApiResponse(responseCode = "4001", description = "参数缺失"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "5005", description = "原密码输入错误")
+            })
     @PutMapping("/updatePassword")
     public Result updatePassword(@RequestBody Account account) {
         if (StrUtil.isBlank(account.getUsername())
