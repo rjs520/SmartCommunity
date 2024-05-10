@@ -13,10 +13,10 @@ import lombok.Setter;
 public class Category {
 
     /** 资讯ID */
-    @Schema(description = "资讯分类ID")
+    @Schema(description = "资讯分类ID", example = "1")
     private Integer id;
 
     /** 资讯分类名 */
-    @Schema(description = "资讯分类名")
+    @Schema(description = "资讯分类名", example = "社区新闻")
     private String name;
 }

@@ -12,9 +12,12 @@ import com.rjs.smartcommunity.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -42,8 +45,15 @@ public class WebController {
     @Operation(summary = "主页访问接口", description = "主页访问接口")
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "200", description = "访问成功"),
-                @ApiResponse(responseCode = "400", description = "参数异常")
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = Result.class))
+                        }),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
             })
     @GetMapping("/")
     public Result hello() {
@@ -60,10 +70,17 @@ public class WebController {
     @Parameter(name = "account", description = "登录账号信息对象（Account实体类）", required = true)
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "200", description = "成功"),
-                @ApiResponse(responseCode = "4001", description = "参数缺失"),
-                @ApiResponse(responseCode = "400", description = "参数异常"),
-                @ApiResponse(responseCode = "5003", description = "账号或密码错误")
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = Account.class))
+                        }),
+                @ApiResponse(responseCode = "4001", description = "参数缺失", content = @Content),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "5003", description = "账号或密码错误", content = @Content),
             })
     @PostMapping("/login")
     public Result login(@RequestBody Account account) {
@@ -99,10 +116,17 @@ public class WebController {
     @Parameter(name = "account", description = "注册账号信息对象（Account实体类）", required = true)
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "200", description = "成功"),
-                @ApiResponse(responseCode = "4001", description = "参数缺失"),
-                @ApiResponse(responseCode = "400", description = "参数异常"),
-                @ApiResponse(responseCode = "5001", description = "用户名已存在")
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = Account.class))
+                        }),
+                @ApiResponse(responseCode = "4001", description = "参数缺失", content = @Content),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "5001", description = "用户名已存在", content = @Content),
             })
     @PostMapping("/register")
     public Result register(@RequestBody Account account) {
@@ -129,10 +153,17 @@ public class WebController {
     @Parameter(name = "account", description = "包含用户名、原密码、新密码的账号信息对象（Account实体类）", required = true)
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "200", description = "成功"),
-                @ApiResponse(responseCode = "4001", description = "参数缺失"),
-                @ApiResponse(responseCode = "400", description = "参数异常"),
-                @ApiResponse(responseCode = "5005", description = "原密码输入错误")
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = Account.class))
+                        }),
+                @ApiResponse(responseCode = "4001", description = "参数缺失", content = @Content),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "5005", description = "原密码输入错误", content = @Content)
             })
     @PutMapping("/updatePassword")
     public Result updatePassword(@RequestBody Account account) {
