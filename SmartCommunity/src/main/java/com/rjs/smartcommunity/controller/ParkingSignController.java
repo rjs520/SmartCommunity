@@ -1,5 +1,6 @@
 package com.rjs.smartcommunity.controller;
 
+import cn.hutool.core.lang.Dict;
 import com.github.pagehelper.PageInfo;
 import com.rjs.smartcommunity.common.Result;
 import com.rjs.smartcommunity.entity.ParkingSign;
@@ -36,17 +37,17 @@ public class ParkingSignController {
     @Operation(summary = "新增车位预约信息", description = "新增车位预约信息")
     @Parameter(name = "parkingSign", description = "车位预约实体", required = true)
     @ApiResponses(
-        value = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "成功",
-                content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = Result.class))),
-            @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
-            @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
-        })
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @PostMapping("/add")
     public Result add(@RequestBody ParkingSign parkingSign) {
         parkingSignService.add(parkingSign);
@@ -62,17 +63,17 @@ public class ParkingSignController {
     @Operation(summary = "根据ID删除车位预约信息", description = "根据ID删除车位预约信息")
     @Parameter(name = "id", description = "预约ID", required = true)
     @ApiResponses(
-        value = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "成功",
-                content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = Result.class))),
-            @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
-            @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
-        })
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
         parkingSignService.deleteById(id);
@@ -88,17 +89,17 @@ public class ParkingSignController {
     @Operation(summary = "批量删除车位预约信息", description = "批量删除车位预约信息")
     @Parameter(name = "ids", description = "预约ID集合", required = true)
     @ApiResponses(
-        value = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "成功",
-                content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = Result.class))),
-            @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
-            @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
-        })
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
         parkingSignService.deleteBatch(ids);
@@ -114,17 +115,17 @@ public class ParkingSignController {
     @Operation(summary = "根据ID修改车位预约信息", description = "根据ID修改车位预约信息")
     @Parameter(name = "parkingSign", description = "车位预约实体", required = true)
     @ApiResponses(
-        value = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "成功",
-                content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = Result.class))),
-            @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
-            @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
-        })
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @PutMapping("/update")
     public Result updateById(@RequestBody ParkingSign parkingSign) {
         parkingSignService.updateById(parkingSign);
@@ -140,17 +141,17 @@ public class ParkingSignController {
     @Operation(summary = "根据ID查询车位预约信息", description = "根据ID查询车位预约信息")
     @Parameter(name = "id", description = "预约ID", required = true)
     @ApiResponses(
-        value = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "成功",
-                content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = Result.class))),
-            @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
-            @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
-        })
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
         ParkingSign parkingSign = parkingSignService.selectById(id);
@@ -166,17 +167,17 @@ public class ParkingSignController {
     @Operation(summary = "查询所有车位预约信息", description = "查询所有车位预约信息")
     @Parameter(name = "parkingSign", description = "车位预约实体（可选条件）")
     @ApiResponses(
-        value = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "成功",
-                content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = Result.class))),
-            @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
-            @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
-        })
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectAll")
     public Result selectAll(ParkingSign parkingSign) {
         List<ParkingSign> list = parkingSignService.selectAll(parkingSign);
@@ -198,17 +199,17 @@ public class ParkingSignController {
         @Parameter(name = "pageSize", description = "每页数量", required = true)
     })
     @ApiResponses(
-        value = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "成功",
-                content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = Result.class))),
-            @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
-            @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
-        })
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectPage")
     public Result selectPage(
             ParkingSign parkingSign,
@@ -216,5 +217,33 @@ public class ParkingSignController {
             @RequestParam(defaultValue = "10") Integer pageSize) {
         PageInfo<ParkingSign> page = parkingSignService.selectPage(parkingSign, pageNum, pageSize);
         return Result.success(page);
+    }
+
+    /**
+     * 查询并返回字典表中的记录总数。 该方法不接受任何参数，通过调用{@code recsService.selectCount()}方法查询字典表中的记录总数，
+     * 然后将查询结果封装在{@code Result}对象中返回。
+     *
+     * @return {@code Result}对象，其中包含字典表的记录总数。
+     */
+    @Operation(summary = "查询字典表记录总数", description = "查询字典表记录总数")
+    @Parameter(name = "recs", description = "预约信息筛选条件")
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
+    @GetMapping("/selectCount")
+    public Result selectCount() {
+        // 通过服务层方法查询字典表记录总数
+        List<Dict> dictList = parkingSignService.selectCount();
+        // 将查询结果封装成成功结果并返回
+        return Result.success(dictList);
     }
 }

@@ -1,5 +1,6 @@
 package com.rjs.smartcommunity.service;
 
+import cn.hutool.core.lang.Dict;
 import com.github.pagehelper.PageInfo;
 import com.rjs.smartcommunity.entity.ParkingSign;
 
@@ -73,4 +74,11 @@ public interface ParkingSignService {
      * @return 返回与给定的停车ID和用户ID匹配的停车标志。如果找不到匹配项，则返回null。
      */
     ParkingSign selectByParkingIdAndUserId(Integer parkingId, Integer userId);
+
+    /**
+     * 查询并返回字典表中的所有记录数量。
+     *
+     * @return List<Dict> 返回一个包含字典表中所有记录的列表。
+     */
+    List<Dict> selectCount();
 }

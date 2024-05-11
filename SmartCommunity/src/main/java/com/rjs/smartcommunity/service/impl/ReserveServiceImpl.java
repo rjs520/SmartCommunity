@@ -122,14 +122,15 @@ public class ReserveServiceImpl implements ReserveService {
     }
 
     /**
-     * 查询并统计每个服务的预约数量。 该方法首先从数据库中选出所有预约记录，然后过滤出状态为"审核通过"或"待审核"的记录。 接着，通过服务名称对这些记录进行分组，并统计每个服务的预约数量。
-     * 最后，将结果以Dict列表的形式返回，每个Dict包含一个服务名称和对应的预约数量。
+     * 查询并统计所有服务的预约数量。 该方法首先从数据库中查询所有的预约记录，然后过滤出状态为"审核通过"或"待审核"的记录。 接着，通过服务名称对这些记录进行分组，并统计每个服务的预约数量。
+     * 最后，将每个服务的名称和对应的预约数量封装为字典类型列表并返回。
      *
-     * @return 返回一个包含服务名称和预约数量的Dict列表。
+     * @return 返回包含每个服务名称及其预约数量的字典类型列表。
      */
     @Override
     public List<Dict> selectCount() {
-        // 从数据库中查询所有预约记录
+
+        // 从数据库中查询所有的预约记录
         List<Reserve> reserveList = reserveMapper.selectAll(null);
 
         // 过滤出状态为"审核通过"或"待审核"的预约记录
@@ -149,16 +150,17 @@ public class ReserveServiceImpl implements ReserveService {
         List<Dict> list = CollUtil.newArrayList();
         // 遍历服务名称集合，统计每个服务的预约数量，并添加到结果列表中
         for (String name : set) {
+            // 统计服务的预约数量
             long count =
                     reserveList.stream()
                             .filter(reserve -> reserve.getServeName().equals(name))
                             .count();
-            // 创建Dict对象，记录服务名称和对应的预约数量
+
+            // 将服务名称和预约数量封装为字典类型
             Dict dict = Dict.create().set("name", name).set("value", count);
             list.add(dict);
         }
 
-        // 返回统计结果
         return list;
     }
 }

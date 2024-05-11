@@ -2,25 +2,15 @@
 <template>
   <!-- 页面主体容器 -->
   <div>
-
     <!-- 用户问候卡片 -->
     <div class="card" style="padding: 15px">
       您好，{{ user?.name }}！欢迎使用本系统
     </div>
-    <div style="margin: 10px 0;display: flex;grid-gap: 10px">
-      <div style="flex: 1;" class="card">
-        <div id="bar" style="height: 400px"></div>
-      </div>
-      <div style="flex: 1" class="card">
-        <div id="pie" style="height: 400px"></div>
-      </div>
-    </div>
-
     <!-- 公告列表布局容器 -->
     <div style="display: flex; margin: 10px 0">
 
       <!-- 公告列表区域 -->
-      <div class="card" style="width: 50%;">
+      <div class="card" style="width: 100%;">
 
         <!-- 标题 -->
         <div style="margin-bottom: 30px; font-size: 20px; font-weight: bold">公告列表</div>
@@ -47,6 +37,23 @@
         </div>
       </div>
     </div>
+    <div style="margin: 10px 0;display: flex;grid-gap: 10px">
+      <div style="flex: 1;" class="card">
+        <div id="bar" style="height: 400px"></div>
+      </div>
+      <div style="flex: 1" class="card">
+        <div id="pie" style="height: 400px"></div>
+      </div>
+    </div>
+    <div style="margin: 10px 0;display: flex;grid-gap: 10px">
+      <div style="flex: 1;" class="card">
+        <div id="recsCountBar" style="height: 400px"></div>
+      </div>
+      <div style="flex: 1" class="card">
+        <div id="parkingSignCountBar" style="height: 400px"></div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -95,6 +102,7 @@ const barOption = {
     }
   ],
 }
+
 // 定义饼图选项
 const pieOption = {
   title: {
@@ -131,6 +139,76 @@ const pieOption = {
     }
   ]
 }
+// 定义柱状图选项
+const recsCountBarOption = {
+  title: {
+    text: '反馈和建议',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'axis'
+  },
+  legend: {
+    left: 'left'
+  },
+  xAxis: {
+    type: 'category',
+    data: [],
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      data: [],
+      type: 'bar',
+      itemStyle: {
+        normal: {
+          color: function (params) { // 根据索引返回对应的颜色
+            let colorList = ['#ffaa2e', '#32C5E9', '#fa4c4c', '#08b448', '#FFDB5C', '#ff9f7f',
+              '#fb7293', '#E062AE', '#E690D1', '#e7bcf3']
+            return colorList[params.dataIndex];
+          }
+        }
+      },
+    }
+  ],
+}
+
+const parkingSignCountBarOption = {
+  title: {
+    text: '车位使用情况',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'axis'
+  },
+  legend: {
+    left: 'left'
+  },
+  xAxis: {
+    type: 'category',
+    data: [],
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      data: [],
+      type: 'bar',
+      itemStyle: {
+        normal: {
+          color: function (params) { // 根据索引返回对应的颜色
+            let colorList = ['#ffaa2e', '#32C5E9', '#fa4c4c', '#08b448', '#FFDB5C', '#ff9f7f',
+              '#fb7293', '#E062AE', '#E690D1', '#e7bcf3']
+            return colorList[params.dataIndex];
+          }
+        }
+      },
+    }
+  ],
+}
 export default {
   name: 'Home', // 组件名称
 
@@ -138,7 +216,8 @@ export default {
     // 初始化数据
     return {
       user: JSON.parse(localStorage.getItem('xm-user') || '{}'), // 从localStorage获取用户信息
-      notices: [] // 声明空的公告数组
+      notices: [], // 声明空的公告数组
+
     }
   },
 
@@ -165,6 +244,25 @@ export default {
     this.$request.get('/reserve/selectCount').then(res => {
       pieOption.series[0].data = res.data || [] // 设置系列数据
       pieChart.setOption(pieOption) // 应用选项
+    })
+    // Recs柱状图初始化及数据获取
+    let recsCountBarDom = document.getElementById('recsCountBar');
+    let recsCountBarChart = echarts.init(recsCountBarDom);
+
+    this.$request.get('/recs/selectCount').then(res => {
+      recsCountBarOption.xAxis.data = res.data?.map(v => v.name) // 设置x轴数据
+      recsCountBarOption.series[0].data = res.data?.map(v => v.value) // 设置系列数据
+      recsCountBarChart.setOption(recsCountBarOption) // 应用选项
+    })
+
+    // ParkingSign柱状图初始化及数据获取
+    let parkingSignCountBarDom = document.getElementById('parkingSignCountBar');
+    let parkingSignCountBarChart = echarts.init(parkingSignCountBarDom);
+
+    this.$request.get('/parkingSign/selectCount').then(res => {
+      parkingSignCountBarOption.xAxis.data = res.data?.map(v => v.name) // 设置x轴数据
+      parkingSignCountBarOption.series[0].data = res.data?.map(v => v.value) // 设置系列数据
+      parkingSignCountBarChart.setOption(parkingSignCountBarOption) // 应用选项
     })
   }
 }

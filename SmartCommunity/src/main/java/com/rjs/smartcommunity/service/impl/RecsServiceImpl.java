@@ -127,17 +127,19 @@ public class RecsServiceImpl implements RecsService {
     }
 
     /**
-     * 查询并统计每个服务的预约数量。 该方法首先从数据库中选出所有预约记录，然后过滤出状态为"审核通过"或"待审核"的记录。 接着，通过服务名称对这些记录进行分组，并统计每个服务的预约数量。
-     * 最后，将结果以Dict列表的形式返回，每个Dict包含一个服务名称和对应的预约数量。
+     * 查询并统计每个反馈与建议人员处理的预约记录数量。
      *
-     * @return 返回一个包含服务名称和预约数量的Dict列表。
+     * <p>该方法首先从数据库中查询所有的预约记录，然后筛选出状态为"已回复"或"待回复"的记录。 接着，通过反馈与建议人员姓名分组，并统计每个反馈与建议人员对应的记录数量。
+     * 最后，将结果以List<Dict>的形式返回，其中Dict包含反馈与建议人员姓名和对应的记录数量。
+     *
+     * @return List<Dict> 包含每个反馈与建议人员及其处理的预约记录数量的列表。
      */
     @Override
     public List<Dict> selectCount() {
-        // 从数据库中查询所有预约记录
+        // 从数据库查询所有预约记录
         List<Recs> recsList = recsMapper.selectAll(null);
 
-        // 过滤出状态为"审核通过"或"待审核"的预约记录
+        // 筛选出状态为"已回复"或"待回复"的预约记录
         recsList =
                 recsList.stream()
                         .filter(
@@ -146,25 +148,33 @@ public class RecsServiceImpl implements RecsService {
                                                 || "待回复".equals(recs.getStatus()))
                         .toList();
 
-        // 通过服务名称对预约记录进行去重
+        // 提取并去重所有反馈与建议人员的姓名
         Set<String> set = recsList.stream().map(Recs::getCsName).collect(Collectors.toSet());
 
         // 初始化结果列表
         List<Dict> list = CollUtil.newArrayList();
-        // 遍历服务名称集合，统计每个服务的预约数量，并添加到结果列表中
+
+        // 统计每个反馈与建议人员的预约记录数量，并添加到结果列表中
         for (String name : set) {
             long count = recsList.stream().filter(recs -> recs.getCsName().equals(name)).count();
-            // 创建Dict对象，记录服务名称和对应的预约数量
+
             Dict dict = Dict.create().set("name", name).set("value", count);
             list.add(dict);
         }
 
-        // 返回统计结果
         return list;
     }
 
+    /**
+     * 根据反馈与建议ID和用户ID选择推荐记录。
+     *
+     * @param csId 反馈与建议ID，用于筛选与特定反馈与建议相关的推荐记录。
+     * @param userId 用户ID，用于筛选与特定用户相关的推荐记录。
+     * @return 返回一个推荐记录列表，这些记录与给定的反馈与建议ID和用户ID匹配。
+     */
     @Override
     public List<Recs> selectByCsIdAndUserId(Integer csId, Integer userId) {
+        // 调用recsMapper中的方法，根据提供的csId和userId查询相应的推荐记录
         return recsMapper.selectByCsIdAndUserId(csId, userId);
     }
 }

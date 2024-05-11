@@ -1,6 +1,8 @@
 package com.rjs.smartcommunity.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.Dict;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -11,11 +13,13 @@ import com.rjs.smartcommunity.entity.ParkingSign;
 import com.rjs.smartcommunity.exception.CustomException;
 import com.rjs.smartcommunity.mapper.ParkingSignMapper;
 import com.rjs.smartcommunity.service.ParkingSignService;
-
 import com.rjs.smartcommunity.utils.TokenUtils;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -134,5 +138,47 @@ public class ParkingSignServiceImpl implements ParkingSignService {
     public ParkingSign selectByParkingIdAndUserId(Integer parkingId, Integer userId) {
         // 通过调用mapper方法，根据给定的停车ID和用户ID查询并返回停车标志
         return parkingSignMapper.selectByParkingIdAndUserId(parkingId, userId);
+    }
+
+    /**
+     * 查询并统计每个停车区域的停车标志数量。
+     *
+     * @return 返回包含每个停车区域名称及其对应标志数量的列表。
+     */
+    @Override
+    public List<Dict> selectCount() {
+
+        // 从数据库中查询所有停车标志
+        List<ParkingSign> parkingSigns = parkingSignMapper.selectAll(null);
+
+        // 过滤出状态为"审核通过"或"待审核"的停车标志
+        parkingSigns =
+                parkingSigns.stream()
+                        .filter(
+                                parkingSign ->
+                                        "审核通过".equals(parkingSign.getStatus())
+                                                || "待审核".equals(parkingSign.getStatus()))
+                        .toList();
+
+        // 提取所有停车区域的唯一地址
+        Set<String> set =
+                parkingSigns.stream()
+                        .map(ParkingSign::getParkingAddress)
+                        .collect(Collectors.toSet());
+
+        List<Dict> list = CollUtil.newArrayList();
+
+        // 统计每个停车区域的标志数量，并构建字典对象
+        for (String name : set) {
+            long count =
+                    parkingSigns.stream()
+                            .filter(parkingSign -> parkingSign.getParkingAddress().equals(name))
+                            .count();
+
+            Dict dict = Dict.create().set("name", name).set("value", count);
+            list.add(dict);
+        }
+
+        return list;
     }
 }

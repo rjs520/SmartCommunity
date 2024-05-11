@@ -77,11 +77,11 @@ public interface RecsService {
     List<Dict> selectCount();
 
     /**
-     * 根据客服ID和用户ID选择相应的记录。
+     * 根据反馈与建议ID和用户ID选择相应的记录。
      *
-     * @param csId 客服ID，用于查询与特定客服相关的记录。
+     * @param csId 反馈与建议ID，用于查询与特定反馈与建议相关的记录。
      * @param userId 用户ID，用于查询与特定用户相关的记录。
-     * @return 返回一个记录列表，这些记录与给定的客服ID和用户ID匹配。
+     * @return 返回一个记录列表，这些记录与给定的反馈与建议ID和用户ID匹配。
      */
     List<Recs> selectByCsIdAndUserId(Integer csId, Integer userId);
 }
