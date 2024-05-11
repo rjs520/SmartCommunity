@@ -91,6 +91,7 @@
             <el-menu-item index="/activitySign" class="el-icon-trophy">活动报名管理</el-menu-item>
             <el-menu-item index="/reserve" class="el-icon-tickets">预约服务管理</el-menu-item>
             <el-menu-item index="/parkingSign" class="el-icon-truck">车位预约管理</el-menu-item>
+            <el-menu-item index="/recs" class="el-icon-chat-line-square">反馈与建议处理</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>

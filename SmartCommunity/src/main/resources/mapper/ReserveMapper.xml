@@ -29,7 +29,7 @@
       <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>
       <if test="userId != null">and reserve.user_id =#{userId}</if>
     </where>
-    order by id desc
+    order by reserve.id desc
   </select>
 
   <!-- 根据id查询预约信息 -->

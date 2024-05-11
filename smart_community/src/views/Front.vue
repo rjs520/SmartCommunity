@@ -15,6 +15,7 @@
             <el-menu-item index="/front/serve">社区服务</el-menu-item>
             <el-menu-item index="/front/nurseHouse">养老院</el-menu-item>
             <el-menu-item index="/front/parking">小区车位</el-menu-item>
+            <el-menu-item index="/front/complaintSuggestion">投诉建议</el-menu-item>
             <el-menu-item index="/front/person">个人中心</el-menu-item>
           </el-menu>
         </div>
@@ -42,6 +43,9 @@
               </el-dropdown-item>
               <el-dropdown-item>
                 <div @click="$router.push('/front/parkingSign')">我预约的车位</div>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <div @click="$router.push('/front/recs')">我的建议和反馈</div>
               </el-dropdown-item>
               <el-dropdown-item>
                 <div @click="$router.push('/front/person')">个人中心</div>

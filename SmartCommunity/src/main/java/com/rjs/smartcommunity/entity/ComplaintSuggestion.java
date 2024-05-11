@@ -30,4 +30,7 @@ public class ComplaintSuggestion implements Serializable {
 
     /** 日期 */
     private String date;
+
+    /** 状态 */
+    private String status;
 }

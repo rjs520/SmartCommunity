@@ -126,7 +126,7 @@ const routes = [
       {
         path: 'complaintSuggestion',
         name: 'ComplaintSuggestion',
-        meta: {name: '投诉建议'},
+        meta: {name: '投诉建议信息'},
         component: () => import('../views/manager/ComplaintSuggestion')
       },
       {
@@ -134,6 +134,12 @@ const routes = [
         name: 'Building',
         meta: {name: '楼栋信息'},
         component: () => import('../views/manager/Building')
+      },
+      {
+        path: 'recs',
+        name: 'Recs',
+        meta: {name: '反馈与建议'},
+        component: () => import('../views/manager/Recs')
       }
     ]
   },
@@ -211,6 +217,21 @@ const routes = [
         path: 'parkingSign',
         name: 'ParkingSign',
         component: () => import('../views/front/ParkingSign')
+      },
+      {
+        path: 'complaintSuggestion',
+        name: 'ComplaintSuggestion',
+        component: () => import('../views/front/ComplaintSuggestion')
+      },
+      {
+        path: 'complaintSuggestionDetail',
+        name: 'ComplaintSuggestionDetail',
+        component: () => import('../views/front/ComplaintSuggestionDetail')
+      },
+      {
+        path: 'recs',
+        name: 'Recs',
+        component: () => import('../views/front/Recs.vue')
       }
     ]
   },

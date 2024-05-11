@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rjs.smartcommunity.mapper.RecsMapper">
+
+  <sql id="Base_Column_List">
+      id,cs_id,user_id,content,time,status,reason
+  </sql>
+
+  <select id="selectAll" resultType="com.rjs.smartcommunity.entity.Recs">
+    select re_cs.*,complaint_suggestion.name as csName,user.name as userName
+    from re_cs
+    left join complaint_suggestion
+    on re_cs.cs_id = complaint_suggestion.id
+    left join user
+    on re_cs.user_id = user.id
+    <where>
+      <!-- 根据提供的参数动态生成where子句 -->
+      <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>
+      <if test="userId != null">and re_cs.user_id =#{userId}</if>
+    </where>
+    order by re_cs.id desc
+  </select>
+
+  <select id="selectById" resultType="com.rjs.smartcommunity.entity.Recs">
+    select
+    <include refid="Base_Column_List" />
+    from re_cs
+    where id = #{id}
+  </select>
+
+  <delete id="deleteById">
+    delete from re_cs
+    where  id = #{id}
+  </delete>
+
+  <insert id="insert" parameterType="com.rjs.smartcommunity.entity.Recs" useGeneratedKeys="true" keyProperty="id">
+    insert into re_cs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">id,</if>
+      <if test="csId != null">cs_id,</if>
+      <if test="userId != null">user_id,</if>
+      <if test="content != null">content,</if> <!-- 添加content字段 -->
+      <if test="time != null">time,</if>
+      <if test="status != null">status,</if>
+      <if test="reason != null">reason,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">#{id},</if>
+      <if test="csId != null">#{csId},</if>
+      <if test="userId != null">#{userId},</if>
+      <if test="content != null">#{content},</if> <!-- 添加content字段 -->
+      <if test="time != null">#{time},</if>
+      <if test="status != null">#{status},</if>
+      <if test="reason != null">#{reason},</if>
+    </trim>
+  </insert>
+
+  <update id="updateById" parameterType="com.rjs.smartcommunity.entity.Recs">
+    update re_cs
+    <set>
+      <if test="csId != null">
+        cs_id = #{csId},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId},
+      </if>
+      <if test="time != null">
+        time = #{time},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="reason != null">
+        reason = #{reason},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <select id="selectByCsIdAndUserId" resultType="com.rjs.smartcommunity.entity.Recs">
+    select *
+    from re_cs
+    where cs_id = #{csId} and user_id = #{userId} and status != '已拒绝'
+  </select>
+
+</mapper>

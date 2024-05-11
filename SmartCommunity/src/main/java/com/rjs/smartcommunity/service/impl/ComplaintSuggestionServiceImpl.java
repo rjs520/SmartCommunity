@@ -1,11 +1,17 @@
 package com.rjs.smartcommunity.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.rjs.smartcommunity.common.enums.CsStatusEnum;
+import com.rjs.smartcommunity.entity.Account;
 import com.rjs.smartcommunity.entity.ComplaintSuggestion;
+import com.rjs.smartcommunity.entity.Recs;
 import com.rjs.smartcommunity.mapper.ComplaintSuggestionMapper;
 import com.rjs.smartcommunity.service.ComplaintSuggestionService;
+import com.rjs.smartcommunity.service.RecsService;
+import com.rjs.smartcommunity.utils.TokenUtils;
 
 import org.springframework.stereotype.Service;
 
@@ -23,6 +29,8 @@ public class ComplaintSuggestionServiceImpl implements ComplaintSuggestionServic
 
     /** 反馈与建议数据操作接口 */
     @Resource private ComplaintSuggestionMapper complaintSuggestionMapper;
+    
+    @Resource private RecsService recsService;
 
     /**
      * 新增反馈与建议
@@ -78,7 +86,19 @@ public class ComplaintSuggestionServiceImpl implements ComplaintSuggestionServic
      */
     @Override
     public ComplaintSuggestion selectById(Integer id) {
-        return complaintSuggestionMapper.selectById(id);
+        ComplaintSuggestion complaintSuggestion = complaintSuggestionMapper.selectById(id);
+        Account currentUser = TokenUtils.getCurrentUser();
+        List<Recs> recsList = recsService.selectByCsIdAndUserId(id, currentUser.getId());
+        Recs recs = null;
+        if (!recsList.isEmpty()) {
+            recs = recsList.get(0);
+        }
+        if (recs == null) {
+            complaintSuggestion.setStatus(CsStatusEnum.NOT_REPLY.getStatus());
+        } else {
+            complaintSuggestion.setStatus(CsStatusEnum.REPLIED.getStatus());
+        }
+        return complaintSuggestion;
     }
 
     /**
