@@ -8,6 +8,10 @@ import com.rjs.smartcommunity.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +40,19 @@ public class CategoryController {
      */
     @Operation(summary = "新增资讯分类信息接口", description = "新增资讯分类信息接口")
     @Parameter(name = "category", description = "待新增的资讯分类信息对象（Category实体类）", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "401", description = "token验证失败，请重新登录", content = @Content),
+            })
     @PostMapping("/add")
     public Result add(@RequestBody Category category) {
         categoryService.add(category);
@@ -50,6 +67,19 @@ public class CategoryController {
      */
     @Operation(summary = "删除资讯分类信息接口（根据ID）", description = "删除资讯分类信息接口（根据ID）")
     @Parameter(name = "id", description = "资讯分类信息ID（Integer类型）", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "401", description = "token验证失败，请重新登录", content = @Content),
+            })
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
         categoryService.deleteById(id);
@@ -64,6 +94,19 @@ public class CategoryController {
      */
     @Operation(summary = "批量删除资讯分类信息接口", description = "批量删除资讯分类信息接口")
     @Parameter(name = "ids", description = "待删除的资讯分类信息ID列表（List<Integer>类型）", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "401", description = "token验证失败，请重新登录", content = @Content),
+            })
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
         categoryService.deleteBatch(ids);
@@ -78,6 +121,19 @@ public class CategoryController {
      */
     @Operation(summary = "更新资讯分类信息接口（根据ID）", description = "更新资讯分类信息接口（根据ID）")
     @Parameter(name = "category", description = "待更新的资讯分类信息对象（Category实体类）", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "401", description = "token验证失败，请重新登录", content = @Content),
+            })
     @PutMapping("/update")
     public Result updateById(@RequestBody Category category) {
         categoryService.updateById(category);
@@ -92,6 +148,19 @@ public class CategoryController {
      */
     @Operation(summary = "根据ID查询资讯分类信息接口", description = "根据ID查询资讯分类信息接口")
     @Parameter(name = "id", description = "资讯分类信息ID（Integer类型）", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "401", description = "token验证失败，请重新登录", content = @Content),
+            })
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
         Category category = categoryService.selectById(id);
@@ -106,6 +175,19 @@ public class CategoryController {
      */
     @Operation(summary = "查询所有资讯分类信息接口", description = "查询所有资讯分类信息接口")
     @Parameter(name = "category", description = "可选条件参数（Category实体类，可为空）")
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "401", description = "token验证失败，请重新登录", content = @Content),
+            })
     @GetMapping("/selectAll")
     public Result selectAll(Category category) {
         List<Category> list = categoryService.selectAll(category);
@@ -126,6 +208,19 @@ public class CategoryController {
         @Parameter(name = "pageNum", description = "当前页码（Integer类型，默认值1）"),
         @Parameter(name = "pageSize", description = "每页大小（Integer类型，默认值10）")
     })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "401", description = "token验证失败，请重新登录", content = @Content),
+            })
     @GetMapping("/selectPage")
     public Result selectPage(
             Category category,

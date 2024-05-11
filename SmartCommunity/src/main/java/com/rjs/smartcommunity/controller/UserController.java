@@ -8,6 +8,8 @@ import com.rjs.smartcommunity.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -41,11 +43,17 @@ public class UserController {
     @Parameter(name = "user", description = "待新增的用户对象，包含所需的所有属性信息", required = true)
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "200", description = "成功"),
-                @ApiResponse(responseCode = "5001", description = "用户名已存在"),
-                @ApiResponse(responseCode = "400", description = "参数异常"),
-                @ApiResponse(responseCode = "4001", description = "参数缺失"),
-                @ApiResponse(responseCode = "500", description = "系统异常")
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "5001", description = "用户名已存在", content = @Content),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "4001", description = "参数缺失", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
             })
     @PostMapping("/add")
     public Result add(@RequestBody User user) {
@@ -63,11 +71,15 @@ public class UserController {
     @Parameter(name = "id", description = "要删除的用户ID", required = true)
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "200", description = "成功"),
-                @ApiResponse(responseCode = "5004", description = "用户不存在"),
-                @ApiResponse(responseCode = "400", description = "参数异常"),
-                @ApiResponse(responseCode = "4001", description = "参数缺失"),
-                @ApiResponse(responseCode = "500", description = "系统异常")
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
             })
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
@@ -85,11 +97,15 @@ public class UserController {
     @Parameter(name = "ids", description = "要批量删除的用户ID列表", required = true)
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "200", description = "成功"),
-                @ApiResponse(responseCode = "5004", description = "用户不存在"),
-                @ApiResponse(responseCode = "400", description = "参数异常"),
-                @ApiResponse(responseCode = "4001", description = "参数缺失"),
-                @ApiResponse(responseCode = "500", description = "系统异常")
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
             })
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
@@ -107,11 +123,15 @@ public class UserController {
     @Parameter(name = "user", description = "更新后的用户对象，包含需要修改的属性信息", required = true)
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "200", description = "成功"),
-                @ApiResponse(responseCode = "5004", description = "用户不存在"),
-                @ApiResponse(responseCode = "400", description = "参数异常"),
-                @ApiResponse(responseCode = "4001", description = "参数缺失"),
-                @ApiResponse(responseCode = "500", description = "系统异常")
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
             })
     @PutMapping("/update")
     public Result updateById(@RequestBody User user) {
@@ -129,11 +149,15 @@ public class UserController {
     @Parameter(name = "id", description = "要查询的用户ID", required = true)
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "200", description = "成功"),
-                @ApiResponse(responseCode = "5004", description = "用户不存在"),
-                @ApiResponse(responseCode = "400", description = "参数异常"),
-                @ApiResponse(responseCode = "4001", description = "参数缺失"),
-                @ApiResponse(responseCode = "500", description = "系统异常")
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
             })
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
@@ -151,11 +175,15 @@ public class UserController {
     @Parameter(name = "user", description = "可选的查询条件对象，包含部分或全部属性信息")
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "200", description = "成功"),
-                @ApiResponse(responseCode = "5004", description = "用户不存在"),
-                @ApiResponse(responseCode = "400", description = "参数异常"),
-                @ApiResponse(responseCode = "4001", description = "参数缺失"),
-                @ApiResponse(responseCode = "500", description = "系统异常")
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
             })
     @GetMapping("/selectAll")
     public Result selectAll(User user) {
@@ -180,11 +208,15 @@ public class UserController {
     })
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "200", description = "成功"),
-                @ApiResponse(responseCode = "5004", description = "用户不存在"),
-                @ApiResponse(responseCode = "400", description = "参数异常"),
-                @ApiResponse(responseCode = "4001", description = "参数缺失"),
-                @ApiResponse(responseCode = "500", description = "系统异常")
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
             })
     @GetMapping("/selectPage")
     public Result selectPage(

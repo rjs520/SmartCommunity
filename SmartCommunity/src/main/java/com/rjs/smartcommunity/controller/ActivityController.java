@@ -8,7 +8,12 @@ import com.rjs.smartcommunity.service.ActivityService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +41,20 @@ public class ActivityController {
      */
     @Operation(summary = "新增活动接口", description = "新增活动接口")
     @Parameter(name = "activity", description = "待新增的活动对象（Activity实体类）", required = true)
+    @ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "成功",
+                content = {
+                    @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Result.class))
+                }),
+        @ApiResponse(responseCode = "5001", description = "活动名称已存在", content = @Content),
+        @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+        @ApiResponse(responseCode = "4001", description = "参数缺失", content = @Content),
+        @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+    })
     @PostMapping("/add")
     public Result add(@RequestBody Activity activity) {
         activityService.add(activity);
@@ -50,6 +69,18 @@ public class ActivityController {
      */
     @Operation(summary = "删除活动接口（根据ID）", description = "删除活动接口（根据ID）")
     @Parameter(name = "id", description = "活动ID（Integer类型）", required = true)
+    @ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "成功",
+                content = {
+                    @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Result.class))
+                }),
+        @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+        @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+    })
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
         activityService.deleteById(id);
@@ -64,6 +95,18 @@ public class ActivityController {
      */
     @Operation(summary = "批量删除活动接口", description = "批量删除活动接口")
     @Parameter(name = "ids", description = "待删除的活动ID列表（List<Integer>类型）", required = true)
+    @ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "成功",
+                content = {
+                    @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Result.class))
+                }),
+        @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+        @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+    })
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
         activityService.deleteBatch(ids);
@@ -78,6 +121,18 @@ public class ActivityController {
      */
     @Operation(summary = "更新活动接口（根据ID）", description = "更新活动接口（根据ID）")
     @Parameter(name = "activity", description = "待更新的活动对象（Activity实体类）", required = true)
+    @ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "成功",
+                content = {
+                    @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Result.class))
+                }),
+        @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+        @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+    })
     @PutMapping("/update")
     public Result updateById(@RequestBody Activity activity) {
         activityService.updateById(activity);
@@ -92,6 +147,18 @@ public class ActivityController {
      */
     @Operation(summary = "根据ID查询活动接口", description = "根据ID查询活动接口")
     @Parameter(name = "id", description = "活动ID（Integer类型）", required = true)
+    @ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "成功",
+                content = {
+                    @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Result.class))
+                }),
+        @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+        @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+    })
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
         Activity activity = activityService.selectById(id);
@@ -106,6 +173,18 @@ public class ActivityController {
      */
     @Operation(summary = "查询所有活动接口", description = "查询所有活动接口")
     @Parameter(name = "activity", description = "可选条件参数（Activity实体类，可为空）")
+    @ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "成功",
+                content = {
+                    @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Result.class))
+                }),
+        @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+        @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+    })
     @GetMapping("/selectAll")
     public Result selectAll(Activity activity) {
         List<Activity> list = activityService.selectAll(activity);
@@ -125,6 +204,18 @@ public class ActivityController {
         @Parameter(name = "activity", description = "可选条件参数（Activity实体类，可为空）"),
         @Parameter(name = "pageNum", description = "当前页码（Integer类型，默认值1）"),
         @Parameter(name = "pageSize", description = "每页大小（Integer类型，默认值10）")
+    })
+    @ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "成功",
+                content = {
+                    @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Result.class))
+                }),
+        @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+        @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
     })
     @GetMapping("/selectPage")
     public Result selectPage(

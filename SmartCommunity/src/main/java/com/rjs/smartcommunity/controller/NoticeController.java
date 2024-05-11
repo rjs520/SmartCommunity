@@ -8,6 +8,10 @@ import com.rjs.smartcommunity.service.NoticeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +40,18 @@ public class NoticeController {
      */
     @Operation(summary = "新增公告信息接口", description = "新增公告信息接口")
     @Parameter(name = "notice", description = "待新增的公告信息对象（Notice实体类）", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+            })
     @PostMapping("/add")
     public Result add(@RequestBody Notice notice) {
         noticeService.add(notice);
@@ -50,6 +66,18 @@ public class NoticeController {
      */
     @Operation(summary = "删除公告信息接口（根据ID）", description = "删除公告信息接口（根据ID）")
     @Parameter(name = "id", description = "公告信息ID（Integer类型）", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+            })
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
         noticeService.deleteById(id);
@@ -64,6 +92,18 @@ public class NoticeController {
      */
     @Operation(summary = "批量删除公告信息接口", description = "批量删除公告信息接口")
     @Parameter(name = "ids", description = "待删除的公告信息ID列表（List<Integer>类型）", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+            })
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
         noticeService.deleteBatch(ids);
@@ -78,6 +118,18 @@ public class NoticeController {
      */
     @Operation(summary = "更新公告信息接口（根据ID）", description = "更新公告信息接口（根据ID）")
     @Parameter(name = "notice", description = "待更新的公告信息对象（Notice实体类）", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+            })
     @PutMapping("/update")
     public Result updateById(@RequestBody Notice notice) {
         noticeService.updateById(notice);
@@ -92,6 +144,18 @@ public class NoticeController {
      */
     @Operation(summary = "根据ID查询公告信息接口", description = "根据ID查询公告信息接口")
     @Parameter(name = "id", description = "公告信息ID（Integer类型）", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+            })
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
         Notice notice = noticeService.selectById(id);
@@ -106,6 +170,18 @@ public class NoticeController {
      */
     @Operation(summary = "查询所有公告信息接口", description = "查询所有公告信息接口")
     @Parameter(name = "notice", description = "可选条件参数（Notice实体类，可为空）")
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+            })
     @GetMapping("/selectAll")
     public Result selectAll(Notice notice) {
         List<Notice> list = noticeService.selectAll(notice);
@@ -126,6 +202,18 @@ public class NoticeController {
         @Parameter(name = "pageNum", description = "当前页码（Integer类型，默认值1）"),
         @Parameter(name = "pageSize", description = "每页大小（Integer类型，默认值10）")
     })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "操作成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+            })
     @GetMapping("/selectPage")
     public Result selectPage(
             Notice notice,

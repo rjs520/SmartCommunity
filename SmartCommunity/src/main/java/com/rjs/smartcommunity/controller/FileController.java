@@ -10,6 +10,10 @@ import com.rjs.smartcommunity.common.Result;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.nio.charset.StandardCharsets;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,6 +54,18 @@ public class FileController {
      */
     @Operation(summary = "文件上传接口", description = "上传文件到服务器")
     @Parameter(name = "file", description = "上传的文件对象", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "上传成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "500", description = "系统异常"),
+                @ApiResponse(responseCode = "400", description = "参数异常")
+            })
     @PostMapping("/upload")
     public Result upload(MultipartFile file) {
         String flag;
@@ -81,6 +97,18 @@ public class FileController {
      */
     @Operation(summary = "富文本文件上传接口", description = "上传富文本编辑器中的图片文件")
     @Parameter(name = "file", description = "上传的文件对象", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "上传成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Dict.class))),
+                @ApiResponse(responseCode = "500", description = "系统异常"),
+                @ApiResponse(responseCode = "400", description = "参数异常")
+            })
     @PostMapping("/editor/upload")
     public Dict editorUpload(MultipartFile file) {
         String flag;
@@ -122,6 +150,18 @@ public class FileController {
      */
     @Operation(summary = "文件下载接口", description = "下载文件")
     @Parameter(name = "flag", description = "文件标识", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "下载成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/octet-stream",
+                                        schema = @Schema(implementation = OutputStream.class))),
+                @ApiResponse(responseCode = "500", description = "系统异常"),
+                @ApiResponse(responseCode = "400", description = "参数异常")
+            })
     @GetMapping("/{flag}")
     public void avatarPath(@PathVariable String flag, HttpServletResponse response)
             throws Exception {
@@ -146,6 +186,18 @@ public class FileController {
      */
     @Operation(summary = "文件删除接口", description = "删除文件")
     @Parameter(name = "flag", description = "文件标识", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "删除成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "500", description = "系统异常"),
+                @ApiResponse(responseCode = "400", description = "参数异常")
+            })
     @DeleteMapping("/{flag}")
     public void delFile(@PathVariable String flag) {
         FileUtil.del(FILE_PATH + flag);

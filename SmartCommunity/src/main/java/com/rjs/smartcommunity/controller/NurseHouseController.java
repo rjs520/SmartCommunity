@@ -7,6 +7,10 @@ import com.rjs.smartcommunity.service.NurseHouseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -31,6 +35,18 @@ public class NurseHouseController {
      */
     @Operation(summary = "新增养老院信息", description = "新增养老院信息")
     @Parameter(name = "nurseHouse", description = "养老院实体对象，包含养老院详细信息", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @PostMapping("/add")
     public Result add(@RequestBody NurseHouse nurseHouse) {
         nurseHouseService.add(nurseHouse);
@@ -45,6 +61,18 @@ public class NurseHouseController {
      */
     @Operation(summary = "根据ID删除养老院信息", description = "根据ID删除养老院信息")
     @Parameter(name = "id", description = "养老院ID，用于指定删除的养老院", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
         nurseHouseService.deleteById(id);
@@ -59,6 +87,18 @@ public class NurseHouseController {
      */
     @Operation(summary = "批量删除养老院信息", description = "批量删除养老院信息")
     @Parameter(name = "ids", description = "养老院ID列表，用于指定删除的养老院集合", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
         nurseHouseService.deleteBatch(ids);
@@ -73,6 +113,18 @@ public class NurseHouseController {
      */
     @Operation(summary = "根据ID修改养老院信息", description = "根据ID修改养老院信息")
     @Parameter(name = "nurseHouse", description = "养老院实体对象，包含需要更新的养老院详细信息", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @PutMapping("/update")
     public Result updateById(@RequestBody NurseHouse nurseHouse) {
         nurseHouseService.updateById(nurseHouse);
@@ -87,6 +139,18 @@ public class NurseHouseController {
      */
     @Operation(summary = "更新计数", description = "更新计数")
     @Parameter(name = "id", description = "养老院的唯一标识符", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @PutMapping("/updateCount/{id}")
     public Result updateCount(@PathVariable Integer id) {
         // 调用服务层方法，更新指定ID的养老院计数
@@ -103,6 +167,18 @@ public class NurseHouseController {
      */
     @Operation(summary = "根据ID查询养老院信息", description = "根据ID查询养老院信息")
     @Parameter(name = "id", description = "养老院ID，用于指定查询的养老院", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
         NurseHouse nurseHouse = nurseHouseService.selectById(id);
@@ -117,6 +193,18 @@ public class NurseHouseController {
      */
     @Operation(summary = "查询所有养老院信息", description = "查询所有养老院信息")
     @Parameter(name = "nurseHouse", description = "养老院实体对象，可选条件用于查询", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectAll")
     public Result selectAll(NurseHouse nurseHouse) {
         List<NurseHouse> list = nurseHouseService.selectAll(nurseHouse);
@@ -137,6 +225,18 @@ public class NurseHouseController {
         @Parameter(name = "pageNum", description = "查询页码", required = true),
         @Parameter(name = "pageSize", description = "每页显示数量", required = true)
     })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectPage")
     public Result selectPage(
             NurseHouse nurseHouse,

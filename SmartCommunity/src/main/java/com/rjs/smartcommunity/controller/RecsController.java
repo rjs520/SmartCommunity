@@ -10,6 +10,8 @@ import com.rjs.smartcommunity.service.RecsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -41,11 +43,18 @@ public class RecsController {
      */
     @Operation(summary = "新增反馈与建议", description = "新增反馈与建议")
     @Parameter(name = "recs", description = "预约信息对象", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "400", description = "参数异常"),
-        @ApiResponse(responseCode = "500", description = "系统异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @PostMapping("/add")
     public Result add(@RequestBody Recs recs) {
         // 将接收到的单个预约信息添加到列表中
@@ -65,11 +74,18 @@ public class RecsController {
      */
     @Operation(summary = "根据ID删除反馈与建议", description = "根据ID删除反馈与建议")
     @Parameter(name = "id", description = "预约ID", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
         recsService.deleteById(id);
@@ -84,11 +100,18 @@ public class RecsController {
      */
     @Operation(summary = "批量删除反馈与建议", description = "批量删除反馈与建议")
     @Parameter(name = "ids", description = "预约ID列表", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
         recsService.deleteBatch(ids);
@@ -103,11 +126,18 @@ public class RecsController {
      */
     @Operation(summary = "根据ID修改反馈与建议信息", description = "根据ID修改反馈与建议信息")
     @Parameter(name = "recs", description = "预约信息对象", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @PutMapping("/update")
     public Result updateById(@RequestBody Recs recs) {
         recsService.updateById(recs);
@@ -122,11 +152,18 @@ public class RecsController {
      */
     @Operation(summary = "根据ID查询反馈与建议信息", description = "根据ID查询反馈与建议信息")
     @Parameter(name = "id", description = "预约ID", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
         Recs recs = recsService.selectById(id);
@@ -141,11 +178,18 @@ public class RecsController {
      */
     @Operation(summary = "查询所有反馈与建议信息", description = "查询所有反馈与建议信息")
     @Parameter(name = "recs", description = "预约信息筛选条件")
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectAll")
     public Result selectAll(Recs recs) {
         List<Recs> list = recsService.selectAll(recs);
@@ -166,11 +210,18 @@ public class RecsController {
         @Parameter(name = "pageNum", description = "页码"),
         @Parameter(name = "pageSize", description = "每页记录数")
     })
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectPage")
     public Result selectPage(
             Recs recs,
@@ -187,11 +238,19 @@ public class RecsController {
      * @return {@code Result}对象，其中包含字典表的记录总数。
      */
     @Operation(summary = "查询字典表记录总数", description = "查询字典表记录总数")
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @Parameter(name = "recs", description = "预约信息筛选条件")
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectCount")
     public Result selectCount() {
         // 通过服务层方法查询字典表记录总数

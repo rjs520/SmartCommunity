@@ -7,6 +7,10 @@ import com.rjs.smartcommunity.service.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +37,13 @@ public class CommentController {
      */
     @Operation(summary = "新增评论", description = "新增评论")
     @Parameter(name = "comment", description = "评论信息", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "新增成功"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "500", description = "系统异常"),
+                @ApiResponse(responseCode = "401", description = "token验证失败，请重新登录")
+            })
     @PostMapping("/add")
     public Result add(@RequestBody Comment comment) {
         commentService.add(comment);
@@ -47,6 +58,13 @@ public class CommentController {
      */
     @Operation(summary = "根据ID删除评论", description = "根据ID删除评论")
     @Parameter(name = "id", description = "评论ID", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "删除成功"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "500", description = "系统异常"),
+                @ApiResponse(responseCode = "401", description = "token验证失败，请重新登录")
+            })
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
         commentService.deleteById(id);
@@ -61,6 +79,13 @@ public class CommentController {
      */
     @Operation(summary = "批量删除评论", description = "批量删除评论")
     @Parameter(name = "ids", description = "评论ID列表", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "删除成功"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "500", description = "系统异常"),
+                @ApiResponse(responseCode = "401", description = "token验证失败，请重新登录")
+            })
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
         commentService.deleteBatch(ids);
@@ -75,6 +100,13 @@ public class CommentController {
      */
     @Operation(summary = "根据ID修改评论", description = "根据ID修改评论")
     @Parameter(name = "comment", description = "评论信息", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "修改成功"),
+                @ApiResponse(responseCode = "400", description = "参数异常"),
+                @ApiResponse(responseCode = "500", description = "系统异常"),
+                @ApiResponse(responseCode = "401", description = "token验证失败，请重新登录")
+            })
     @PutMapping("/update")
     public Result updateById(@RequestBody Comment comment) {
         commentService.updateById(comment);
@@ -89,6 +121,22 @@ public class CommentController {
      */
     @Operation(summary = "根据ID查询评论", description = "根据ID查询评论")
     @Parameter(name = "id", description = "评论ID", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "查询成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Comment.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(
+                        responseCode = "401",
+                        description = "token验证失败，请重新登录",
+                        content = @Content)
+            })
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
         Comment comment = commentService.selectById(id);
@@ -103,6 +151,22 @@ public class CommentController {
      */
     @Operation(summary = "查询所有评论", description = "查询所有评论")
     @Parameter(name = "comment", description = "评论信息")
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "查询成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Comment.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(
+                        responseCode = "401",
+                        description = "token验证失败，请重新登录",
+                        content = @Content)
+            })
     @GetMapping("/selectAll")
     public Result selectAll(Comment comment) {
         List<Comment> list = commentService.selectAll(comment);
@@ -123,6 +187,22 @@ public class CommentController {
         @Parameter(name = "pageNum", description = "页码"),
         @Parameter(name = "pageSize", description = "每页显示数量")
     })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "查询成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = PageInfo.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(
+                        responseCode = "401",
+                        description = "token验证失败，请重新登录",
+                        content = @Content)
+            })
     @GetMapping("/selectPage")
     public Result selectPage(
             Comment comment,
@@ -144,6 +224,22 @@ public class CommentController {
         @Parameter(name = "fid", description = "父级评论ID"),
         @Parameter(name = "module", description = "模块类型")
     })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "查询成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Comment.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(
+                        responseCode = "401",
+                        description = "token验证失败，请重新登录",
+                        content = @Content)
+            })
     @GetMapping("/selectTree/{fid}/{module}")
     public Result selectTree(@PathVariable Integer fid, @PathVariable String module) {
         // 通过父ID和模块类型，从评论服务中查询评论树
@@ -164,6 +260,22 @@ public class CommentController {
         @Parameter(name = "fid", description = "分类ID"),
         @Parameter(name = "module", description = "模块名称")
     })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "查询成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Integer.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(
+                        responseCode = "401",
+                        description = "token验证失败，请重新登录",
+                        content = @Content)
+            })
     @GetMapping("/selectCount/{fid}/{module}")
     public Result selectCount(@PathVariable Integer fid, @PathVariable String module) {
         // 调用服务层方法，查询指定分类和模块下的评论数量
@@ -180,6 +292,22 @@ public class CommentController {
      */
     @Operation(summary = "通过指定ID进行整个列表删除操作", description = "通过指定ID进行整个列表删除操作")
     @Parameter(name = "id", description = "评论ID")
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "删除成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content),
+                @ApiResponse(
+                        responseCode = "401",
+                        description = "token验证失败，请重新登录",
+                        content = @Content)
+            })
     @DeleteMapping("/deepDelete/{id}")
     public Result deepDelete(@PathVariable Integer id) {
         // 调用评论服务进行深度删除操作

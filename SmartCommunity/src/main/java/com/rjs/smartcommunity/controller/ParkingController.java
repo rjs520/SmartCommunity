@@ -7,6 +7,10 @@ import com.rjs.smartcommunity.service.ParkingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import javax.annotation.Resource;
@@ -39,6 +43,18 @@ public class ParkingController {
      */
     @Operation(summary = "新增车位信息", description = "新增车位信息")
     @Parameter(name = "parking", description = "车位详细信息的对象", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @PostMapping("/add")
     public Result add(@RequestBody Parking parking) {
         parkingService.add(parking);
@@ -53,6 +69,18 @@ public class ParkingController {
      */
     @Operation(summary = "根据ID删除车位信息", description = "根据ID删除车位信息")
     @Parameter(name = "id", description = "车位的唯一标识符", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
         parkingService.deleteById(id);
@@ -67,6 +95,18 @@ public class ParkingController {
      */
     @Operation(summary = "批量删除车位信息", description = "批量删除车位信息")
     @Parameter(name = "ids", description = "车位的唯一标识符列表", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
         parkingService.deleteBatch(ids);
@@ -81,6 +121,18 @@ public class ParkingController {
      */
     @Operation(summary = "根据ID修改车位信息", description = "根据ID修改车位信息")
     @Parameter(name = "parking", description = "更新后的车位详细信息的对象", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @PutMapping("/update")
     public Result updateById(@RequestBody Parking parking) {
         parkingService.updateById(parking);
@@ -95,6 +147,18 @@ public class ParkingController {
      */
     @Operation(summary = "根据ID查询车位信息", description = "根据ID查询车位信息")
     @Parameter(name = "id", description = "车位的唯一标识符", required = true)
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
         Parking parking = parkingService.selectById(id);
@@ -109,6 +173,18 @@ public class ParkingController {
      */
     @Operation(summary = "查询所有车位信息", description = "查询所有车位信息")
     @Parameter(name = "parking", description = "查询条件的对象（可选）")
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectAll")
     public Result selectAll(Parking parking) {
         List<Parking> list = parkingService.selectAll(parking);
@@ -129,6 +205,18 @@ public class ParkingController {
         @Parameter(name = "pageNum", description = "查询页码"),
         @Parameter(name = "pageSize", description = "每页显示数量")
     })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectPage")
     public Result selectPage(
             Parking parking,

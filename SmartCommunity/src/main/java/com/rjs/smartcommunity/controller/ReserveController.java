@@ -10,6 +10,8 @@ import com.rjs.smartcommunity.service.ReserveService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -40,11 +42,18 @@ public class ReserveController {
      */
     @Operation(summary = "新增服务预约", description = "新增服务预约")
     @Parameter(name = "reserve", description = "预约信息对象", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "400", description = "参数异常"),
-        @ApiResponse(responseCode = "500", description = "系统异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @PostMapping("/add")
     public Result add(@RequestBody Reserve reserve) {
         reserveService.add(reserve);
@@ -59,11 +68,18 @@ public class ReserveController {
      */
     @Operation(summary = "根据ID删除服务预约", description = "根据ID删除服务预约")
     @Parameter(name = "id", description = "预约ID", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
         reserveService.deleteById(id);
@@ -78,11 +94,18 @@ public class ReserveController {
      */
     @Operation(summary = "批量删除服务预约", description = "批量删除服务预约")
     @Parameter(name = "ids", description = "预约ID列表", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
         reserveService.deleteBatch(ids);
@@ -97,11 +120,18 @@ public class ReserveController {
      */
     @Operation(summary = "根据ID修改服务预约信息", description = "根据ID修改服务预约信息")
     @Parameter(name = "reserve", description = "预约信息对象", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @PutMapping("/update")
     public Result updateById(@RequestBody Reserve reserve) {
         reserveService.updateById(reserve);
@@ -116,11 +146,18 @@ public class ReserveController {
      */
     @Operation(summary = "根据ID查询服务预约信息", description = "根据ID查询服务预约信息")
     @Parameter(name = "id", description = "预约ID", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
         Reserve reserve = reserveService.selectById(id);
@@ -135,11 +172,18 @@ public class ReserveController {
      */
     @Operation(summary = "查询所有服务预约信息", description = "查询所有服务预约信息")
     @Parameter(name = "reserve", description = "预约信息筛选条件")
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectAll")
     public Result selectAll(Reserve reserve) {
         List<Reserve> list = reserveService.selectAll(reserve);
@@ -160,11 +204,18 @@ public class ReserveController {
         @Parameter(name = "pageNum", description = "页码"),
         @Parameter(name = "pageSize", description = "每页记录数")
     })
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectPage")
     public Result selectPage(
             Reserve reserve,
@@ -181,11 +232,18 @@ public class ReserveController {
      * @return {@code Result}对象，其中包含字典表的记录总数。
      */
     @Operation(summary = "查询字典表记录总数", description = "查询字典表记录总数")
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectCount")
     public Result selectCount() {
         // 通过服务层方法查询字典表记录总数

@@ -7,6 +7,8 @@ import com.rjs.smartcommunity.service.ServeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -41,11 +43,18 @@ public class ServeController {
      */
     @Operation(summary = "新增社区服务信息", description = "新增社区服务信息")
     @Parameter(name = "serve", description = "社区服务实体对象", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @PostMapping("/add")
     public Result add(@RequestBody Serve serve) {
         serveService.add(serve);
@@ -60,11 +69,18 @@ public class ServeController {
      */
     @Operation(summary = "根据ID删除社区服务信息", description = "根据ID删除社区服务信息")
     @Parameter(name = "id", description = "社区服务ID", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @DeleteMapping("/delete/{id}")
     public Result deleteById(@PathVariable Integer id) {
         serveService.deleteById(id);
@@ -79,11 +95,18 @@ public class ServeController {
      */
     @Operation(summary = "批量删除社区服务信息", description = "批量删除社区服务信息")
     @Parameter(name = "ids", description = "社区服务ID列表", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @DeleteMapping("/delete/batch")
     public Result deleteBatch(@RequestBody List<Integer> ids) {
         serveService.deleteBatch(ids);
@@ -98,11 +121,18 @@ public class ServeController {
      */
     @Operation(summary = "根据ID修改社区服务信息", description = "根据ID修改社区服务信息")
     @Parameter(name = "serve", description = "社区服务实体对象", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @PutMapping("/update")
     public Result updateById(@RequestBody Serve serve) {
         serveService.updateById(serve);
@@ -117,11 +147,18 @@ public class ServeController {
      */
     @Operation(summary = "根据ID查询社区服务信息", description = "根据ID查询社区服务信息")
     @Parameter(name = "id", description = "社区服务ID", required = true)
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectById/{id}")
     public Result selectById(@PathVariable Integer id) {
         Serve serve = serveService.selectById(id);
@@ -136,11 +173,18 @@ public class ServeController {
      */
     @Operation(summary = "查询所有社区服务信息", description = "查询所有社区服务信息")
     @Parameter(name = "serve", description = "社区服务实体对象（可选条件）")
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectAll")
     public Result selectAll(Serve serve) {
         List<Serve> list = serveService.selectAll(serve);
@@ -161,11 +205,18 @@ public class ServeController {
         @Parameter(name = "pageNum", description = "页码"),
         @Parameter(name = "pageSize", description = "每页显示数量")
     })
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "成功"),
-        @ApiResponse(responseCode = "500", description = "系统异常"),
-        @ApiResponse(responseCode = "400", description = "参数异常")
-    })
+    @ApiResponses(
+            value = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "成功",
+                        content =
+                                @Content(
+                                        mediaType = "application/json",
+                                        schema = @Schema(implementation = Result.class))),
+                @ApiResponse(responseCode = "400", description = "参数异常", content = @Content),
+                @ApiResponse(responseCode = "500", description = "系统异常", content = @Content)
+            })
     @GetMapping("/selectPage")
     public Result selectPage(
             Serve serve,
