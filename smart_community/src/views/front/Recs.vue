@@ -7,10 +7,15 @@
       <el-table size="medium" :data="tableData" strip @selection-change="handleSelectionChange">
         <el-table-column label="标题" width="140" show-overflow-tooltip>
           <template v-slot="scope">
-            <a :href="'/front/ComplaintSuggestionDetail?id=' + scope.row.csId" target="_blank">{{ scope.row.csName }}</a>
+            <a :href="'/front/ComplaintSuggestionDetail?id=' + scope.row.csId"
+               target="_blank">{{ scope.row.csName }}</a>
           </template>
         </el-table-column>
-        <el-table-column prop="content" label="内容"></el-table-column>
+        <el-table-column prop="content" label="内容">
+          <template v-slot="scope">
+            {{ scope.row.content | stripHTML }}
+          </template>
+        </el-table-column>
         <el-table-column prop="time" width="200" label="日期"></el-table-column>
         <el-table-column prop="status" label="回复状态">
           <template v-slot="scope">
@@ -22,7 +27,9 @@
         <el-table-column prop="reason" label="回复意见"></el-table-column>
         <el-table-column label="操作" align="center" width="180">
           <template v-slot="scope">
-            <el-button v-if="scope.row.status !== '已回复'" size="mini" type="danger" plain @click="del(scope.row.id)">取消</el-button>
+            <el-button v-if="scope.row.status !== '已回复'" size="mini" type="danger" plain
+                       @click="del(scope.row.id)">取消
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -98,7 +105,9 @@ export default {
       })
     },
     load(pageNum) {  // 分页查询
-      if (pageNum) this.pageNum = pageNum
+      if (pageNum) {
+        this.pageNum = pageNum
+      }
       this.$request.get('/recs/selectPage', {
         params: {
           pageNum: this.pageNum,
@@ -117,7 +126,15 @@ export default {
     handleCurrentChange(pageNum) {
       this.load(pageNum)
     },
-  }
+  },
+  filters: {
+    stripHTML: function (value) {
+      // 使用正则表达式移除除 img 外的 HTML 标签
+      let strippedValue = value.replace(/<(?!img)[^>]+>/g, '')
+      // 限制字符数量为 20
+      return strippedValue.length > 20 ? strippedValue.substring(0, 20) + '...' : strippedValue
+    }
+  },
 }
 </script>
 

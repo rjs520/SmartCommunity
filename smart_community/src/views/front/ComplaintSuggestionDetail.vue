@@ -23,17 +23,17 @@
       </div>
     </div>
     <Comment :fid="id" module="complaintSuggestion"/>
-    <el-dialog userName="预约信息" :visible.sync="fromVisible" width="40%"
+    <el-dialog userName="提交" :visible.sync="fromVisible" width="40%"
                :close-on-click-modal="false" destroy-on-close>
       <el-form label-width="100px" style="padding-right: 50px" :model="form"
                ref="formRef">
         <el-form-item prop="content" label="内容">
-          <el-input v-model="form.content" autocomplete="off"></el-input>
+          <div id="editor"></div>  <!-- 添加这一行 -->
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="fromVisible = false">取 消</el-button>
-        <el-button type="primary" @click="sign">预约</el-button>
+        <el-button type="primary" @click="sign">提交</el-button>
       </div>
     </el-dialog>
   </div>
@@ -41,6 +41,7 @@
 
 <script>
 import Comment from "@/components/Comment"
+import E from "wangeditor"
 
 export default {
   name: "ComplaintSuggestionDetail",
@@ -52,6 +53,7 @@ export default {
       fromVisible: false,
       form: {},
       user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
+      editor: null,
     }
   },
   created() {
@@ -68,8 +70,10 @@ export default {
       this.form.userId = this.user.id
       this.fromVisible = true
       this.form.csId = this.id
+      this.setRichText('')
     },
     sign() {
+      this.form.content = this.editor.txt.html()
       this.$request.post('/recs/add', this.form).then(res => {
         if (res.code === '200') {
           this.$message.success('提交成功')
@@ -79,7 +83,22 @@ export default {
           this.$message.error(res.msg)
         }
       })
-    }
+    },
+    setRichText(html) {  // 添加这个方法
+      this.$nextTick(() => {
+        this.editor = new E('#editor')
+        this.editor.config.uploadImgServer = this.$baseUrl + '/files/editor/upload'
+        this.editor.config.uploadFileName = 'file'
+        this.editor.config.uploadImgHeaders = {
+          token: this.user.token
+        }
+        this.editor.config.uploadImgParams = {
+          type: 'img',
+        }
+        this.editor.create()
+        this.editor.txt.html(html)
+      })
+    },
   }
 }
 </script>
