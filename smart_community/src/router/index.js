@@ -122,6 +122,12 @@ const routes = [
         name: 'ParkingSign',
         meta: {name: '车位预约管理'},
         component: () => import('../views/manager/ParkingSign')
+      },
+      {
+        path: 'complaintSuggestion',
+        name: 'ComplaintSuggestion',
+        meta: {name: '投诉建议'},
+        component: () => import('../views/manager/ComplaintSuggestion.vue')
       }
     ]
   },

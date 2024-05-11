@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 定义mapper的命名空间 -->
+<mapper namespace="com.rjs.smartcommunity.mapper.ComplaintSuggestionMapper">
+
+  <!-- 定义基础列名，用于在多个SQL语句中重复使用 -->
+  <sql id="Base_Column_List">
+      id,
+      title,
+      content,
+      user_id,
+      status,
+      reply
+  </sql>
+
+  <!-- 查询所有投诉建议，根据条件进行过滤，并按id降序排序 -->
+  <select id="selectAll" resultType="com.rjs.smartcommunity.entity.ComplaintSuggestion">
+    select *,user.name as userName
+    from complaint_suggestion
+    left join user
+    on complaint_suggestion.user_id=user.id
+    <where>
+      <if test="userId != null">and activity_sign.user_id = #{userId}</if>
+      <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>
+    </where>
+    order by complaint_suggestion.id desc
+  </select>
+
+  <!-- 根据id查询投诉建议 -->
+  <select id="selectById" resultType="com.rjs.smartcommunity.entity.ComplaintSuggestion">
+    select
+    <include refid="Base_Column_List"/>
+    from complaint_suggestion
+    where id = #{id}
+  </select>
+
+  <!-- 根据id删除投诉建议 -->
+  <delete id="deleteById">
+    delete from complaint_suggestion
+    where id = #{id}
+  </delete>
+
+  <!-- 插入新的投诉建议，如果id存在则会更新 -->
+  <insert id="insert" parameterType="com.rjs.smartcommunity.entity.ComplaintSuggestion"
+    useGeneratedKeys="true" keyProperty="id">
+    insert into complaint_suggestion
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">id,</if>
+      <if test="title != null">title,</if>
+      <if test="content != null">content,</if>
+      <if test="userId != null">user_id,</if>
+      <if test="status != null">status,</if>
+      <if test="reply != null">reply,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">#{id},</if>
+      <if test="title != null">#{title},</if>
+      <if test="content != null">#{content},</if>
+      <if test="userId != null">#{userId},</if>
+      <if test="status != null">#{status},</if>
+      <if test="reply != null">#{reply},</if>
+    </trim>
+  </insert>
+
+  <!-- 根据id更新投诉建议的信息 -->
+  <update id="updateById" parameterType="com.rjs.smartcommunity.entity.ComplaintSuggestion">
+    update complaint_suggestion
+    <set>
+      <if test="title != null">
+        title = #{title},
+      </if>
+      <if test="content != null">
+        content = #{content},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="reply != null">
+        reply = #{reply},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+</mapper>
