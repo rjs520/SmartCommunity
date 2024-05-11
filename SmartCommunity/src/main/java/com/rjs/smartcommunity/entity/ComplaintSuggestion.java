@@ -16,24 +16,18 @@ public class ComplaintSuggestion implements Serializable {
 
     @Serial private static final long serialVersionUID = 1L;
 
-    /** 主键ID */
+    /** ID */
     private Integer id;
 
-    /** 投诉或建议的标题 */
-    private String title;
+    /** 标题 */
+    private String name;
 
-    /** 投诉或建议的详细内容 */
-    private String content;
+    /** 封面 */
+    private String cover;
 
-    /** 提出投诉或建议的用户ID */
-    private Integer userId;
+    /** 描述 */
+    private String descr;
 
-    /** 处理状态（例如：未处理，处理中，已处理） */
-    private String status;
-
-    /** 对投诉或建议的回复内容 */
-    private String reply;
-
-    /** 提出投诉或建议的用户姓名 */
-    private String userName;
+    /** 日期 */
+    private String date;
 }

@@ -1,5 +1,6 @@
 package com.rjs.smartcommunity.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.rjs.smartcommunity.entity.ComplaintSuggestion;
@@ -30,6 +31,8 @@ public class ComplaintSuggestionServiceImpl implements ComplaintSuggestionServic
      */
     @Override
     public void add(ComplaintSuggestion complaintSuggestion) {
+        // 设置当前日期为服务的创建时间
+        complaintSuggestion.setDate(DateUtil.today());
         // 执行数据插入操作
         complaintSuggestionMapper.insert(complaintSuggestion);
     }

@@ -1,28 +1,36 @@
 <template>
   <div>
     <div class="search">
-      <el-input placeholder="请输入关键字查询" style="width: 200px" v-model="name"></el-input>
+      <el-input placeholder="请输入名称查询" style="width: 200px" v-model="name"></el-input>
       <el-button type="info" plain style="margin-left: 10px" @click="load(1)">查询</el-button>
       <el-button type="warning" plain style="margin-left: 10px" @click="reset">重置</el-button>
     </div>
 
     <div class="operation">
+      <el-button type="primary" plain @click="handleAdd">新增</el-button>
       <el-button type="danger" plain @click="delBatch">批量删除</el-button>
     </div>
 
     <div class="table">
       <el-table :data="tableData" strip @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="序号" width="70" align="center" sortable></el-table-column>
-        <el-table-column prop="title" label="标题"></el-table-column>
-        <el-table-column prop="content" label="内容"></el-table-column>
-        <el-table-column prop="userId" label="用户id"></el-table-column>
-        <el-table-column prop="userName" label="用户名称"></el-table-column>
-        <el-table-column prop="status" label="状态"></el-table-column>
-        <el-table-column prop="reply" label="回复"></el-table-column>
+        <el-table-column prop="id" label="序号" width="70" align="center"
+                         sortable></el-table-column>
+        <el-table-column prop="name" label="名称"></el-table-column>
+        <el-table-column prop="cover" label="封面">
+          <template v-slot="scope">
+            <div style="display: flex; align-items: center">
+              <el-image style="width: 40px; height: 40px; border-radius: 5px" v-if="scope.row.cover"
+                        :src="scope.row.cover" :preview-src-list="[scope.row.cover]"></el-image>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="descr" label="服务描述"></el-table-column>
+        <el-table-column prop="date" label="发布时间"></el-table-column>
         <el-table-column label="操作" align="center" width="180">
           <template v-slot="scope">
-            <el-button size="mini" type="primary" plain @click="handleEdit(scope.row)">审核</el-button>
+            <el-button size="mini" type="primary" plain @click="handleEdit(scope.row)">编辑
+            </el-button>
             <el-button size="mini" type="danger" plain @click="del(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -41,17 +49,27 @@
       </div>
     </div>
 
-    <el-dialog userName="处理信息" :visible.sync="fromVisible" width="40%"
-               :close-on-click-modal="false" destroy-on-close>
-      <el-form label-width="100px" style="padding-right: 50px" :model="form" ref="formRef">
-        <el-form-item prop="userName" label="处理状态">
-          <el-radio-group v-model="form.status">
-            <el-radio label="处理通过"></el-radio>
-            <el-radio label="处理拒绝"></el-radio>
-          </el-radio-group>
+
+    <el-dialog name="信息" :visible.sync="fromVisible" width="40%" :close-on-click-modal="false"
+               destroy-on-close>
+      <el-form :model="form" label-width="100px" style="padding-right: 50px" :rules="rules"
+               ref="formRef">
+        <el-form-item label="名称" prop="name">
+          <el-input v-model="form.name" placeholder="名称"></el-input>
         </el-form-item>
-        <el-form-item prop="reason" label="处理意见">
-          <el-input type="textarea" :rows="3" v-model="form.reply" autocomplete="off"></el-input>
+        <el-form-item label="封面" prop="cover">
+          <el-upload
+              class="avatar-uploader"
+              :action="$baseUrl + '/files/upload'"
+              :headers="{ token: user.token }"
+              list-type="picture"
+              :on-success="handleCoverSuccess"
+          >
+            <el-button type="primary">上传封面</el-button>
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="服务描述" prop="descr">
+          <el-input type="textarea" v-model="form.descr" placeholder="服务描述"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -61,9 +79,9 @@
     </el-dialog>
 
 
-
   </div>
 </template>
+
 <script>
 export default {
   name: "ComplaintSuggestion",
@@ -73,11 +91,17 @@ export default {
       pageNum: 1,   // 当前的页码
       pageSize: 10,  // 每页显示的个数
       total: 0,
-      userName: null,
+      name: null,
       fromVisible: false,
       form: {},
       user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
       rules: {
+        name: [
+          {required: true, message: '请输入名称', trigger: 'blur'},
+        ],
+        descr: [
+          {required: true, message: '请输入描述', trigger: 'blur'},
+        ]
       },
       ids: []
     }
@@ -127,7 +151,7 @@ export default {
       })
     },
     handleSelectionChange(rows) {   // 当前选中的所有的行数据
-      this.ids = rows.map(v => v.id)
+      this.ids = rows.map(v => v.id)   //  [1,2]
     },
     delBatch() {   // 批量删除
       if (!this.ids.length) {
@@ -147,20 +171,18 @@ export default {
       })
     },
     load(pageNum) {  // 分页查询
-      if (pageNum) this.pageNum = pageNum
+      if (pageNum) {
+        this.pageNum = pageNum
+      }
       this.$request.get('/complaintSuggestion/selectPage', {
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
-          userName: this.userName,
+          name: this.name,
         }
       }).then(res => {
-        if (res.code === '200') {
-          this.tableData = res.data?.list
-          this.total = res.data?.total
-        } else {
-          this.$message.error(res.msg)
-        }
+        this.tableData = res.data?.list
+        this.total = res.data?.total
       })
     },
     reset() {
@@ -170,6 +192,9 @@ export default {
     handleCurrentChange(pageNum) {
       this.load(pageNum)
     },
+    handleCoverSuccess(res) {
+      this.form.cover = res.data
+    }
   }
 }
 </script>
