@@ -74,7 +74,7 @@ const routes = [
         path: 'news',
         name: 'News',
         meta: {name: '资讯信息'},
-        component: () => import('../views/manager/News.vue')
+        component: () => import('../views/manager/News')
       },
       {
         path: 'activity',
@@ -127,7 +127,13 @@ const routes = [
         path: 'complaintSuggestion',
         name: 'ComplaintSuggestion',
         meta: {name: '投诉建议'},
-        component: () => import('../views/manager/ComplaintSuggestion.vue')
+        component: () => import('../views/manager/ComplaintSuggestion')
+      },
+      {
+        path: 'building',
+        name: 'Building',
+        meta: {name: '楼栋信息'},
+        component: () => import('../views/manager/Building')
       }
     ]
   },

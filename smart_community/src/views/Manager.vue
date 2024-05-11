@@ -67,6 +67,7 @@
             <el-menu-item index="/nurseHouse" class="el-icon-office-building">养老院信息
             </el-menu-item>
             <el-menu-item index="/parking" class="el-icon-location-outline">车位信息</el-menu-item>
+            <el-menu-item index="/building" class="el-icon-office-building">楼宇信息</el-menu-item>
           </el-submenu>
 
           <!-- 用户管理子菜单 -->

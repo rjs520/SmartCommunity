@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 定义mapper的命名空间 -->
+<mapper namespace="com.rjs.smartcommunity.mapper.BuildingMapper">
+
+  <!-- 定义基础列名的SQL片段，以便在多个查询中复用 -->
+  <sql id="Base_Column_List">
+      id,
+      name,
+      address,
+      total_floors,
+      total_houses,
+      property_company,
+      property_phone
+  </sql>
+
+  <!-- 查询所有建筑信息，支持根据多个条件进行筛选 -->
+  <select id="selectAll" resultType="com.rjs.smartcommunity.entity.Building">
+    select
+    <include refid="Base_Column_List"/>
+    from building
+    <where>
+      <!-- 根据传入的参数动态生成where子句 -->
+      <if test="id != null">and id = #{id}</if>
+      <if test="name != null">and name like concat('%', #{name}, '%')</if>
+      <if test="address != null">and address like concat('%', #{address}, '%')</if>
+      <if test="totalFloors != null">and total_floors = #{totalFloors}</if>
+      <if test="totalHouses != null">and total_houses = #{totalHouses}</if>
+      <if test="propertyCompany != null">and property_company like concat('%', #{propertyCompany},
+        '%')
+      </if>
+      <if test="propertyPhone != null">and property_phone like concat('%', #{propertyPhone}, '%')
+      </if>
+    </where>
+    order by id desc
+  </select>
+
+  <!-- 根据ID查询建筑信息 -->
+  <select id="selectById" resultType="com.rjs.smartcommunity.entity.Building">
+    select
+    <include refid="Base_Column_List"/>
+    from building
+    where id = #{id}
+  </select>
+
+  <!-- 根据ID删除建筑信息 -->
+  <delete id="deleteById">
+    delete from building
+    where id = #{id}
+  </delete>
+
+  <!-- 插入新的建筑信息，支持字段的动态插入 -->
+  <insert id="insert" parameterType="com.rjs.smartcommunity.entity.Building" useGeneratedKeys="true"
+    keyProperty="id">
+    insert into building
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <!-- 动态生成插入的字段列表 -->
+      <if test="id != null">id,</if>
+      <if test="name != null">name,</if>
+      <if test="address != null">address,</if>
+      <if test="totalFloors != null">total_floors,</if>
+      <if test="totalHouses != null">total_houses,</if>
+      <if test="propertyCompany != null">property_company,</if>
+      <if test="propertyPhone != null">property_phone,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <!-- 动态生成插入的值列表 -->
+      <if test="id != null">#{id},</if>
+      <if test="name != null">#{name},</if>
+      <if test="address != null">#{address},</if>
+      <if test="totalFloors != null">#{totalFloors},</if>
+      <if test="totalHouses != null">#{totalHouses},</if>
+      <if test="propertyCompany != null">#{propertyCompany},</if>
+      <if test="propertyPhone != null">#{propertyPhone},</if>
+    </trim>
+  </insert>
+
+  <!-- 根据ID更新建筑信息，支持字段的动态更新 -->
+  <update id="updateById" parameterType="com.rjs.smartcommunity.entity.Building">
+    update building
+    <set>
+      <!-- 动态生成更新的字段列表 -->
+      <if test="name != null">
+        name = #{name},
+      </if>
+      <if test="address != null">
+        address = #{address},
+      </if>
+      <if test="totalFloors != null">
+        total_floors = #{totalFloors},
+      </if>
+      <if test="totalHouses != null">
+        total_houses = #{totalHouses},
+      </if>
+      <if test="propertyCompany != null">
+        property_company = #{propertyCompany},
+      </if>
+      <if test="propertyPhone != null">
+        property_phone = #{propertyPhone},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+</mapper>
