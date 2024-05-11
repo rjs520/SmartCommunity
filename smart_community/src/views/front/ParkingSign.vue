@@ -5,7 +5,7 @@
 
     <div class="table">
       <el-table size="medium" :data="tableData" strip @selection-change="handleSelectionChange">
-        <el-table-column label="车位地址" width="300" show-overflow-tooltip>
+        <el-table-column label="车位地址" width="200" show-overflow-tooltip>
           <template v-slot="scope">
             <a :href="'/front/parkingDetail?id=' + scope.row.parkingId" target="_blank">{{ scope.row.parkingAddress }}</a>
           </template>
@@ -23,6 +23,7 @@
         <el-table-column label="操作" align="center" width="180">
           <template v-slot="scope">
             <el-button v-if="scope.row.status !== '审核通过'" size="mini" type="danger" plain @click="del(scope.row.id)">取消预约</el-button>
+            <el-button v-if="scope.row.status === '审核通过'" size="mini" type="primary" plain @click="del(scope.row.id)">释放车位</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -65,7 +66,7 @@ export default {
   },
   methods: {
     del(id) {   // 单个删除
-      this.$confirm('您确定取消吗？', '确认取消', {type: "warning"}).then(() => {
+      this.$confirm('您确定取消或释放车位吗？', '是否确认', {type: "warning"}).then(() => {
         this.$request.delete('/parkingSign/delete/' + id).then(res => {
           if (res.code === '200') {   // 表示操作成功
             this.$message.success('操作成功')
