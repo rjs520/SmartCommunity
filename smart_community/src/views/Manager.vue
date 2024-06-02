@@ -5,8 +5,10 @@
     <div class="manager-header">
       <!-- 左侧Logo与标题 -->
       <div class="manager-header-left">
-        <img src="@/assets/imgs/logo.png" alt=""/> <!-- Logo 图片 -->
-        <div class="title">智慧社区系统</div> <!-- 页面标题 -->
+        <!-- Logo 图片 -->
+        <img src="@/assets/imgs/logo.png" alt=""/>
+        <!-- 页面标题 -->
+        <div class="title">智慧社区系统</div>
       </div>
 
       <!-- 中间面包屑导航 -->
@@ -68,6 +70,7 @@
             </el-menu-item>
             <el-menu-item index="/parking" class="el-icon-location-outline">车位信息</el-menu-item>
             <el-menu-item index="/building" class="el-icon-office-building">楼宇信息</el-menu-item>
+            <el-menu-item index="/serve" class="el-icon-bangzhu">社区服务管理</el-menu-item>
             <el-menu-item index="/complaintSuggestion" class="el-icon-chat-line-square">
               投诉建议管理
             </el-menu-item>
@@ -86,12 +89,11 @@
             <template slot="title">
               <i class="el-icon-s-open"></i><span>服务管理</span>
             </template>
-            <el-menu-item index="/serve" class="el-icon-bangzhu">社区服务管理</el-menu-item>
             <el-menu-item index="/comment" class="el-icon-chat-line-square">评论管理</el-menu-item>
             <el-menu-item index="/activitySign" class="el-icon-trophy">活动报名管理</el-menu-item>
             <el-menu-item index="/reserve" class="el-icon-tickets">预约服务管理</el-menu-item>
             <el-menu-item index="/parkingSign" class="el-icon-truck">车位预约管理</el-menu-item>
-            <el-menu-item index="/recs" class="el-icon-chat-line-square">反馈与建议处理</el-menu-item>
+            <el-menu-item index="/recs" class="el-icon-chat-line-square">反馈建议处理</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>

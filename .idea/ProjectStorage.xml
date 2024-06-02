@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectStorage">
+    <option name="path" value="rjs-&gt;rjs" />
     <option name="prefixUrlList">
       <list>
         <PrefixUrl>
@@ -10,5 +11,6 @@
         </PrefixUrl>
       </list>
     </option>
+    <option name="projectId" value="b34a18c6-a4de-456f-b6e2-6cdb68ecfc71" />
   </component>
 </project>
