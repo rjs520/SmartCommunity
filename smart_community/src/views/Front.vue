@@ -104,7 +104,7 @@ export default {
 @import "@/assets/css/front.css";
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .1s;
+  transition: opacity .2s;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
