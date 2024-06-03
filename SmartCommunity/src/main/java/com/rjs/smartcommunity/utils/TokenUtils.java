@@ -105,7 +105,9 @@ public class TokenUtils {
         return new Account();
     }
 
-    /** 初始化方法，在Bean创建完成后执行，将注入的AdminService赋值给静态AdminService实例 */
+    /** 初始化方法，在Bean创建完成后执行，将注入的AdminService赋值给静态AdminService实例
+     * 以及将注入的UserService赋值给静态UserService实例
+     * */
     @PostConstruct
     public void setUserService() {
         staticAdminService = adminService;
