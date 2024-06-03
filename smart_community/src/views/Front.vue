@@ -34,7 +34,7 @@
                                                style="margin-left: 5px"></i>
               </div>
             </div>
-            <el-dropdown-menu slot="dropdown">
+            <el-dropdown-menu>
               <el-dropdown-item>
                 <div @click="$router.push('/front/activitySign')">我报名的活动</div>
               </el-dropdown-item>

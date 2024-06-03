@@ -44,7 +44,7 @@
 export default {
   name: "Register",
   data() {
-    // 验证码校验
+    // 密码校验
     const validatePassword = (rule, confirm, callback) => {
       if (confirm === '') {
         callback(new Error('请确认密码'))
